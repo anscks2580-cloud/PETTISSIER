@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>수제간식 | 펫티시에</title>
+<meta name="description" content="당일 소량으로 만드는 펫티시에 수제간식. 스마트스토어 택배 주문과 매장 예약 안내.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>try{if(sessionStorage.getItem("pt-loading"))document.documentElement.classList.add("pt-arrive")}catch(e){}</script>
+<script src="loader.js" defer></script>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a href="index.html" class="brand" aria-label="펫티시에 홈"><b>PETTISSIER</b><small>Premium Pet Dessert</small></a>
+    <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav">
+      <a href="about.html">수제 이야기</a>
+      <a href="cakes.html">케이크</a>
+      <a href="snacks.html" aria-current="page">수제간식</a>
+      <a href="reviews.html">리뷰</a>
+      <a href="visit.html">오시는 길</a>
+      <a class="btn sm naver" data-link="store" href="#"><span class="n-mark">N</span>스마트스토어</a>
+      <a class="btn sm fill" data-link="kakao" href="#">케이크 상담</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="store-band" id="store">
+    <div class="wrap">
+      <div class="store-card">
+        <div class="store-copy">
+          <div class="naver-badge"><i>N</i>네이버 스마트스토어</div>
+          <h2>펫티시에 수제간식,<br>집에서 편하게 받아보세요</h2>
+          <p>매장에 오지 않아도 괜찮아요. 수제 베이커리, 건조간식, 대용량 간식을 네이버 스마트스토어에서 바로 주문할 수 있어요.</p>
+          <ul class="store-perks">
+            <li>네이버페이 간편결제</li>
+            <li>수제간식 전국 택배</li>
+            <li>구매 리뷰 확인</li>
+            <li>알림받기로 신제품 소식</li>
+          </ul>
+          <a class="btn naver" data-link="store" href="#"><span class="n-mark">N</span>스마트스토어 바로가기</a>
+        </div>
+        <div class="store-visual gingham">
+          <div class="phone" aria-hidden="true">
+            <div class="bar"><span class="n-mark">N</span>펫티시에 스토어</div>
+            <div class="prod"><i style="background:var(--butter)"></i><span><b>수제 베이커리</b><s>오늘 만든 간식</s></span></div>
+            <div class="prod"><i style="background:var(--mustard-soft)"></i><span><b>수제 건조간식</b><s>저온 건조</s></span></div>
+            <div class="prod"><i class="gingham"></i><span><b>대용량 간식</b><s>넉넉하게 매일</s></span></div>
+            <div class="buy">구매하기</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu" id="menu">
+    <div class="wrap">
+      <h2>펫티시에 메뉴</h2>
+      <p class="lead" style="margin-top:14px">매장에서는 모든 메뉴를, 택배로는 수제간식을 만나보실 수 있어요.</p>
+      <div class="menu-grid">
+        <div class="item feature">
+          <div>
+            <h3>주문 제작 케이크</h3>
+            <p>생일, 입양 기념일, 무지개다리 추모까지. 아이 사진을 보고 얼굴을 그대로 빚는 피규어 케이크부터 한입·두입 미니 케이크, 하트 케이크까지 만들어요.</p>
+          </div>
+          <div><a class="btn" data-link="kakao" href="#">카카오톡으로 예약하기</a></div>
+        </div>
+        <div class="item">
+          <h3>수제 베이커리</h3>
+          <p>쿠키, 머핀, 마들렌처럼 보호자와 함께 나눠 먹는 기분이 드는 간식이에요.</p>
+          <span class="tag">택배 가능</span><a class="store-link" data-link="store" href="#">스토어에서 보기</a>
+        </div>
+        <div class="item">
+          <h3>수제 건조간식</h3>
+          <p>한 가지 재료를 저온에서 천천히 말려 씹는 맛을 살렸어요.</p>
+          <span class="tag">택배 가능</span><a class="store-link" data-link="store" href="#">스토어에서 보기</a>
+        </div>
+        <div class="item">
+          <h3>수제 자연식</h3>
+          <p>신선한 재료로 만든 한 끼. 냉장으로 보관하는 제품이에요.</p>
+          <span class="tag">매장 판매</span>
+        </div>
+        <div class="item">
+          <h3>대용량 간식</h3>
+          <p>매일 주는 간식이라면 넉넉한 용량으로 더 합리적으로 준비하세요.</p>
+          <span class="tag">택배 가능</span><a class="store-link" data-link="store" href="#">스토어에서 보기</a>
+        </div>
+        <div class="item">
+          <h3>시즌 한정 간식</h3>
+          <p>명절, 크리스마스처럼 특별한 날에만 만나는 선물 세트예요.</p>
+          <span class="tag">택배 가능</span><a class="store-link" data-link="store" href="#">스토어에서 보기</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>상호 펫티시에 · 대표 오종빈<br>© PETTISSIER. All rights reserved.</div>
+    <nav>
+      <a href="class.html">Class</a>
+      <a data-link="instagram" href="#" target="_blank" rel="noopener">Instagram</a>
+      <a data-link="blog" href="#" target="_blank" rel="noopener">Blog</a>
+      <a data-link="kakao" href="#" target="_blank" rel="noopener">KakaoTalk</a>
+      <a data-link="store" href="#" target="_blank" rel="noopener">Smart Store</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="floats">
+  <a class="fab" data-link="instagram" href="#" target="_blank" rel="noopener" aria-label="인스타그램 바로가기">
+    <i class="ic ig"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></i>
+    <span>인스타그램</span>
+  </a>
+  <a class="fab" data-link="store" href="#" target="_blank" rel="noopener" aria-label="네이버 스마트스토어 바로가기">
+    <i class="ic nv"><b>N</b></i>
+    <span>스마트스토어</span>
+  </a>
+  <a class="fab" data-link="kakao" href="#" target="_blank" rel="noopener" aria-label="카카오톡으로 문의하기">
+    <i class="ic kk"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="#191600" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg></i>
+    <span>카카오톡 문의</span>
+  </a>
+</div>
+
+<script src="common.js"></script>
+
+</body>
+</html>
