@@ -1,14 +1,17 @@
 /* ==========================================================================
-   페이지 이동 로딩 (강아지가 0 → 100% 달려가는 트랜지션)
+   페이지 이동 로딩
    - 사이트 안의 다른 페이지로 넘어갈 때만 작동해요.
-   - 캐릭터를 바꾸려면: RUNNER_IMG 에 이미지 경로(예: "dog.png")를 넣으세요.
-     비워두면(null) 아래 기본 강아지(말티즈) SVG 가 나와요.
+   - MODE = "write" : PETTISSIER 가 한 글자씩 적히는 화면 (기본)
+     MODE = "dog"   : 강아지가 0 → 100% 달려가는 화면
+   - 캐릭터를 바꾸려면(dog 모드): RUNNER_IMG 에 이미지 경로(예: "dog.png")를 넣으세요.
    ========================================================================== */
 (function () {
+  const MODE       = "write";  // "write" 또는 "dog"
+  const WORD       = "PETTISSIER";
   const RUNNER_IMG = null;     // 예: "dog.png"  (투명 배경 PNG/SVG, 왼쪽을 보고 있는 그림 권장)
   const RUNNER_W   = 116;      // 캐릭터 가로 크기(px)
-  const DURATION   = 1900;     // 0 → 100% 까지 걸리는 시간(ms)
-  const HOLD       = 320;      // 100% 도착 후 잠깐 멈춤(ms)
+  const DURATION   = MODE === "write" ? 900 : 1200;  // 로딩 화면이 보이는 시간(ms)
+  const HOLD       = 200;      // 다 적힌(100%) 뒤 잠깐 멈춤(ms)
 
   const STROKE = "#231F1C", YELLOW = "#FFD900";
   const leg = (d) => `<path d="${d}" fill="none" stroke="${STROKE}" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="#fff" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>`;
@@ -58,18 +61,30 @@
     el.id = "pt-loader";
     el.setAttribute("role", "status");
     el.setAttribute("aria-label", "페이지를 불러오는 중");
-    el.innerHTML = `
-      <div class="pt-stage" style="--dogw:${RUNNER_W}px">
-        <div class="pt-ground"></div>
-        <div class="pt-dog">${RUNNER_IMG ? `<img src="${RUNNER_IMG}" width="${RUNNER_W}" alt="" class="pt-img">` : DOG_SVG}</div>
-      </div>
-      <div class="pt-num"><b>0</b><span>%</span></div>
-      <div class="pt-cap"><b>PETTISSIER</b><small>Premium Pet Dessert</small></div>`;
+    if (MODE === "write") {
+      const step = Math.round((DURATION - 260) / WORD.length);
+      el.classList.add("pt-mode-write");
+      el.style.setProperty("--pt-dur", DURATION + "ms");
+      el.innerHTML = `
+        <div class="pt-write" aria-hidden="true">
+          <div class="pt-word">${[...WORD].map((ch, i) => `<span style="--d:${i * step}ms">${ch}</span>`).join("")}</div>
+          <i class="pt-pen"></i>
+          <small>Premium Pet Dessert</small>
+        </div>`;
+    } else {
+      el.innerHTML = `
+        <div class="pt-stage" style="--dogw:${RUNNER_W}px">
+          <div class="pt-ground"></div>
+          <div class="pt-dog">${RUNNER_IMG ? `<img src="${RUNNER_IMG}" width="${RUNNER_W}" alt="" class="pt-img">` : DOG_SVG}</div>
+        </div>
+        <div class="pt-num"><b>0</b><span>%</span></div>
+        <div class="pt-cap"><b>PETTISSIER</b><small>Premium Pet Dessert</small></div>`;
+    }
     document.body.appendChild(el);
     num = el.querySelector(".pt-num b");
     return el;
   }
-  function setP(p) { num.textContent = Math.round(p * 100); }
+  function setP(p) { if (num) num.textContent = Math.round(p * 100); }
 
   // 시작 빠르게 → 중간 여유 → 마지막 살짝 뜸들이기
   const KEYS = [[0, 0], [.32, .46], [.62, .74], [.86, .93], [1, 1]];
@@ -84,7 +99,7 @@
   function go(url) {
     busy = true;
     build(); setP(0);
-    el.classList.remove("out"); void el.offsetWidth; el.classList.add("show");
+    el.classList.remove("out", "done", "run"); void el.offsetWidth; el.classList.add("show", "run");
     const t0 = performance.now();
     (function tick(now) {
       const t = Math.min(1, (now - t0) / DURATION);
@@ -113,17 +128,17 @@
     let flag = false; try { flag = sessionStorage.getItem("pt-loading"); sessionStorage.removeItem("pt-loading"); } catch (e) {}
     if (!flag) { document.documentElement.classList.remove("pt-arrive"); return; }
     build(); setP(1);
-    el.classList.add("show", "instant");
+    el.classList.add("show", "instant", "done");
     document.documentElement.classList.remove("pt-arrive");
     const start = performance.now();
     const finish = () => setTimeout(() => {
       el.classList.remove("instant"); el.classList.add("out");
-      setTimeout(() => { el.classList.remove("show", "out"); }, 700);
-    }, Math.max(0, 380 - (performance.now() - start)));
+      setTimeout(() => { el.classList.remove("show", "out", "done"); }, 600);
+    }, Math.max(0, 220 - (performance.now() - start)));
     if (document.readyState === "complete") finish(); else addEventListener("load", finish, { once: true });
   }
   if (document.body) arrive(); else document.addEventListener("DOMContentLoaded", arrive);
 
   // 뒤로가기(캐시 복원) 시 로딩 화면이 남아있지 않게
-  addEventListener("pageshow", (e) => { if (e.persisted && el) { el.classList.remove("show", "out", "instant"); busy = false; } });
+  addEventListener("pageshow", (e) => { if (e.persisted && el) { el.classList.remove("show", "out", "instant", "run", "done"); busy = false; } });
 })();

@@ -11,16 +11,6 @@
 <link rel="stylesheet" href="style.css">
 <script>try{if(sessionStorage.getItem("pt-loading"))document.documentElement.classList.add("pt-arrive")}catch(e){}</script>
 <script src="loader.js" defer></script>
-<style>
-/* ===== HERO 배경 사진 전환 (추가) ===== */
-.hero{position:relative;isolation:isolate}
-.hero-bg{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
-.hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity 1.8s ease-in-out}
-.hero-bg img.is-on{opacity:1;z-index:2}
-.hero-bg img.is-prev{opacity:1;z-index:1;transition:none}
-/* 글씨가 잘 읽히도록 사진 위에 옅은 흰 막 (.3 → 숫자가 작을수록 사진이 진하게 보임) */
-.hero-bg::after{content:"";position:absolute;inset:0;z-index:3;background:rgba(255,255,255,.3)}
-</style>
 </head>
 <body>
 
@@ -29,7 +19,7 @@
     <a href="index.html" class="brand" aria-label="펫티시에 홈"><b>PETTISSIER</b><small>Premium Pet Dessert</small></a>
     <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav class="nav" id="nav">
-      <a href="about.html">수제 이야기</a>
+      <a href="about.html">About</a>
       <a href="cakes.html">케이크</a>
       <a href="snacks.html">수제간식</a>
       <a href="reviews.html">리뷰</a>
@@ -42,17 +32,11 @@
 
 <main>
   <section class="hero" style="padding:0">
-    <!-- HERO 배경 사진 3장 : images 폴더에 같은 이름으로 넣으세요 -->
-    <div class="hero-bg" aria-hidden="true">
-      <img class="is-on" src="hero-01.jpg" alt="" onerror="if(this.nextElementSibling)this.nextElementSibling.classList.add('is-on');this.remove()"><!-- HERO 01 : 대표 제품 / 브랜드 분위기 -->
-      <img src="hero-02.jpg" alt="" onerror="this.remove()"><!-- HERO 02 : 재료 또는 제작 과정 -->
-      <img src="hero-03.jpg" alt="" onerror="this.remove()"><!-- HERO 03 : 완성 제품 / 포장 -->
-    </div>
     <div class="wrap">
       <div class="hero-copy">
-        <h1>오늘 먹을 만큼만,<br>손으로 굽습니다</h1>
-        <p class="hero-lead">아이를 생각하는 마음에서,<br>좋은 간식이 시작됩니다.</p>
-        <p class="hero-sub">정직한 재료와 꼼꼼한 손길로<br>우리 아이에게 가장 행복한 한 입을 만듭니다.</p>
+        <h1>작은 간식 하나에도<br>마음을 담습니다</h1>
+        <p class="hero-lead">한 아이를 위한 작은 마음이<br>펫티시에의 시작이 되었습니다.</p>
+        <p class="hero-sub">‘우리 아이에게 깨끗한 걸 먹이고 싶다’는<br>보호자의 마음으로 일하고 있습니다.<br>그래서 오늘도 하나하나 살펴보고, 만들고, 먹어봅니다.<br>우리 아이에게 주고 싶은 마음으로.</p>
         <div class="hero-sign"><b>PETTISSIER</b><small>Premium Pet Dessert</small></div>
       </div>
       <div class="hero-art">
@@ -64,10 +48,10 @@
 
   <div class="facts">
     <ul>
-      <li>당일 소량 제작 수제간식</li>
-      <li>우리 아이 얼굴 주문 제작 케이크</li>
+      <li>매일 수제간식 소량 제작</li>
+      <li>당일 제작 주문 케이크</li>
       <li>수제간식 택배 발송</li>
-      <li>케이크 창업 클래스 운영</li>
+      <li>창업 클래스 운영</li>
     </ul>
   </div>
 </main>
@@ -101,22 +85,6 @@
 </div>
 
 <script src="common.js"></script>
-<script>
-/* HERO 배경 사진 전환 : 5초 유지 + 1.8초 크로스페이드 */
-(function(){
-  var HOLD = 5000, FADE = 1800, i = 0;
-  setInterval(function(){
-    var imgs = document.querySelectorAll(".hero-bg img");
-    if (imgs.length < 2) return;
-    var cur = 0;
-    for (var k = 0; k < imgs.length; k++) if (imgs[k].classList.contains("is-on")) cur = k;
-    var next = (cur + 1) % imgs.length;
-    for (k = 0; k < imgs.length; k++) imgs[k].classList.remove("is-prev");
-    imgs[cur].classList.remove("is-on"); imgs[cur].classList.add("is-prev");
-    imgs[next].classList.add("is-on");
-  }, HOLD + FADE);
-})();
-</script>
 
 </body>
 </html>

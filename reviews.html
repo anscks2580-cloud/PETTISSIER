@@ -19,7 +19,7 @@
     <a href="index.html" class="brand" aria-label="펫티시에 홈"><b>PETTISSIER</b><small>Premium Pet Dessert</small></a>
     <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav class="nav" id="nav">
-      <a href="about.html">수제 이야기</a>
+      <a href="about.html">About</a>
       <a href="cakes.html">케이크</a>
       <a href="snacks.html">수제간식</a>
       <a href="reviews.html" aria-current="page">리뷰</a>
@@ -84,8 +84,9 @@ const KEYWORDS = [
 ];
 
 // 네이버 방문자 리뷰 (실제 리뷰 문구로 교체)
+// 사진 후기: 사진 파일을 같은 폴더에 넣고 photos: ["review-01.jpg", "review-02.jpg"] 처럼 적으면 카드에 사진이 보여요. (최대 3장 권장)
 const REVIEWS = [
-  { text: "사진 한 장 보내드렸는데 표정까지 똑같이 만들어 주셨어요. 생일상에 올리자마자 가족 모두 감탄했습니다.", name: "초코맘", date: "26.9", chips: ["생일 케이크", "재방문"] },
+  { text: "사진 한 장 보내드렸는데 표정까지 똑같이 만들어 주셨어요. 생일상에 올리자마자 가족 모두 감탄했습니다.", name: "초코맘", date: "26.9", chips: ["생일 케이크", "재방문"], photos: [] },
   { text: "입이 짧은 아이인데 건조간식은 봉지 소리만 나도 달려와요. 재료가 단순해서 안심하고 줍니다.", name: "두부누나", date: "26.9", chips: ["건조간식"] },
   { text: "알러지가 있어서 걱정했는데 재료를 하나하나 바꿔서 만들어 주셨어요. 세심하게 상담해 주셔서 감사해요.", name: "보리네", date: "26.8", chips: ["맞춤 상담"] },
   { text: "열 살 생일이라 특별하게 해주고 싶었는데 기대 이상이었어요. 먹기 아까워서 한참 사진만 찍었네요.", name: "몽이아빠", date: "26.8", chips: ["피규어 케이크"] },
@@ -97,8 +98,11 @@ const max = Math.max(...KEYWORDS.map(k => k.count));
 document.getElementById("keywords").innerHTML = KEYWORDS.map(k =>
   `<li><b style="width:${(k.count / max * 100).toFixed(0)}%"></b><span>“${k.label}”</span><span>${k.count}</span></li>`).join("");
 
-document.getElementById("reviewList").innerHTML = REVIEWS.map(r =>
-  `<article class="review"><q>${r.text}</q><div class="chips">${r.chips.map(c => `<em>${c}</em>`).join("")}</div><div class="who"><span>${r.name}</span><span>${r.date} 방문</span></div></article>`).join("");
+document.getElementById("reviewList").innerHTML = REVIEWS.map(r => {
+  const pics = (r.photos || []).slice(0, 3);
+  const picHtml = pics.length ? `<div class="pics">${pics.map(p => `<img src="${p}" alt="${r.name}님이 올린 후기 사진" loading="lazy" onerror="this.remove()">`).join("")}</div>` : "";
+  return `<article class="review${pics.length ? " has-pics" : ""}">${picHtml}<q>${r.text}</q><div class="chips">${r.chips.map(c => `<em>${c}</em>`).join("")}</div><div class="who"><span>${r.name}</span><span>${r.date} 방문</span></div></article>`;
+}).join("");
 </script>
 </body>
 </html>

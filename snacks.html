@@ -19,7 +19,7 @@
     <a href="index.html" class="brand" aria-label="펫티시에 홈"><b>PETTISSIER</b><small>Premium Pet Dessert</small></a>
     <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav class="nav" id="nav">
-      <a href="about.html">수제 이야기</a>
+      <a href="about.html">About</a>
       <a href="cakes.html">케이크</a>
       <a href="snacks.html" aria-current="page">수제간식</a>
       <a href="reviews.html">리뷰</a>
@@ -46,14 +46,19 @@
           </ul>
           <a class="btn naver" data-link="store" href="#"><span class="n-mark">N</span>스마트스토어 바로가기</a>
         </div>
-        <div class="store-visual gingham">
-          <div class="phone" aria-hidden="true">
+        <div class="store-visual">
+          <!-- 스토어 상품 사진 4장 : 같은 폴더에 snack-01.jpg ~ snack-04.jpg 로 넣으면 자동으로 보여요 (정사각형 권장) -->
+          <a class="phone" data-link="store" href="#" aria-label="네이버 스마트스토어에서 상품 보기">
             <div class="bar"><span class="n-mark">N</span>펫티시에 스토어</div>
-            <div class="prod"><i style="background:var(--butter)"></i><span><b>수제 베이커리</b><s>오늘 만든 간식</s></span></div>
-            <div class="prod"><i style="background:var(--mustard-soft)"></i><span><b>수제 건조간식</b><s>저온 건조</s></span></div>
-            <div class="prod"><i class="gingham"></i><span><b>대용량 간식</b><s>넉넉하게 매일</s></span></div>
-            <div class="buy">구매하기</div>
-          </div>
+            <div class="tabs" aria-hidden="true"><b>베스트</b><span>수제 베이커리</span><span>건조간식</span></div>
+            <div class="shelf">
+              <div class="prod"><i><img src="snack-01.jpg" alt="" onerror="this.remove()"></i><b>야채 꼬꼬칩</b><s aria-hidden="true"></s></div>
+              <div class="prod"><i><img src="snack-02.jpg" alt="" onerror="this.remove()"></i><b>오리 울대</b><s aria-hidden="true"></s></div>
+              <div class="prod"><i><img src="snack-03.jpg" alt="" onerror="this.remove()"></i><b>연어</b><s aria-hidden="true"></s></div>
+              <div class="prod"><i><img src="snack-04.jpg" alt="" onerror="this.remove()"></i><b>수비드 말고기</b><s aria-hidden="true"></s></div>
+            </div>
+            <div class="buy">스토어에서 가격 보기</div>
+          </a>
         </div>
       </div>
     </div>
