@@ -7,7 +7,8 @@ const CONFIG = {
     blog: "https://blog.naver.com/pettissier",
     naverPlace: "https://map.naver.com/p/entry/place/1432165910"
   },
-  address: "경기도 안양시", // 정확한 도로명 주소로 교체
+  address: "경기도 안양시 동안구 시민대로327번길 55",  // 도로명 주소
+  addressDetail: "평촌더샵센트럴시티 1층 109호",      // 건물·호수 (두 번째 줄로 표시, 비워두면 숨김)
   map: {
     station: "평촌역",  // 약도에 표시할 가까운 역
     walk: ""            // 예: "도보 약 5분" (비워두면 '평촌역 인근'으로 표시)

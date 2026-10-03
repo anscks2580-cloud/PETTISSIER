@@ -20,6 +20,7 @@
     <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav class="nav" id="nav">
       <a href="about.html">About</a>
+      <a href="story.html">뭉치 이야기</a>
       <a href="cakes.html">케이크</a>
       <a href="snacks.html">수제간식</a>
       <a href="reviews.html">리뷰</a>
@@ -35,12 +36,12 @@
     <div class="wrap">
       <div class="visit-card">
         <div class="visit-info">
-          <h2>펫티시에에 놀러 오세요</h2>
+          <h2>펫티시에로 놀러 오세요</h2>
           <dl>
-            <dt>위치</dt><dd id="addr">경기도 안양시</dd>
+            <dt>위치</dt><dd id="addr">경기도 안양시 동안구 시민대로327번길 55<small>평촌더샵센트럴시티 1층 109호</small></dd>
             <dt>영업시간</dt><dd>12:00 – 20:00</dd>
             <dt>휴무</dt><dd>매주 화요일</dd>
-            <dt>주문 문의</dt><dd>카카오톡 채널 ‘펫티시에’</dd>
+            <dt>문의</dt><dd>카카오톡 채널 ‘펫티시에’</dd>
           </dl>
           <div class="hero-cta">
             <a class="btn fill" data-link="naverPlace" href="#" target="_blank" rel="noopener">네이버 지도로 길찾기</a>
@@ -119,7 +120,9 @@
 
 <script src="common.js"></script>
 <script>
-document.getElementById("addr").textContent = CONFIG.address;
+const addrEl = document.getElementById("addr");
+addrEl.textContent = CONFIG.address;
+if (CONFIG.addressDetail) { const sm = document.createElement("small"); sm.textContent = CONFIG.addressDetail; addrEl.append(sm); }
 if (CONFIG.map) {
   document.getElementById("mapStation").textContent = CONFIG.map.station;
   document.getElementById("mapWalk").textContent = CONFIG.map.walk ? `${CONFIG.map.station}에서 ${CONFIG.map.walk}` : `${CONFIG.map.station} 인근`;
