@@ -46,7 +46,11 @@
         </div>
         <div class="store-visual">
           <!-- 상품 목록은 아래 PRODUCTS 에서 수정 (사진 파일을 같은 폴더에 넣고 photo 이름만 바꾸면 돼요) -->
-          <div class="products" id="products"></div>
+          <div class="phone">
+            <div class="tabs"><span>홈</span><b>베스트</b><span>수제 베이커리</span><span>수제 건조간식</span><span>수제 자연식</span></div>
+            <div class="period"><b>주간</b>월간</div>
+            <div class="products" id="products"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -88,16 +92,16 @@
 /* ===================== 수제간식 상품 (여기만 수정) ===================== */
 // photo : 같은 폴더의 사진 파일 / name : 상품명 / url : 상품 주소 (비워두면 스마트스토어 메인으로 연결)
 const PRODUCTS = [
-  { photo: "snack-01.jpg", name: "오리 울대", url: "" },
-  { photo: "snack-02.jpg", name: "칠면조 힘줄 · 터키츄", url: "" },
-  { photo: "snack-03.jpg", name: "수비드 수제간식 · 촉촉한 토핑", url: "" },
-  { photo: "snack-04.jpg", name: "수비드 수제간식 · 촉촉한 토핑", url: "" },
-  { photo: "snack-05.jpg", name: "수제 베이커리", url: "" },
-  { photo: "snack-06.jpg", name: "수제 건조간식", url: "" }
+  { photo: "snack-01.jpg", name: "펫티시에 강아지 수제간식 오리 울대", url: "" },
+  { photo: "snack-02.jpg", name: "펫티시에 강아지 수제간식 칠면조 힘줄 / 터키츄", url: "" },
+  { photo: "snack-03.jpg", name: "펫티시에 강아지 수비드 수제간식 / 촉촉한 토핑", url: "" },
+  { photo: "snack-04.jpg", name: "펫티시에 강아지 수비드 수제간식 / 촉촉한 토핑", url: "" },
+  { photo: "snack-05.jpg", name: "펫티시에 강아지 수제 베이커리", url: "" },
+  { photo: "snack-06.jpg", name: "펫티시에 강아지 수제 건조간식", url: "" }
 ];
 /* ======================================================================= */
-document.getElementById("products").innerHTML = PRODUCTS.map(p =>
-  `<a class="product" href="${p.url || CONFIG.links.store}" target="_blank" rel="noopener"><span class="ph"><img src="${p.photo}" alt="${p.name}" loading="lazy" onerror="this.remove()"></span><span class="nm">${p.name}</span></a>`).join("");
+document.getElementById("products").innerHTML = PRODUCTS.map((p, i) =>
+  `<a class="product" href="${p.url || CONFIG.links.store}" target="_blank" rel="noopener"><span class="ph"><em>${i + 1}</em><img src="${p.photo}" alt="${p.name}" loading="lazy" onerror="this.remove()"><span class="soon">사진 준비 중</span></span><span class="nm">${p.name}</span></a>`).join("");
 </script>
 </body>
 </html>
