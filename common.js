@@ -19,4 +19,7 @@ const CONFIG = {
 document.querySelectorAll("[data-link]").forEach(a => { const u = CONFIG.links[a.dataset.link]; if (u) { a.href = u; a.target = "_blank"; a.rel = "noopener"; } });
 
 const toggle = document.querySelector(".menu-toggle"), nav = document.getElementById("nav");
-toggle.onclick = () => { const o = nav.classList.toggle("open"); toggle.setAttribute("aria-expanded", o); };
+const setMenu = o => { nav.classList.toggle("open", o); toggle.classList.toggle("on", o); toggle.setAttribute("aria-expanded", o); toggle.setAttribute("aria-label", o ? "메뉴 닫기" : "메뉴 열기"); };
+toggle.onclick = e => { e.stopPropagation(); setMenu(!nav.classList.contains("open")); };
+document.addEventListener("click", e => { if (nav.classList.contains("open") && !nav.contains(e.target)) setMenu(false); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });

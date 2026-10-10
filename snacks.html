@@ -25,8 +25,6 @@
       <a href="snacks.html" aria-current="page">수제간식</a>
       <a href="reviews.html">리뷰</a>
       <a href="visit.html">오시는 길</a>
-      <a class="btn sm naver" data-link="store" href="#"><span class="n-mark">N</span>스마트스토어</a>
-      <a class="btn sm fill" data-link="kakao" href="#">케이크 상담</a>
     </nav>
   </div>
 </header>
@@ -45,14 +43,10 @@
             <li>구매 리뷰 확인</li>
             <li>알림받기로 신제품 소식</li>
           </ul>
-          <a class="btn naver" data-link="store" href="#"><span class="n-mark">N</span>스마트스토어 바로가기</a>
         </div>
         <div class="store-visual">
-          <!-- 스토어 화면 캡처 : store-shot.png 를 같은 이름으로 교체하면 바뀌어요 (가격은 흰색으로 지워서 넣기) -->
-          <a class="phone" data-link="store" href="#" aria-label="네이버 스마트스토어에서 상품 보기">
-            <img class="store-shot" src="store-shot.png" alt="펫티시에 네이버 스마트스토어 베스트 상품 화면 - 오리 울대, 칠면조 힘줄, 수비드 간식">
-            <div class="buy">스토어에서 가격 보기</div>
-          </a>
+          <!-- 상품 목록은 아래 PRODUCTS 에서 수정 (사진 파일을 같은 폴더에 넣고 photo 이름만 바꾸면 돼요) -->
+          <div class="products" id="products"></div>
         </div>
       </div>
     </div>
@@ -90,5 +84,20 @@
 
 <script src="common.js"></script>
 
+<script>
+/* ===================== 수제간식 상품 (여기만 수정) ===================== */
+// photo : 같은 폴더의 사진 파일 / name : 상품명 / url : 상품 주소 (비워두면 스마트스토어 메인으로 연결)
+const PRODUCTS = [
+  { photo: "snack-01.jpg", name: "오리 울대", url: "" },
+  { photo: "snack-02.jpg", name: "칠면조 힘줄 · 터키츄", url: "" },
+  { photo: "snack-03.jpg", name: "수비드 수제간식 · 촉촉한 토핑", url: "" },
+  { photo: "snack-04.jpg", name: "수비드 수제간식 · 촉촉한 토핑", url: "" },
+  { photo: "snack-05.jpg", name: "수제 베이커리", url: "" },
+  { photo: "snack-06.jpg", name: "수제 건조간식", url: "" }
+];
+/* ======================================================================= */
+document.getElementById("products").innerHTML = PRODUCTS.map(p =>
+  `<a class="product" href="${p.url || CONFIG.links.store}" target="_blank" rel="noopener"><span class="ph"><img src="${p.photo}" alt="${p.name}" loading="lazy" onerror="this.remove()"></span><span class="nm">${p.name}</span></a>`).join("");
+</script>
 </body>
 </html>

@@ -25,8 +25,6 @@
       <a href="snacks.html">수제간식</a>
       <a href="reviews.html" aria-current="page">리뷰</a>
       <a href="visit.html">오시는 길</a>
-      <a class="btn sm naver" data-link="store" href="#"><span class="n-mark">N</span>스마트스토어</a>
-      <a class="btn sm fill" data-link="kakao" href="#">케이크 상담</a>
     </nav>
   </div>
 </header>
@@ -101,8 +99,8 @@ document.getElementById("keywords").innerHTML = KEYWORDS.map(k =>
 
 document.getElementById("reviewList").innerHTML = REVIEWS.map(r => {
   const pics = (r.photos || []).slice(0, 3);
-  const picHtml = pics.length ? `<div class="pics">${pics.map(p => `<img src="${p}" alt="${r.name}님이 올린 후기 사진" loading="lazy" onerror="this.remove()">`).join("")}</div>` : "";
-  return `<article class="review${pics.length ? " has-pics" : ""}">${picHtml}<q>${r.text}</q><div class="chips">${r.chips.map(c => `<em>${c}</em>`).join("")}</div><div class="who"><span>${r.name}</span><span>${r.date} 방문</span></div></article>`;
+  const picHtml = pics.length ? `<div class="pics">${pics.map(p => `<img src="${p}" alt="보호자님이 올린 후기 사진" loading="lazy" onerror="this.remove()">`).join("")}</div>` : "";
+  return `<article class="review${pics.length ? " has-pics" : ""}">${picHtml}<q>${r.text}</q><div class="chips">${r.chips.map(c => `<em>${c}</em>`).join("")}</div><div class="who"><span class="stars" aria-label="별점 5점">★★★★★</span><span>${r.date} 방문</span></div></article>`;
 }).join("");
 </script>
 </body>
