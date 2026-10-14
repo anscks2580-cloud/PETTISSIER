@@ -211,15 +211,16 @@ section{padding:110px 0}
 .map-note span{font-size:13.5px;color:var(--muted)}
 
 /* story (뭉치 이야기) */
-.story-intro{padding-bottom:70px}
-.story-intro .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.story-intro{padding-bottom:70px;overflow-x:clip}
+.story-intro .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:center}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;color:var(--wood);margin-bottom:16px}
 .eyebrow::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--mustard);border:1.5px solid var(--line)}
 .story-intro h2{font-size:clamp(30px,4vw,46px)}
 .story-intro .lead{margin-top:20px}
 /* 뭉치 사진 : 비눗방울처럼 떠다니는 원형 사진 (mungchi-bubbles.js) */
-.mc-wrap{position:relative;width:100%;max-width:580px;margin:0 auto}
-.mc-field{position:relative;width:100%;aspect-ratio:1/1.05;perspective:1100px;perspective-origin:50% 45%;touch-action:pan-y}
+.mc-wrap{position:relative;width:calc(100% + 5vw);max-width:none;margin:0 -5vw 0 0}
+@media (max-width:980px){.mc-wrap{width:calc(100% + 48px);margin:0 -24px}}
+.mc-field{position:relative;width:100%;aspect-ratio:1/.94;perspective:1100px;perspective-origin:50% 45%;touch-action:pan-y}
 .mc-field::before{content:"";position:absolute;inset:6% 4%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,217,0,.20),rgba(255,246,204,.75) 45%,rgba(255,246,204,0) 100%);filter:blur(6px);animation:mcGlow 8s ease-in-out infinite;pointer-events:none}
 @keyframes mcGlow{0%,100%{transform:scale(1) translateY(0);opacity:.9}50%{transform:scale(1.06) translateY(-8px);opacity:1}}
 /* 스크립트가 없을 때는 동그란 사진 격자로 */
@@ -241,7 +242,7 @@ section{padding:110px 0}
 .mc-bub::after{content:"";position:absolute;inset:0;z-index:3;border-radius:50%;pointer-events:none;opacity:.75;mix-blend-mode:screen;
   background:conic-gradient(from var(--rot,0deg),rgba(255,217,0,.95),rgba(255,150,190,.85),rgba(140,210,255,.9),rgba(185,160,255,.85),rgba(160,255,210,.8),rgba(255,217,0,.95));
   -webkit-mask:radial-gradient(closest-side,transparent 83%,#000 95%,#000 100%);mask:radial-gradient(closest-side,transparent 83%,#000 95%,#000 100%)}
-.mc-hint{display:flex;align-items:center;justify-content:center;gap:8px;margin:4px 0 0;font-size:13.5px;color:var(--muted)}
+.mc-hint{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:8px;margin:clamp(30px,6vw,60px) 0 0;font-size:13.5px;color:var(--muted)}
 .mc-hint::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--mustard);border:1.5px solid var(--line)}
 /* 크게 보기 */
 .mc-lb{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:24px;background:rgba(255,251,240,.88);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s}

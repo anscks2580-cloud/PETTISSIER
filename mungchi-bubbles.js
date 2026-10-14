@@ -11,7 +11,7 @@
   if (!nodes.length) return;
 
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var SIZE = { L: 0.27, M: 0.2, S: 0.145 };   // 지름 = 영역 가로폭 × 비율
+  var SIZE = { L: 0.34, M: 0.255, S: 0.19 };  // 지름 = 영역 가로폭 × 비율 (크게, 살짝 겹치고 넘치게)
 
   // 고정된 시드 난수 (새로고침해도 비슷한 배치)
   var seed = 7;
@@ -59,7 +59,7 @@
   }
 
   function relax(n) {
-    var gap = W * 0.014;
+    var gap = -W * 0.03;                          // 음수 = 살짝 겹쳐도 됨
     for (var it = 0; it < n; it++) {
       for (var i = 0; i < B.length; i++) {
         var a = B[i];
@@ -72,7 +72,7 @@
           }
         }
         // 영역 안쪽으로 (가장자리는 살짝 여유)
-        var pad = a.r * 0.92;
+        var pad = a.r * 0.5;                      // 반쯤은 영역 밖으로 넘쳐도 됨
         a.hx = Math.max(pad, Math.min(W - pad, a.hx));
         a.hy = Math.max(pad, Math.min(H - pad, a.hy));
       }
@@ -96,7 +96,7 @@
 
   function step(now) {
     var dt = Math.min(2.2, (now - last) / 16.667); last = now;
-    var t = now - t0, gap = W * 0.012, amp = W * 0.032;
+    var t = now - t0, gap = -W * 0.03, amp = W * 0.03;
     P.px += (P.tpx - P.px) * 0.06 * dt; P.py += (P.tpy - P.py) * 0.06 * dt;
 
     for (var i = 0; i < B.length; i++) {
@@ -115,7 +115,7 @@
         var dx = a.x - P.x, dy = a.y - P.y, d = Math.sqrt(dx * dx + dy * dy) || 0.01;
         if (d < a.r) { hovTarget = 1; }
         else {
-          var R = a.r + W * 0.13;
+          var R = a.r + W * 0.11;
           if (d < R) { var s = (R - d) / R; fx += (dx / d) * s * 1.1; fy += (dy / d) * s * 1.1; }
         }
         if (hovTarget) { a.tiltX = -(dy / a.r) * 16; a.tiltY = (dx / a.r) * 16; }
@@ -131,7 +131,7 @@
       }
 
       // 보이지 않는 경계 : 넘어가면 부드럽게 당겨옴
-      var pad = a.r * 0.85;
+      var pad = a.r * 0.45;
       if (a.x < pad) fx += (pad - a.x) * 0.05; else if (a.x > W - pad) fx -= (a.x - (W - pad)) * 0.05;
       if (a.y < pad) fy += (pad - a.y) * 0.05; else if (a.y > H - pad) fy -= (a.y - (H - pad)) * 0.05;
 
