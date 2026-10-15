@@ -413,35 +413,117 @@ html.pt-arrive body{opacity:0;animation:ptSafe 0s 3s forwards}
 .pt-bark .cap{margin-top:4px;display:flex;flex-direction:column;align-items:center;gap:4px}
 .pt-bark .cap b{font-family:var(--serif);font-size:clamp(20px,5vw,24px);color:var(--ink);letter-spacing:.02em}
 .pt-bark .cap small{font-family:var(--latin);font-size:12.5px;font-weight:600;letter-spacing:.28em;padding-left:.28em}
-.mb-head,.mb-jaw,.mb-body,.mb-ear,.mb-ear2,.mb-tail,.mb-shadow,.mb-wave,.mb-puff,.mb-ring,.mb-haze{transform-box:view-box}
-.mb-head{transform-origin:116px 128px;animation:mbHead .75s cubic-bezier(.3,.7,.3,1) infinite}
-.mb-jaw{transform-origin:148px 107px;animation:mbJaw .75s cubic-bezier(.3,.7,.3,1) infinite}
-.mb-body{transform-origin:100px 186px;animation:mbBody .75s cubic-bezier(.3,.7,.3,1) infinite}
-.mb-ear{transform-origin:108px 56px;animation:mbEar .75s ease-in-out infinite}
-.mb-ear2{transform-origin:138px 54px;animation:mbEar .75s ease-in-out .04s infinite}
-.mb-tail{transform-origin:62px 148px;animation:mbTail .3s ease-in-out infinite alternate}
-.mb-shadow{transform-origin:104px 192px;animation:mbShadow .75s ease-in-out infinite}
-/* 아지랑이 : 두 세트가 번갈아(0.75초 간격) 1.5초 동안 일렁이며 퍼짐 */
-.mb-haze{transform-origin:182px 108px;opacity:0;animation:mbHaze 1.5s cubic-bezier(.25,.6,.3,1) infinite}
-.mb-haze.h2{animation-delay:.75s}
-.mb-wave{transform-origin:184px 108px;animation:mbWave 1.5s ease-out infinite}
-.mb-haze.h2 .mb-wave{animation-delay:.75s}
-.mb-wave.w2,.mb-wave.w5{opacity:.7}
-.mb-puff{transform-origin:190px 108px;animation:mbPuff 1.5s ease-out infinite}
-.mb-haze.h2 .mb-puff{animation-delay:.75s}
-.mb-ring{transform-origin:190px 108px;animation:mbRing 1.5s ease-out infinite}
-.mb-ring.r2{animation-name:mbRing2}
-.mb-haze.h2 .mb-ring{animation-delay:.75s}
-.mb-woof{transform-box:fill-box;transform-origin:50% 50%;opacity:0;animation:mbWoof .75s cubic-bezier(.2,1.4,.4,1) infinite}
-@keyframes mbHead{0%,100%{transform:rotate(0)}22%{transform:rotate(5deg) translateY(2px)}36%{transform:rotate(-11deg) translateX(3px)}58%{transform:rotate(-8deg) translateX(2px)}80%{transform:rotate(-1deg)}}
-@keyframes mbJaw{0%,22%,100%{transform:rotate(0)}36%{transform:rotate(32deg)}58%{transform:rotate(26deg)}76%{transform:rotate(0)}}
-@keyframes mbBody{0%,100%{transform:scale(1,1)}22%{transform:scale(1.04,.95)}36%{transform:scale(.97,1.05)}58%{transform:scale(1,1.01)}}
-@keyframes mbEar{0%,100%{transform:rotate(0)}22%{transform:rotate(6deg)}38%{transform:rotate(-12deg)}60%{transform:rotate(-4deg)}}
-@keyframes mbTail{from{transform:rotate(-10deg)}to{transform:rotate(14deg)}}
-@keyframes mbShadow{0%,100%{transform:scaleX(1)}22%{transform:scaleX(1.06)}36%{transform:scaleX(.94)}}
-@keyframes mbHaze{0%,17%{opacity:0;transform:translate(-4px,4px) scale(.45)}26%{opacity:1}55%{opacity:.85}82%,100%{opacity:0;transform:translate(26px,-16px) scale(1.25)}}
-@keyframes mbWave{0%,17%{stroke-dashoffset:0;transform:scale(.6)}100%{stroke-dashoffset:-40;transform:scale(1.1) skewY(-4deg)}}
-@keyframes mbPuff{0%,17%{transform:scale(.3)}30%{transform:scale(1)}100%{transform:translateX(18px) scale(1.7)}}
-@keyframes mbRing{0%,17%{transform:scale(.4)}100%{transform:translateX(30px) scale(1.6)}}
-@keyframes mbRing2{0%,22%{transform:scale(.3)}100%{transform:translateX(44px) scale(1.7)}}
-@keyframes mbWoof{0%,32%{opacity:0;transform:translate(-14px,8px) scale(.4) rotate(-10deg)}46%{opacity:1;transform:translate(0,0) scale(1.08) rotate(-6deg)}70%{opacity:1;transform:translate(6px,-6px) scale(1) rotate(-4deg)}100%{opacity:0;transform:translate(14px,-12px) scale(.96) rotate(-2deg)}}
+.mb-stage{position:relative;width:min(220px,56vw);aspect-ratio:220/263}
+.mb-f{position:absolute;inset:0;width:100%;height:100%;opacity:0;animation-duration:.75s;animation-iteration-count:infinite;animation-timing-function:step-end}
+.mb-f1{animation-name:mbF1}.mb-f2{animation-name:mbF2}.mb-f3{animation-name:mbF3}.mb-f4{animation-name:mbF4}.mb-f5{animation-name:mbF5}.mb-f6{animation-name:mbF6}
+@keyframes mbF1{0%{opacity:1}12%,100%{opacity:0}}
+@keyframes mbF2{0%{opacity:0}12%{opacity:1}24%,100%{opacity:0}}
+@keyframes mbF3{0%{opacity:0}24%{opacity:1}40%,100%{opacity:0}}
+@keyframes mbF4{0%{opacity:0}40%{opacity:1}60%,100%{opacity:0}}
+@keyframes mbF5{0%{opacity:0}60%{opacity:1}76%,100%{opacity:0}}
+@keyframes mbF6{0%{opacity:0}76%{opacity:1}100%{opacity:1}}
+.pt-bark svg.mb-marks{position:absolute;left:84%;top:14%;width:28%;height:auto;opacity:0;transform-origin:0 100%;animation:mbMarks .75s ease-out infinite}
+.mb-woof{position:absolute;left:80%;top:-6%;font-family:var(--sans);font-weight:700;font-size:21px;color:var(--wood);white-space:nowrap;opacity:0;animation:mbWoof .75s cubic-bezier(.2,1.4,.4,1) infinite}
+@keyframes mbMarks{0%,22%{opacity:0;transform:scale(.4)}30%{opacity:1;transform:scale(1.08)}56%{opacity:1;transform:scale(1)}68%,100%{opacity:0;transform:scale(1.15)}}
+@keyframes mbWoof{0%,26%{opacity:0;transform:translateY(8px) scale(.5) rotate(-8deg)}38%{opacity:1;transform:scale(1.08) rotate(-4deg)}60%{opacity:1;transform:translateY(-2px) scale(1) rotate(-4deg)}74%,100%{opacity:0;transform:translateY(-8px) rotate(-4deg)}}
+@media (prefers-reduced-motion:reduce){.mb-f1{opacity:1!important}}
+
+/* ===== 제철 간식 (season.html) ===== */
+.ss-intro{padding-top:90px}
+.ss-intro .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.ss-intro h2{font-size:clamp(30px,4vw,46px)}
+.ss-intro .lead{margin-top:20px}
+.ss-dial{list-style:none;margin:36px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:460px}
+.ss-dial a{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;border:1.5px solid var(--line);border-radius:18px;padding:12px 4px 10px;background:var(--paper);transition:background .15s,transform .15s}
+.ss-dial a:hover{background:var(--butter);transform:translateY(-2px)}
+.ss-dial svg{width:30px;height:30px}
+.ss-dial b{font-family:var(--serif);font-size:17px;margin-top:4px}
+.ss-dial small{font-size:12px;color:var(--muted)}
+.ss-dial li:not(.on) svg{filter:grayscale(1);opacity:.55}
+.ss-dial li.on a{background:var(--mustard)}
+.ss-dial li.on small{color:var(--ink);font-weight:700}
+
+.ss-now{border:1.5px solid var(--line);border-radius:30px 26px 32px 28px;overflow:hidden;background:var(--paper);box-shadow:0 22px 50px rgba(128,76,55,.14)}
+.ss-photo{position:relative;aspect-ratio:4/3;background:var(--butter);border-bottom:1.5px solid var(--line);display:grid;place-items:center;overflow:hidden}
+.ss-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.ss-art{width:72%;height:auto}
+.ss-art.icon{width:44%;display:grid;place-items:center;aspect-ratio:1;border-radius:50%;background:var(--paper)}
+.ss-art.icon svg{width:60%;height:60%}
+.ss-badge{position:absolute;left:18px;top:18px;z-index:2;background:var(--ink);color:#fff;font-size:13px;letter-spacing:.04em;padding:6px 14px;border-radius:999px}
+.ss-now-body{padding:28px 30px 32px}
+.ss-now-body small{font-family:var(--latin);font-size:17px;font-weight:600;letter-spacing:.08em;color:var(--wood)}
+.ss-now-body h3{font-size:clamp(30px,3.4vw,40px);margin:2px 0 12px}
+.ss-now-body p{margin:0 0 24px;color:var(--muted)}
+
+.ss-head{max-width:640px;margin-bottom:48px}
+.ss-head .lead{margin-top:16px}
+.ss-head.center{text-align:center;margin-left:auto;margin-right:auto}
+.ss-head.center .lead{margin-left:auto;margin-right:auto}
+
+.ss-reasons{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);counter-reset:r}
+.ss-reasons li{counter-increment:r;padding:30px 28px 34px;border-top:1.5px solid var(--line);border-bottom:1.5px solid var(--line);border-left:1.5px solid var(--line)}
+.ss-reasons li:last-child{border-right:1.5px solid var(--line)}
+.ss-reasons li::before{content:"0" counter(r);display:block;font-family:var(--latin);font-size:34px;font-weight:600;color:var(--wood);line-height:1;margin-bottom:18px}
+.ss-reasons h3{font-size:21px;margin-bottom:10px}
+.ss-reasons p{margin:0;font-size:15.5px;color:var(--muted)}
+
+.ss-detail{background:var(--butter)}
+.ss-detail-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:22px}
+.ss-box{background:var(--paper);border:1.5px solid var(--line);border-radius:26px;padding:30px 32px}
+.ss-box h3{font-size:21px;margin-bottom:14px}
+.ss-points{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0 26px}
+.ss-points li{padding:16px 0;border-top:1px dashed #cfc9bf}
+.ss-points b{display:flex;align-items:center;gap:8px;font-family:var(--serif);font-size:17px}
+.ss-points b::before{content:"";flex:none;width:10px;height:10px;border-radius:50%;background:var(--mustard);border:1.5px solid var(--line)}
+.ss-points span{display:block;font-size:15px;color:var(--muted);margin-top:4px}
+.ss-box.tips{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ss-tips{list-style:none;margin:0;padding:0}
+.ss-tips li{position:relative;padding:12px 0 12px 26px;border-top:1px solid rgba(255,255,255,.14);font-size:15.5px;line-height:1.65}
+.ss-tips li::before{content:"✓";position:absolute;left:0;top:12px;color:var(--mustard);font-weight:700}
+
+.ss-months{list-style:none;margin:0 0 26px;padding:0;display:grid;grid-template-columns:repeat(12,1fr);border:1.5px solid var(--line);border-radius:999px;overflow:hidden}
+.ss-months li{position:relative;text-align:center;font-size:13.5px;padding:9px 0;border-left:1px solid rgba(35,31,28,.12);color:var(--muted)}
+.ss-months li:first-child{border-left:0}
+.ss-months li.cur{background:var(--butter);color:var(--ink)}
+.ss-months li.today{background:var(--mustard);color:var(--ink);font-weight:700}
+.ss-seasons{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.ss-seasons>li{border:1.5px solid var(--line);border-radius:24px;padding:24px 22px 26px;background:var(--paper);scroll-margin-top:110px}
+.ss-seasons>li.on{background:var(--mustard)}
+.ss-season-top{display:flex;align-items:center;gap:12px}
+.ss-season-top svg{width:40px;height:40px;flex:none}
+.ss-season-top b{font-family:var(--serif);font-size:22px;display:block;line-height:1.2}
+.ss-season-top small{font-size:13px;color:var(--muted)}
+.ss-seasons>li.on .ss-season-top small{color:var(--ink)}
+.ss-season-top em{margin-left:auto;font-style:normal;font-size:12.5px;background:var(--ink);color:#fff;padding:3px 11px;border-radius:999px;align-self:flex-start}
+.ss-seasons>li>p{margin:20px 0 10px;font-family:var(--serif);font-size:15px;color:var(--muted)}
+.ss-seasons>li>p::before{content:"대표 간식 · "}
+.ss-seasons>li.on>p{color:var(--ink)}
+.ss-seasons ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.ss-seasons ul li{font-size:14px;padding:3px 12px;border-radius:999px;border:1px solid rgba(35,31,28,.3);background:var(--paper)}
+
+.ss-cta{text-align:center;padding-top:0}
+.ss-cta .wrap{max-width:860px;border-top:1.5px solid var(--line);padding-top:90px}
+.ss-cta h2{font-size:clamp(26px,3.2vw,36px)}
+.ss-cta p{margin:18px auto 0;color:var(--muted);max-width:34em}
+.ss-cta .hero-cta{justify-content:center;margin-top:32px}
+
+@media (max-width:980px){
+  .ss-intro .wrap{grid-template-columns:1fr;gap:44px}
+  .ss-reasons{grid-template-columns:1fr}
+  .ss-reasons li{border-right:1.5px solid var(--line);border-bottom:0}
+  .ss-reasons li:last-child{border-bottom:1.5px solid var(--line)}
+  .ss-detail-grid{grid-template-columns:1fr}
+  .ss-seasons{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  .ss-intro{padding-top:60px}
+  .ss-now-body{padding:24px 22px 28px}
+  .ss-box{padding:24px 22px}
+  .ss-points{grid-template-columns:1fr}
+  .ss-months{grid-template-columns:repeat(6,1fr);border-radius:18px}
+  .ss-months li:nth-child(7){border-left:0}
+  .ss-months li:nth-child(n+7){border-top:1px solid rgba(35,31,28,.12)}
+  .ss-months li{font-size:12.5px}
+  .ss-seasons{grid-template-columns:1fr;gap:12px}
+  .ss-cta .wrap{padding-top:70px}
+}
