@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>관리자 | 펫티시에</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fff;--butter:#FFF6CC;--mustard:#FFD900;--wood:#804C37;--mist:#F1F0EC;--ink:#231F1C;--muted:#6A635B;--line:#231F1C;--danger:#B3261E;
+--serif:"Gowun Batang",serif;--sans:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--latin:"Cormorant Garamond",serif}
+*{box-sizing:border-box}
+body{margin:0;background:#FBFAF7;color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;word-break:keep-all;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+img{display:block;max-width:100%}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--mist)}
+.top .wrap{display:flex;align-items:center;gap:14px;min-height:64px}
+.brand{font-family:var(--latin);font-size:23px;font-weight:600;letter-spacing:.06em;text-decoration:none;color:var(--ink);line-height:1}
+.brand small{display:block;font-family:var(--sans);font-size:12px;letter-spacing:0;color:var(--wood);margin-top:3px}
+.top .sp{flex:1}
+.top a.lnk,.top button.lnk{white-space:nowrap;border:0;background:none;font-size:14.5px;color:var(--muted);cursor:pointer;text-decoration:none;padding:6px 4px}
+.top a.lnk:hover,.top button.lnk:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border:1.5px solid var(--line);border-radius:999px;background:var(--paper);cursor:pointer;text-decoration:none;font-size:15px;transition:background .15s;white-space:nowrap}
+.btn:hover{background:var(--butter)}
+.btn.fill{background:var(--mustard)}
+.btn.fill:hover{background:#FFE866}
+.btn.sm{padding:6px 12px;font-size:13.5px}
+.btn.ghost{border-color:rgba(35,31,28,.2)}
+.btn.danger{border-color:var(--danger);color:var(--danger)}
+.btn.danger:hover{background:#FCEDEC}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.card{background:var(--paper);border:1px solid rgba(35,31,28,.12);border-radius:18px;padding:22px}
+h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
+.muted{color:var(--muted)}
+/* 로그인 */
+.login{min-height:100vh;display:grid;place-items:center;padding:20px}
+.login .card{width:min(400px,100%);padding:30px 28px}
+.login h1{font-family:var(--latin);font-size:30px;letter-spacing:.06em;text-align:center}
+.login p.sub{text-align:center;margin:2px 0 22px;color:var(--wood);font-size:14px}
+.fld{display:grid;gap:5px;margin-bottom:14px}
+.fld label{font-size:14px;color:var(--muted)}
+.fld input,.fld select,.fld textarea{width:100%;padding:10px 12px;border:1px solid rgba(35,31,28,.22);border-radius:10px;background:var(--paper);font-size:16px}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:2px solid var(--mustard);border-color:var(--line)}
+.fld textarea{min-height:70px;resize:vertical}
+.fld small{color:var(--muted);font-size:13px}
+.err{color:var(--danger);font-size:14px;min-height:1.4em}
+.setup{max-width:640px;margin:60px auto;padding:0 20px}
+.setup ol{padding-left:20px}.setup li{margin:6px 0}
+.setup code{background:var(--mist);padding:1px 6px;border-radius:5px;font-size:14px}
+/* 탭 */
+.tabs{display:flex;gap:6px;margin:24px 0 18px}
+.tabs button{border:1.5px solid rgba(35,31,28,.18);background:var(--paper);border-radius:999px;padding:8px 18px;cursor:pointer;font-size:15px}
+.tabs button[aria-selected="true"]{background:var(--mustard);border-color:var(--line)}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.bar input,.bar select{padding:9px 12px;border:1px solid rgba(35,31,28,.2);border-radius:10px;background:var(--paper);font-size:15px}
+.bar input{flex:1;min-width:180px}
+.bar .sp{flex:1}
+.notice{background:var(--butter);border-radius:14px;padding:14px 16px;margin-bottom:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:15px}
+.notice.warn{background:#FFF1E8}
+.notice .sp{flex:1}
+/* 상품 목록 */
+.list{display:grid;gap:8px}
+.row{display:grid;grid-template-columns:auto 64px minmax(0,1fr) auto auto;gap:14px;align-items:center;background:var(--paper);border:1px solid rgba(35,31,28,.1);border-radius:14px;padding:10px 14px}
+.row.hid{opacity:.55}
+.row .ord{display:flex;flex-direction:column;gap:2px}
+.row .ord button{border:1px solid rgba(35,31,28,.15);background:var(--paper);border-radius:6px;width:28px;height:24px;cursor:pointer;font-size:11px;line-height:1}
+.row .ord button:hover{background:var(--butter)}
+.row img{width:64px;height:64px;border-radius:10px;object-fit:cover;background:var(--mist)}
+.row .nm{font-size:15.5px;line-height:1.45}
+.row .meta{font-size:13.5px;color:var(--muted)}
+.row .meta b{color:var(--ink);font-weight:700}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.tog{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:999px;border:1px solid rgba(35,31,28,.18);font-size:13px;cursor:pointer;user-select:none;background:var(--paper)}
+.tog input{position:absolute;opacity:0;pointer-events:none}
+.tog:has(input:checked){background:var(--ink);color:#fff;border-color:var(--ink)}
+.tog.best:has(input:checked){background:var(--mustard);color:var(--ink);border-color:var(--line)}
+.tog:has(input:focus-visible){outline:2px solid var(--mustard)}
+.empty{padding:50px 0;text-align:center;color:var(--muted)}
+/* 편집 패널 */
+.panel{position:fixed;inset:0;z-index:50;background:rgba(35,31,28,.35);display:none}
+.panel.on{display:block}
+.sheet{position:absolute;right:0;top:0;bottom:0;width:min(720px,100%);background:#FBFAF7;overflow-y:auto;box-shadow:-10px 0 30px rgba(0,0,0,.15)}
+.sheet-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:14px 20px;background:rgba(255,255,255,.97);border-bottom:1px solid var(--mist)}
+.sheet-head h2{font-size:19px;flex:1}
+.sheet-body{padding:20px;display:grid;gap:16px}
+.sheet-foot{position:sticky;bottom:0;display:flex;gap:10px;padding:14px 20px calc(14px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.97);border-top:1px solid var(--mist)}
+.sheet-foot .sp{flex:1}
+.card h3{font-size:16.5px;margin-bottom:14px;font-family:var(--sans);font-weight:700}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.thumb-box{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.thumb-box img{width:120px;height:120px;border-radius:14px;object-fit:cover;background:var(--mist)}
+.opt-row{display:grid;grid-template-columns:minmax(0,1fr) 110px auto auto;gap:8px;align-items:center;margin-bottom:8px}
+.opt-row input{padding:9px 10px;border:1px solid rgba(35,31,28,.22);border-radius:10px;background:var(--paper);font-size:15px;width:100%}
+.x{border:1px solid rgba(35,31,28,.15);background:var(--paper);border-radius:8px;width:34px;height:34px;cursor:pointer;color:var(--muted)}
+.x:hover{color:var(--danger);border-color:var(--danger)}
+.dets{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.det{position:relative;border-radius:10px;overflow:hidden;background:var(--mist);aspect-ratio:3/4;border:1px solid rgba(35,31,28,.1)}
+.det img{width:100%;height:100%;object-fit:cover;object-position:top}
+.det .n{position:absolute;left:6px;top:6px;background:var(--ink);color:#fff;font-size:11px;border-radius:5px;padding:1px 6px}
+.det .ctl{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;padding:5px;background:linear-gradient(transparent,rgba(0,0,0,.45))}
+.det .ctl button{border:0;background:rgba(255,255,255,.92);border-radius:6px;width:28px;height:26px;cursor:pointer;font-size:12px}
+.det .ctl button:hover{background:var(--mustard)}
+.drop{border:2px dashed rgba(35,31,28,.22);border-radius:14px;padding:16px;text-align:center;color:var(--muted);font-size:14.5px;cursor:pointer;margin-top:12px;background:var(--paper)}
+.drop:hover,.drop.over{background:var(--butter);border-color:var(--wood);color:var(--ink)}
+.prog{font-size:13.5px;color:var(--wood);min-height:1.3em;margin-top:6px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;visibility:hidden;z-index:80;background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:15px;transition:all .25s}
+.toast.on{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.set-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;max-width:640px}
+@media (max-width:700px){
+  .row{grid-template-columns:auto 56px minmax(0,1fr);grid-template-areas:"o i n" "o c c";row-gap:8px}
+  .row .ord{grid-area:o}.row img{grid-area:i;width:56px;height:56px}.row .info{grid-area:n}.row .chips{grid-area:c}.row .edit{grid-column:3;justify-self:end;grid-row:1}
+  .row .info{padding-right:60px}
+  .two,.set-grid{grid-template-columns:1fr}
+  .opt-row{grid-template-columns:minmax(0,1fr) 90px auto}
+  .opt-row .tog{grid-column:1/2;justify-self:start}
+  .top .who{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="firebase-config.js"></script>
+<script src="shop-data.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+<script>
+(function () {
+  const app = document.getElementById("app");
+  const E = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const won = n => (+n || 0).toLocaleString("ko-KR") + "원";
+  const CATS = CATEGORIES.filter(c => c.key !== "all" && c.key !== "best");
+  const catLabel = k => (CATS.find(c => c.key === k) || {}).label || "미분류";
+  const toast = m => { const t = document.getElementById("toast"); t.textContent = m; t.classList.add("on"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), 2400); };
+
+  if (typeof FIREBASE_CONFIG === "undefined" || !FIREBASE_CONFIG) {
+    app.innerHTML = `<div class="setup card"><h1 style="font-size:24px">관리자 연결 준비 중</h1>
+      <p class="muted">파이어베이스 프로젝트가 연결되면 이 페이지에서 상품을 관리할 수 있어요.</p>
+      <ol><li>파이어베이스 콘솔에서 새 프로젝트를 만들고 웹 앱을 추가해요.</li>
+      <li>Authentication(이메일/비밀번호), Firestore, Storage를 켜요.</li>
+      <li>나온 설정값을 <code>firebase-config.js</code>에 붙여넣어요.</li>
+      <li><code>firestore.rules</code>, <code>storage.rules</code>를 게시해요.</li></ol></div>`;
+    return;
+  }
+
+  firebase.initializeApp(FIREBASE_CONFIG);
+  const auth = firebase.auth(), db = firebase.firestore(), st = firebase.storage();
+  let products = [], settings = {}, filter = { q: "", cat: "" };
+
+  /* ───── 로그인 ───── */
+  function loginView(msg) {
+    app.innerHTML = `<div class="login"><form class="card" id="lf">
+      <h1>PETTISSIER</h1><p class="sub">온라인 주문 관리자</p>
+      <div class="fld"><label for="em">아이디(이메일)</label><input id="em" type="email" autocomplete="username" required></div>
+      <div class="fld"><label for="pw">비밀번호</label><input id="pw" type="password" autocomplete="current-password" required></div>
+      <p class="err" id="le">${E(msg || "")}</p>
+      <button class="btn fill" style="width:100%" type="submit">로그인</button>
+      <p class="muted" style="font-size:13px;text-align:center;margin:14px 0 0"><a href="shop.html" style="color:inherit">온라인 주문 페이지로</a></p></form></div>`;
+    document.getElementById("lf").onsubmit = async e => {
+      e.preventDefault();
+      const le = document.getElementById("le"); le.textContent = "";
+      try { await auth.signInWithEmailAndPassword(document.getElementById("em").value.trim(), document.getElementById("pw").value); }
+      catch (err) { le.textContent = /password|credential|user/.test(err.code || "") ? "아이디 또는 비밀번호가 맞지 않아요." : "로그인하지 못했어요. 잠시 후 다시 시도해 주세요."; }
+    };
+  }
+
+  auth.onAuthStateChanged(async user => {
+    if (!user) return loginView();
+    try {
+      const a = await db.collection("admins").doc(user.uid).get();
+      if (!a.exists) {
+        app.innerHTML = `<div class="setup card"><h1 style="font-size:22px">관리자 권한이 없어요</h1>
+          <p class="muted">이 계정을 관리자로 등록해야 해요. 파이어베이스 콘솔 Firestore의 <code>admins</code> 컬렉션에 아래 번호로 문서를 하나 만들어 주세요.</p>
+          <p><code>${E(user.uid)}</code></p><button class="btn" id="lo">로그아웃</button></div>`;
+        document.getElementById("lo").onclick = () => auth.signOut();
+        return;
+      }
+    } catch (err) { return loginView("권한을 확인하지 못했어요. 보안 규칙이 게시됐는지 확인해 주세요."); }
+    shell(user);
+  });
+
+  /* ───── 화면 틀 ───── */
+  function shell(user) {
+    app.innerHTML = `<header class="top"><div class="wrap">
+        <a class="brand" href="admin.html">PETTISSIER<small>온라인 주문 관리자</small></a><span class="sp"></span>
+        <span class="who muted" style="font-size:13.5px">${E(user.email)}</span>
+        <a class="lnk" href="shop.html" target="_blank" rel="noopener">홈페이지 보기</a>
+        <button class="lnk" id="logout">로그아웃</button></div></header>
+      <main class="wrap" style="padding-bottom:80px">
+        <div class="tabs" role="tablist">
+          <button role="tab" aria-selected="true" data-tab="p">상품 관리</button>
+          <button role="tab" aria-selected="false" data-tab="s">쇼핑 설정</button>
+        </div>
+        <section id="tab-p"></section>
+        <section id="tab-s" hidden></section>
+      </main>
+      <div class="panel" id="panel"><div class="sheet" id="sheet"></div></div>`;
+    document.getElementById("logout").onclick = () => auth.signOut();
+    app.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => {
+      app.querySelectorAll("[data-tab]").forEach(x => x.setAttribute("aria-selected", x === b));
+      document.getElementById("tab-p").hidden = b.dataset.tab !== "p";
+      document.getElementById("tab-s").hidden = b.dataset.tab !== "s";
+    });
+    loadAll();
+  }
+
+  async function loadAll() {
+    const [ps, ss] = await Promise.all([db.collection("products").get(), db.collection("shop").doc("settings").get()]);
+    products = ps.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (a.rank || 999) - (b.rank || 999));
+    settings = Object.assign({}, SHOP, ss.exists ? ss.data() : {});
+    renderList(); renderSettings();
+  }
+
+  /* ───── 상품 목록 ───── */
+  function renderList() {
+    const box = document.getElementById("tab-p");
+    const seed = !products.length ? `<div class="notice"><span>아직 관리자에 등록된 상품이 없어요. 지금 홈페이지에 있는 상품 ${PRODUCTS.length}개를 그대로 불러올까요?</span><span class="sp"></span><button class="btn fill sm" id="seed">기존 상품 불러오기</button></div>` : "";
+    box.innerHTML = `${seed}
+      <div class="bar">
+        <input type="search" id="q" placeholder="상품명 검색" value="${E(filter.q)}">
+        <select id="fc"><option value="">전체 분류</option>${CATS.map(c => `<option value="${c.key}"${filter.cat === c.key ? " selected" : ""}>${c.label}</option>`).join("")}</select>
+        <span class="sp"></span>
+        <button class="btn fill" id="new">＋ 새 상품</button>
+      </div>
+      <p class="muted" style="font-size:13.5px;margin:0 0 10px">▲▼로 홈페이지 진열 순서를 바꿀 수 있어요. 품절·숨김·베스트는 누르면 바로 저장돼요.</p>
+      <div class="list" id="list"></div>`;
+    const list = document.getElementById("list");
+    const shown = products.filter(p => (!filter.cat || p.cat === filter.cat) && (!filter.q || (p.name || "").includes(filter.q)));
+    list.innerHTML = shown.length ? shown.map(p => `
+      <div class="row${p.hidden ? " hid" : ""}" data-id="${E(p.id)}">
+        <div class="ord"><button type="button" data-mv="-1" aria-label="위로">▲</button><button type="button" data-mv="1" aria-label="아래로">▼</button></div>
+        <img src="${E(p.thumb || "")}" alt="" loading="lazy">
+        <div class="info"><div class="nm">${E(p.name)}</div>
+          <div class="meta"><b>${won(p.price)}</b> · ${catLabel(p.cat)}${p.options && p.options.items && p.options.items.length ? ` · 옵션 ${p.options.items.length}개` : ""} · 상세 ${(p.detail || []).length}장</div></div>
+        <div class="chips">
+          <label class="tog"><input type="checkbox" data-flag="soldout"${p.soldout ? " checked" : ""}>품절</label>
+          <label class="tog"><input type="checkbox" data-flag="hidden"${p.hidden ? " checked" : ""}>숨김</label>
+          <label class="tog best"><input type="checkbox" data-flag="best"${p.best ? " checked" : ""}>베스트</label>
+        </div>
+        <button class="btn sm edit" type="button" data-edit>수정</button>
+      </div>`).join("") : '<p class="empty">상품이 없어요.</p>';
+
+    const q = document.getElementById("q");
+    q.oninput = () => { filter.q = q.value.trim(); const pos = q.selectionStart; renderList(); const n = document.getElementById("q"); n.focus(); n.setSelectionRange(pos, pos); };
+    document.getElementById("fc").onchange = e => { filter.cat = e.target.value; renderList(); };
+    document.getElementById("new").onclick = () => openEditor(null);
+    const sb = document.getElementById("seed"); if (sb) sb.onclick = seedAll;
+    list.onclick = async e => {
+      const row = e.target.closest(".row"); if (!row) return;
+      const p = products.find(x => x.id === row.dataset.id);
+      if (e.target.closest("[data-edit]")) return openEditor(p);
+      const mv = e.target.closest("[data-mv]");
+      if (mv) {
+        const i = products.indexOf(p), j = i + +mv.dataset.mv;
+        if (j < 0 || j >= products.length) return;
+        [products[i], products[j]] = [products[j], products[i]];
+        const batch = db.batch();
+        products.forEach((x, k) => { if (x.rank !== k + 1) { x.rank = k + 1; batch.update(db.collection("products").doc(x.id), { rank: k + 1 }); } });
+        renderList();
+        try { await batch.commit(); } catch (err) { toast("순서를 저장하지 못했어요."); }
+      }
+    };
+    list.onchange = async e => {
+      const f = e.target.dataset.flag; if (!f) return;
+      const p = products.find(x => x.id === e.target.closest(".row").dataset.id);
+      p[f] = e.target.checked;
+      try { await db.collection("products").doc(p.id).update({ [f]: p[f] }); toast(`${p.name} · ${({ soldout: "품절", hidden: "숨김", best: "베스트" })[f]} ${p[f] ? "켬" : "끔"}`); renderList(); }
+      catch (err) { toast("저장하지 못했어요."); }
+    };
+  }
+
+  async function seedAll() {
+    const b = document.getElementById("seed"); b.disabled = true; b.textContent = "불러오는 중…";
+    try {
+      const batch = db.batch();
+      PRODUCTS.forEach(p => { const { id, ...rest } = p; batch.set(db.collection("products").doc(id), rest); });
+      batch.set(db.collection("shop").doc("settings"), { shippingFee: SHOP.shippingFee, freeShippingOver: SHOP.freeShippingOver, minOrder: SHOP.minOrder, makeDays: SHOP.makeDays, kakaoChat: SHOP.kakaoChat }, { merge: true });
+      await batch.commit(); toast("상품을 불러왔어요."); loadAll();
+    } catch (err) { b.disabled = false; b.textContent = "기존 상품 불러오기"; toast("불러오지 못했어요. 권한을 확인해 주세요."); }
+  }
+
+  /* ───── 이미지 줄이기 · 올리기 ───── */
+  function shrink(file, maxW) {
+    return new Promise((res, rej) => {
+      const url = URL.createObjectURL(file), im = new Image();
+      im.onload = () => {
+        const s = Math.min(1, maxW / im.naturalWidth), w = Math.round(im.naturalWidth * s), h = Math.round(im.naturalHeight * s);
+        const c = document.createElement("canvas"); c.width = w; c.height = h;
+        const x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, w, h); x.drawImage(im, 0, 0, w, h);
+        URL.revokeObjectURL(url);
+        c.toBlob(b => b ? res(b) : rej(new Error("변환 실패")), "image/jpeg", 0.86);
+      };
+      im.onerror = () => { URL.revokeObjectURL(url); rej(new Error("이미지를 읽지 못했어요")); };
+      im.src = url;
+    });
+  }
+  async function upload(pid, file, maxW) {
+    const blob = await shrink(file, maxW);
+    const ref = st.ref(`products/${pid}/${Date.now()}_${Math.random().toString(36).slice(2, 7)}.jpg`);
+    await ref.put(blob, { contentType: "image/jpeg", cacheControl: "public,max-age=31536000" });
+    return ref.getDownloadURL();
+  }
+  const isStorage = u => /firebasestorage\.googleapis\.com|firebasestorage\.app/.test(u || "");
+
+  /* ───── 상품 편집 ───── */
+  function openEditor(src) {
+    const isNew = !src;
+    const p = JSON.parse(JSON.stringify(src || { name: "", price: 0, cat: CATS[0].key, detail: [], spec: {} }));
+    if (isNew) p.id = "p" + Date.now().toString(36);
+    p.options = p.options || { title: "", items: [] };
+    p.spec = p.spec || {}; p.detail = p.detail || [];
+    const removed = [];
+    const panel = document.getElementById("panel"), sheet = document.getElementById("sheet");
+
+    function draw() {
+      sheet.innerHTML = `
+        <div class="sheet-head"><h2>${isNew ? "새 상품 등록" : "상품 수정"}</h2><button class="x" type="button" data-close aria-label="닫기">✕</button></div>
+        <div class="sheet-body">
+          <div class="card"><h3>기본 정보</h3>
+            <div class="fld"><label for="e-name">상품명</label><input id="e-name" value="${E(p.name)}" placeholder="예) 꼬꼬 안심 져키"></div>
+            <div class="two">
+              <div class="fld"><label for="e-price">판매가 (원)</label><input id="e-price" type="number" inputmode="numeric" min="0" step="100" value="${+p.price || 0}"></div>
+              <div class="fld"><label for="e-cat">분류</label><select id="e-cat">${CATS.map(c => `<option value="${c.key}"${p.cat === c.key ? " selected" : ""}>${c.label}</option>`).join("")}</select></div>
+            </div>
+            <div class="fld"><label for="e-sum">한 줄 소개 <small>(선택 · 상품명 아래에 보여요)</small></label><input id="e-sum" value="${E(p.summary || "")}"></div>
+            <div class="chips">
+              <label class="tog"><input type="checkbox" id="e-so"${p.soldout ? " checked" : ""}>품절</label>
+              <label class="tog"><input type="checkbox" id="e-hd"${p.hidden ? " checked" : ""}>숨김</label>
+              <label class="tog best"><input type="checkbox" id="e-bs"${p.best ? " checked" : ""}>베스트</label>
+            </div>
+          </div>
+
+          <div class="card"><h3>대표 사진</h3>
+            <div class="thumb-box"><img id="e-thumb" src="${E(p.thumb || "")}" alt="">
+              <div><label class="btn">사진 바꾸기<input type="file" accept="image/*" id="e-thumb-f" hidden></label>
+              <p class="muted" style="font-size:13px;margin:8px 0 0">정사각형 사진이 가장 예쁘게 보여요.</p><p class="prog" id="thumb-prog"></p></div></div>
+          </div>
+
+          <div class="card"><h3>옵션 <small class="muted" style="font-weight:400;font-size:13px">(없으면 비워두세요)</small></h3>
+            <div class="fld"><label for="e-ot">옵션 이름</label><input id="e-ot" value="${E(p.options.title)}" placeholder="예) 구성, 모양, 사이즈"></div>
+            <div id="opts">${p.options.items.map((o, i) => `
+              <div class="opt-row" data-i="${i}">
+                <input data-k="label" value="${E(o.label)}" placeholder="옵션 내용" aria-label="옵션 내용">
+                <input data-k="add" type="number" step="100" value="${+o.add || 0}" placeholder="추가금" aria-label="추가금(원)">
+                <label class="tog"><input type="checkbox" data-k="soldout"${o.soldout ? " checked" : ""}>품절</label>
+                <button class="x" type="button" data-del-opt="${i}" aria-label="옵션 삭제">✕</button>
+              </div>`).join("")}</div>
+            <button class="btn sm ghost" type="button" id="add-opt">＋ 옵션 추가</button>
+            <p class="muted" style="font-size:13px;margin:10px 0 0">추가금은 판매가에 더해지는 금액이에요. 같은 가격이면 0으로 두세요.</p>
+          </div>
+
+          <div class="card"><h3>상품정보</h3>
+            <div class="two">
+              <div class="fld"><label for="s-origin">원산지</label><input id="s-origin" value="${E(p.spec.origin || "")}"></div>
+              <div class="fld"><label for="s-main">주원료</label><input id="s-main" value="${E(p.spec.main || "")}"></div>
+            </div>
+            <div class="fld"><label for="s-feature">특징</label><input id="s-feature" value="${E(p.spec.feature || "")}" placeholder="예) 휴먼그레이드, 낱개포장"></div>
+            <div class="fld"><label for="s-func">기능</label><input id="s-func" value="${E(p.spec.func || "")}"></div>
+            <div class="fld"><label for="s-target">급여대상</label><input id="s-target" value="${E(p.spec.target || "")}" placeholder="예) 전연령"></div>
+          </div>
+
+          <div class="card"><h3>상세 이미지 <small class="muted" style="font-weight:400;font-size:13px">(${p.detail.length}장 · 위에서부터 순서대로 보여요)</small></h3>
+            <div class="dets" id="dets">${p.detail.map((u, i) => `
+              <div class="det"><img src="${E(u)}" alt="" loading="lazy"><span class="n">${i + 1}</span>
+                <div class="ctl"><button type="button" data-dm="${i}" data-d="-1" aria-label="앞으로">◀</button><button type="button" data-dx="${i}" aria-label="삭제">✕</button><button type="button" data-dm="${i}" data-d="1" aria-label="뒤로">▶</button></div></div>`).join("")}</div>
+            <label class="drop" id="drop">이미지를 끌어다 놓거나 눌러서 추가하세요 (여러 장 가능)<input type="file" accept="image/*" multiple id="e-det-f" hidden></label>
+            <p class="prog" id="det-prog"></p>
+          </div>
+          ${isNew ? "" : `<div><button class="btn danger" type="button" id="e-del">이 상품 삭제</button></div>`}
+        </div>
+        <div class="sheet-foot"><button class="btn ghost" type="button" data-close>취소</button><span class="sp"></span><button class="btn fill" type="button" id="e-save">저장</button></div>`;
+    }
+    function collect() {
+      const v = id => sheet.querySelector(id).value;
+      p.name = v("#e-name").trim(); p.price = Math.max(0, parseInt(v("#e-price"), 10) || 0); p.cat = v("#e-cat"); p.summary = v("#e-sum").trim();
+      p.soldout = sheet.querySelector("#e-so").checked; p.hidden = sheet.querySelector("#e-hd").checked; p.best = sheet.querySelector("#e-bs").checked;
+      p.options.title = v("#e-ot").trim();
+      p.options.items = [...sheet.querySelectorAll(".opt-row")].map(r => ({
+        label: r.querySelector('[data-k="label"]').value.trim(),
+        add: parseInt(r.querySelector('[data-k="add"]').value, 10) || 0,
+        soldout: r.querySelector('[data-k="soldout"]').checked
+      }));
+      ["origin", "main", "feature", "func", "target"].forEach(k => p.spec[k] = v("#s-" + k).trim());
+    }
+    draw();
+    panel.classList.add("on"); document.body.style.overflow = "hidden";
+    const close = () => { panel.classList.remove("on"); document.body.style.overflow = ""; };
+
+    async function addDetails(files) {
+      files = [...files].filter(f => f.type.startsWith("image/")); if (!files.length) return;
+      collect();
+      const pr = sheet.querySelector("#det-prog");
+      for (let i = 0; i < files.length; i++) {
+        pr.textContent = `올리는 중… ${i + 1} / ${files.length}`;
+        try { p.detail.push(await upload(p.id, files[i], 1200)); } catch (err) { toast("일부 이미지를 올리지 못했어요."); }
+      }
+      draw();
+    }
+
+    sheet.onclick = async e => {
+      if (e.target.closest("[data-close]")) return close();
+      if (e.target.id === "add-opt") { collect(); p.options.items.push({ label: "", add: 0 }); draw(); sheet.querySelector(".opt-row:last-child input").focus(); return; }
+      const dO = e.target.closest("[data-del-opt]"); if (dO) { collect(); p.options.items.splice(+dO.dataset.delOpt, 1); draw(); return; }
+      const dm = e.target.closest("[data-dm]");
+      if (dm) { collect(); const i = +dm.dataset.dm, j = i + +dm.dataset.d; if (j >= 0 && j < p.detail.length) { [p.detail[i], p.detail[j]] = [p.detail[j], p.detail[i]]; draw(); } return; }
+      const dx = e.target.closest("[data-dx]"); if (dx) { collect(); removed.push(...p.detail.splice(+dx.dataset.dx, 1)); draw(); return; }
+      if (e.target.id === "e-del") {
+        if (!confirm(`'${p.name}' 상품을 삭제할까요? 되돌릴 수 없어요.`)) return;
+        try { await db.collection("products").doc(p.id).delete(); [p.thumb, ...p.detail].filter(isStorage).forEach(u => st.refFromURL(u).delete().catch(() => {})); products = products.filter(x => x.id !== p.id); close(); renderList(); toast("삭제했어요."); }
+        catch (err) { toast("삭제하지 못했어요."); }
+        return;
+      }
+      if (e.target.id === "e-save") {
+        collect();
+        if (!p.name) { toast("상품명을 입력해 주세요."); return sheet.querySelector("#e-name").focus(); }
+        if (!p.price) { toast("판매가를 입력해 주세요."); return sheet.querySelector("#e-price").focus(); }
+        if (!p.thumb) { toast("대표 사진을 올려주세요."); return; }
+        if (p.options.items.some(o => !o.label)) { toast("비어 있는 옵션 내용을 채우거나 지워주세요."); return; }
+        const btn = e.target; btn.disabled = true; btn.textContent = "저장 중…";
+        const { id, ...data } = p;
+        if (!data.options.items.length) data.options = firebase.firestore.FieldValue.delete();
+        if (isNew) data.rank = products.length + 1;
+        data.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+        try {
+          await db.collection("products").doc(id).set(data, { merge: true });
+          removed.filter(isStorage).forEach(u => st.refFromURL(u).delete().catch(() => {}));
+          close(); toast("저장했어요. 홈페이지에 바로 반영돼요."); loadAll();
+        } catch (err) { btn.disabled = false; btn.textContent = "저장"; toast("저장하지 못했어요."); }
+      }
+    };
+    sheet.onchange = async e => {
+      if (e.target.id === "e-thumb-f" && e.target.files[0]) {
+        collect();
+        const pr = sheet.querySelector("#thumb-prog"); pr.textContent = "올리는 중…";
+        try { const old = p.thumb; p.thumb = await upload(p.id, e.target.files[0], 1200); if (old) removed.push(old); draw(); }
+        catch (err) { pr.textContent = "사진을 올리지 못했어요."; }
+      }
+      if (e.target.id === "e-det-f") addDetails(e.target.files);
+    };
+    sheet.ondragover = e => { const d = e.target.closest("#drop"); if (d) { e.preventDefault(); d.classList.add("over"); } };
+    sheet.ondragleave = e => { const d = e.target.closest("#drop"); if (d) d.classList.remove("over"); };
+    sheet.ondrop = e => { const d = e.target.closest("#drop"); if (d) { e.preventDefault(); d.classList.remove("over"); addDetails(e.dataTransfer.files); } };
+    panel.onclick = e => { if (e.target === panel) close(); };
+  }
+
+  /* ───── 쇼핑 설정 ───── */
+  function renderSettings() {
+    const box = document.getElementById("tab-s");
+    box.innerHTML = `<div class="card" style="max-width:700px"><h3>주문·배송 설정</h3>
+      <div class="set-grid">
+        <div class="fld"><label for="g-fee">배송비 (원)</label><input id="g-fee" type="number" step="100" value="${+settings.shippingFee || 0}"></div>
+        <div class="fld"><label for="g-free">무료배송 기준 (원)</label><input id="g-free" type="number" step="1000" value="${+settings.freeShippingOver || 0}"><small>상품 합계가 이 금액 이상이면 무료배송</small></div>
+        <div class="fld"><label for="g-min">최소 주문 금액 (원)</label><input id="g-min" type="number" step="1000" value="${+settings.minOrder || 0}"><small>0이면 제한 없음</small></div>
+        <div class="fld"><label for="g-days">제작 기간 (일)</label><input id="g-days" type="number" min="0" value="${+settings.makeDays || 0}"><small>상품 페이지에 "최소 ○일 소요"로 보여요</small></div>
+      </div>
+      <div class="fld"><label for="g-kakao">카카오톡 채널 채팅 주소</label><input id="g-kakao" value="${E(settings.kakaoChat || "")}"><small>주문서를 보낼 곳이에요</small></div>
+      <button class="btn fill" id="g-save" type="button">설정 저장</button></div>`;
+    document.getElementById("g-save").onclick = async () => {
+      const n = id => Math.max(0, parseInt(document.getElementById(id).value, 10) || 0);
+      const data = { shippingFee: n("g-fee"), freeShippingOver: n("g-free"), minOrder: n("g-min"), makeDays: n("g-days"), kakaoChat: document.getElementById("g-kakao").value.trim() };
+      try { await db.collection("shop").doc("settings").set(data, { merge: true }); Object.assign(settings, data); toast("설정을 저장했어요."); }
+      catch (err) { toast("저장하지 못했어요."); }
+    };
+  }
+})();
+</script>
+</body>
+</html>

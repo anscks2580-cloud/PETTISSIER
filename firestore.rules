@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 관리자: admins 컬렉션에 본인 uid 문서가 있는 계정만
+    function isAdmin() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+    // 상품·쇼핑 설정: 누구나 보기, 관리자만 수정
+    match /products/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /shop/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    // 관리자 명단: 본인 것만 확인, 수정은 콘솔에서만
+    match /admins/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

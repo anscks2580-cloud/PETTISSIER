@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>주문 완료 | 펫티시에</title>
+<meta name="description" content="펫티시에 온라인 주문 완료">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://www.pettissier.com/order-done.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="펫티시에">
+<meta property="og:title" content="주문 완료 | 펫티시에">
+<meta property="og:description" content="펫티시에 온라인 주문 완료">
+<meta property="og:url" content="https://www.pettissier.com/order-done.html">
+<meta property="og:image" content="https://www.pettissier.com/og-image.jpg">
+<meta property="og:locale" content="ko_KR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="shop.css">
+<script>try{if(sessionStorage.getItem("pt-loading"))document.documentElement.classList.add("pt-arrive")}catch(e){}</script>
+<script src="loader.js" defer></script>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a href="index.html" class="brand" aria-label="펫티시에 홈"><b>PETTISSIER</b><small>Premium Pet Dessert</small></a>
+    <a href="cart.html" class="cart-link" aria-label="장바구니"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg><span class="cart-count" data-cart-count hidden>0</span></a>
+    <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav">
+      <a href="about.html">About</a>
+      <a href="story.html">뭉치 이야기</a>
+      <a href="cakes.html">케이크</a>
+      <a href="snacks.html">수제간식</a>
+      <a href="shop.html" aria-current="page">온라인 주문</a>
+      <a href="season.html">제철 간식</a>
+      <a href="reviews.html">리뷰</a>
+      <a href="visit.html">오시는 길</a>
+    </nav>
+  </div>
+</header>
+
+<main class="sh-main"><div class="wrap"><div class="done" id="done-root"></div></div></main>
+
+<footer>
+  <div class="wrap">
+    <div>상호 펫티시에 · 대표 오종빈<br>© PETTISSIER. All rights reserved.</div>
+    <nav>
+      <a href="class.html">Class</a>
+      <a data-link="instagram" href="#" target="_blank" rel="noopener">Instagram</a>
+      <a data-link="blog" href="#" target="_blank" rel="noopener">Blog</a>
+      <a data-link="kakao" href="#" target="_blank" rel="noopener">KakaoTalk</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="floats">
+  <a class="fab" data-link="instagram" href="#" target="_blank" rel="noopener" aria-label="인스타그램 바로가기">
+    <i class="ic ig"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></i>
+    <span>인스타그램</span>
+  </a>
+  <a class="fab" data-link="kakao" href="#" target="_blank" rel="noopener" aria-label="카카오톡으로 문의하기">
+    <i class="ic kk"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="#191600" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg></i>
+    <span>카카오톡 문의</span>
+  </a>
+</div>
+
+<script src="common.js"></script>
+<script src="nav-drawer.js"></script>
+<script src="firebase-config.js"></script>
+<script src="shop-data.js"></script>
+<script src="shop.js"></script>
+<script>
+(function () {
+  const root = document.getElementById("done-root"), q = new URLSearchParams(location.search);
+  let o = null; try { o = JSON.parse(localStorage.getItem("pt-last-order")); } catch (e) {}
+  if (q.get("fail")) {
+    root.innerHTML = `<div class="mark">!</div><h1>결제가 완료되지 않았어요</h1><p>${q.get("message") || "결제가 취소되었거나 오류가 있었어요."}</p><div class="btns"><a class="btn fill" href="checkout.html">다시 시도하기</a><a class="btn" href="cart.html">장바구니로</a></div>`;
+    return;
+  }
+  if (!o) { root.innerHTML = '<h1>주문 정보가 없어요</h1><p>이미 처리된 주문이거나 다른 기기에서 주문하셨을 수 있어요.</p><div class="btns"><a class="btn fill" href="shop.html">온라인 주문으로</a></div>'; return; }
+  const lines = [
+    "[펫티시에 주문서]",
+    "주문번호: " + o.id,
+    "",
+    ...o.items.map(i => `· ${i.name} × ${i.qty}  ${(i.price * i.qty).toLocaleString("ko-KR")}원`),
+    "",
+    "상품 금액: " + o.subtotal.toLocaleString("ko-KR") + "원",
+    "배송비: " + (o.shipping ? o.shipping.toLocaleString("ko-KR") + "원" : "무료"),
+    "총 금액: " + o.total.toLocaleString("ko-KR") + "원",
+    "",
+    "주문자: " + o.buyer.name + " / " + o.buyer.tel,
+    ...(o.recv ? ["받는 분: " + o.recv.name + " / " + o.recv.tel] : []),
+    "주소: " + o.addr,
+    ...(o.memo ? ["요청사항: " + o.memo] : [])
+  ].join("\n");
+  if (q.get("mode") === "kakao") {
+    root.innerHTML = `<div class="mark">✓</div><h1>주문서가 만들어졌어요</h1>
+      <p>아래 주문서를 복사해서 카카오톡 채널로 보내주세요.<br>제작 일정을 확인한 뒤 결제링크를 보내드려요.</p>
+      <pre id="sheet">${Shop.esc(lines)}</pre>
+      <div class="btns"><button type="button" class="btn" id="copy">주문서 복사</button><a class="btn kakao" id="kakao" href="${SHOP.kakaoChat}" target="_blank" rel="noopener">카카오톡으로 보내기</a></div>
+      <p style="font-size:14px;margin-top:18px">카카오톡으로 보내기를 누르면 주문서가 자동으로 복사돼요. 채팅창에 붙여넣기만 하면 돼요.</p>`;
+    const copy = async () => { try { await navigator.clipboard.writeText(lines); Shop.toast("주문서를 복사했어요."); return true; } catch (e) { const r = document.createRange(); r.selectNodeContents(document.getElementById("sheet")); getSelection().removeAllRanges(); getSelection().addRange(r); Shop.toast("주문서를 선택했어요. 복사해 주세요."); return false; } };
+    document.getElementById("copy").onclick = copy;
+    document.getElementById("kakao").addEventListener("click", () => { copy(); Shop.clear(); });
+    return;
+  }
+  // 토스페이먼츠 결제 후 돌아온 경우
+  const paymentKey = q.get("paymentKey"), amount = +q.get("amount"), orderId = q.get("orderId");
+  if (!paymentKey || orderId !== o.id || amount !== o.total) {
+    root.innerHTML = '<div class="mark">!</div><h1>결제 정보를 확인할 수 없어요</h1><p>금액이나 주문번호가 맞지 않아요. 카카오톡 채널로 문의해 주세요.</p>'; return;
+  }
+  root.innerHTML = '<div class="mark">…</div><h1>결제를 확인하고 있어요</h1><p>잠시만 기다려 주세요.</p>';
+  const ok = () => { Shop.clear(); root.innerHTML = `<div class="mark">✓</div><h1>주문이 완료됐어요</h1><p>주문번호 ${o.id}<br>제작 일정은 카카오톡이나 문자로 안내해 드려요.</p><pre>${lines.replace(/</g, "&lt;")}</pre><div class="btns"><a class="btn fill" href="shop.html">계속 둘러보기</a></div>`; };
+  if (!SHOP.confirmUrl) {
+    root.innerHTML = '<div class="mark">!</div><h1>테스트 결제가 끝났어요</h1><p>결제 승인 서버가 아직 연결되지 않아 실제 결제는 이뤄지지 않았어요.</p><pre>' + lines.replace(/</g, "&lt;") + '</pre>';
+    return;
+  }
+  fetch(SHOP.confirmUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ paymentKey, orderId, amount, order: o }) })
+    .then(r => r.ok ? ok() : r.json().then(j => Promise.reject(j)))
+    .catch(j => { root.innerHTML = `<div class="mark">!</div><h1>결제 승인에 실패했어요</h1><p>${(j && j.message) || "잠시 후 다시 시도하거나 카카오톡 채널로 문의해 주세요."}</p>`; });
+})();
+</script>
+</body>
+</html>
