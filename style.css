@@ -414,7 +414,7 @@ html.pt-arrive body{opacity:0;animation:ptSafe 0s 3s forwards}
 .pt-bark .cap b{font-family:var(--serif);font-size:clamp(20px,5vw,24px);color:var(--ink);letter-spacing:.02em}
 .pt-bark .cap small{font-family:var(--latin);font-size:12.5px;font-weight:600;letter-spacing:.28em;padding-left:.28em}
 .mb-stage{position:relative;width:min(220px,56vw);aspect-ratio:220/263}
-.mb-f{position:absolute;inset:0;width:100%;height:100%;opacity:0;animation-duration:.75s;animation-iteration-count:infinite;animation-timing-function:step-end}
+.mb-f{position:absolute;inset:0;width:100%;height:100%;opacity:0;animation-duration:.75s;animation-iteration-count:var(--barks,2);animation-fill-mode:forwards;animation-timing-function:step-end}
 .mb-f1{animation-name:mbF1}.mb-f2{animation-name:mbF2}.mb-f3{animation-name:mbF3}.mb-f4{animation-name:mbF4}.mb-f5{animation-name:mbF5}.mb-f6{animation-name:mbF6}
 @keyframes mbF1{0%{opacity:1}12%,100%{opacity:0}}
 @keyframes mbF2{0%{opacity:0}12%{opacity:1}24%,100%{opacity:0}}
@@ -426,6 +426,9 @@ html.pt-arrive body{opacity:0;animation:ptSafe 0s 3s forwards}
 .mb-woof{position:absolute;left:80%;top:-6%;font-family:var(--sans);font-weight:700;font-size:21px;color:var(--wood);white-space:nowrap;opacity:0;animation:mbWoof .75s cubic-bezier(.2,1.4,.4,1) infinite}
 @keyframes mbMarks{0%,22%{opacity:0;transform:scale(.4)}30%{opacity:1;transform:scale(1.08)}56%{opacity:1;transform:scale(1)}68%,100%{opacity:0;transform:scale(1.15)}}
 @keyframes mbWoof{0%,26%{opacity:0;transform:translateY(8px) scale(.5) rotate(-8deg)}38%{opacity:1;transform:scale(1.08) rotate(-4deg)}60%{opacity:1;transform:translateY(-2px) scale(1) rotate(-4deg)}74%,100%{opacity:0;transform:translateY(-8px) rotate(-4deg)}}
+.pt-bark svg.mb-marks,.mb-woof{animation-iteration-count:var(--barks,2);animation-fill-mode:forwards}
+#pt-loader.still .mb-f,#pt-loader.still .pt-bark svg.mb-marks,#pt-loader.still .mb-woof{animation:none}
+#pt-loader.still .mb-f6{opacity:1}
 @media (prefers-reduced-motion:reduce){.mb-f1{opacity:1!important}}
 
 /* ===== 제철 간식 (season.html) ===== */
@@ -463,7 +466,7 @@ html.pt-arrive body{opacity:0;animation:ptSafe 0s 3s forwards}
 .ss-reasons{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);counter-reset:r}
 .ss-reasons li{counter-increment:r;padding:30px 28px 34px;border-top:1.5px solid var(--line);border-bottom:1.5px solid var(--line);border-left:1.5px solid var(--line)}
 .ss-reasons li:last-child{border-right:1.5px solid var(--line)}
-.ss-reasons li::before{content:"0" counter(r);display:block;font-family:var(--latin);font-size:34px;font-weight:600;color:var(--wood);line-height:1;margin-bottom:18px}
+.ss-reasons li::before{content:"0" counter(r);display:block;font-family:"Helvetica Neue",Arial,var(--sans);font-size:30px;font-weight:600;font-variant-numeric:lining-nums tabular-nums;letter-spacing:.02em;color:var(--wood);line-height:1;margin-bottom:18px}
 .ss-reasons h3{font-size:21px;margin-bottom:10px}
 .ss-reasons p{margin:0;font-size:15.5px;color:var(--muted)}
 
@@ -527,3 +530,12 @@ html.pt-arrive body{opacity:0;animation:ptSafe 0s 3s forwards}
   .ss-seasons{grid-template-columns:1fr;gap:12px}
   .ss-cta .wrap{padding-top:70px}
 }
+
+/* 수제간식 : 열빙어 주문 버튼 · 사계절 간식 안내 */
+.ss-buy{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.ss-always{margin-top:28px;display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;border:1.5px solid var(--line);border-radius:24px;padding:26px 30px;background:var(--paper)}
+.ss-always svg{width:52px;height:52px}
+.ss-always h3{font-size:20px;margin-bottom:6px}
+.ss-always p{margin:0;color:var(--muted);font-size:15.5px}
+@media (max-width:760px){.ss-always{grid-template-columns:1fr;gap:12px;padding:22px}}
+.nav a .nav-bag{display:inline-block;width:17px;height:17px;vertical-align:-2px;margin-left:6px}

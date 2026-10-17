@@ -4,7 +4,8 @@
    - MODE = "write" : PETTISSIER 가 한 글자씩 적히는 화면 (기본)
      MODE = "dog"   : 강아지가 0 → 100% 달려가는 화면
    - 캐릭터를 바꾸려면(dog 모드): RUNNER_IMG 에 이미지 경로(예: "dog.png")를 넣으세요.
-   - 뭉치 이야기(story.html)로 갈 때만 : 뭉치(복슬 강아지)가 고개를 들고 "멍!" 세 번 짖는 화면 (mungchi/bark 폴더 그림 6장)
+   - 뭉치 이야기(story.html)로 갈 때만 : 뭉치(복슬 강아지)가 고개를 들고 "멍!" 짖는 화면 (mungchi/bark 폴더 그림 6장)
+     짖는 횟수는 BARKS 로 정해요. 도착한 페이지에서는 더 짖지 않고 가만히 있다가 걷혀요.
      (BARK_PAGES 에 파일 이름을 넣으면 그 페이지도 같은 화면이 나와요)
    ========================================================================== */
 (function () {
@@ -13,7 +14,8 @@
   const RUNNER_IMG = null;     // 예: "dog.png"  (투명 배경 PNG/SVG, 왼쪽을 보고 있는 그림 권장)
   const RUNNER_W   = 116;      // 캐릭터 가로 크기(px)
   const BARK_PAGES = ["story.html"];  // 뭉치가 짖는 로딩을 보여줄 페이지
-  const DURS       = { write: 900, dog: 1200, bark: 2250 };  // 로딩 화면이 보이는 시간(ms) — bark 는 750 단위로: 1500=두 번, 2250=세 번, 3000=네 번 짖어요
+  const BARKS      = 2;        // 뭉치가 짖는 횟수 (한 번에 0.75초)
+  const DURS       = { write: 900, dog: 1200, bark: BARKS * 750 };  // 로딩 화면이 보이는 시간(ms)
   const HOLD       = 200;      // 다 적힌(100%) 뒤 잠깐 멈춤(ms)
 
   const STROKE = "#231F1C", YELLOW = "#FFD900";
@@ -57,7 +59,7 @@
 
 
   // 뭉치 캐릭터 : 짖는 모션 6프레임 (뭉치사진/복슬 강아지 짖는 모션 시트.png 에서 잘라낸 그림)
-  // 1 대기 → 2 입 열기 → 3 짖는 순간 → 4 짖는 모션 유지 → 5 입 다물기 → 6 기본 자세 (0.75초에 한 번, 세 번 짖어요)
+  // 1 대기 → 2 입 열기 → 3 짖는 순간 → 4 짖는 모션 유지 → 5 입 다물기 → 6 기본 자세 (0.75초에 한 번, BARKS 번 짖어요)
   const BARK_FRAMES = [1, 2, 3, 4, 5, 6].map((n) => `mungchi/bark/bark${n}.webp`);
   const BARK_HTML = `
 <div class="mb-stage">
@@ -84,6 +86,7 @@
     el.style.setProperty("--pt-dur", dur + "ms");
     if (mode === "bark") {
       el.classList.add("pt-mode-bark");
+      el.style.setProperty("--barks", BARKS);
       el.innerHTML = `
         <div class="pt-bark" aria-hidden="true">
           ${BARK_HTML}
@@ -157,11 +160,12 @@
     if (!flag) { document.documentElement.classList.remove("pt-arrive"); return; }
     build(flag === "bark" ? "bark" : MODE); setP(1);
     el.classList.add("show", "instant", "done");
+    if (flag === "bark") el.classList.add("still");   // 도착한 뒤에는 더 짖지 않기
     document.documentElement.classList.remove("pt-arrive");
     const start = performance.now();
     const finish = () => setTimeout(() => {
       el.classList.remove("instant"); el.classList.add("out");
-      setTimeout(() => { el.classList.remove("show", "out", "done"); }, 600);
+      setTimeout(() => { el.classList.remove("show", "out", "done", "still"); }, 600);
     }, Math.max(0, 220 - (performance.now() - start)));
     if (document.readyState === "complete") finish(); else addEventListener("load", finish, { once: true });
   }
@@ -171,5 +175,5 @@
   addEventListener("load", () => setTimeout(() => BARK_FRAMES.forEach((src) => { const im = new Image(); im.src = src; }), 600), { once: true });
 
   // 뒤로가기(캐시 복원) 시 로딩 화면이 남아있지 않게
-  addEventListener("pageshow", (e) => { if (e.persisted && el) { el.classList.remove("show", "out", "instant", "run", "done"); busy = false; } });
+  addEventListener("pageshow", (e) => { if (e.persisted && el) { el.classList.remove("show", "out", "instant", "run", "done", "still"); busy = false; } });
 })();
