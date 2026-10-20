@@ -158,7 +158,7 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
   function loginView(msg) {
     app.innerHTML = `<div class="login"><form class="card" id="lf">
       <h1>PETTISSIER</h1><p class="sub">온라인 주문 관리자</p>
-      <div class="fld"><label for="em">아이디(이메일)</label><input id="em" type="email" autocomplete="username" required></div>
+      <div class="fld"><label for="em">아이디</label><input id="em" type="text" autocomplete="username" autocapitalize="off" spellcheck="false" required></div>
       <div class="fld"><label for="pw">비밀번호</label><input id="pw" type="password" autocomplete="current-password" required></div>
       <p class="err" id="le">${E(msg || "")}</p>
       <button class="btn fill" style="width:100%" type="submit">로그인</button>
@@ -166,7 +166,9 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
     document.getElementById("lf").onsubmit = async e => {
       e.preventDefault();
       const le = document.getElementById("le"); le.textContent = "";
-      try { await auth.signInWithEmailAndPassword(document.getElementById("em").value.trim(), document.getElementById("pw").value); }
+      // 아이디만 입력하면 내부적으로 "아이디@pettissier.com" 계정으로 로그인해요 (이메일을 그대로 입력해도 돼요)
+      const id = document.getElementById("em").value.trim().toLowerCase();
+      try { await auth.signInWithEmailAndPassword(id.includes("@") ? id : id + "@pettissier.com", document.getElementById("pw").value); }
       catch (err) { le.textContent = /password|credential|user/.test(err.code || "") ? "아이디 또는 비밀번호가 맞지 않아요." : "로그인하지 못했어요. 잠시 후 다시 시도해 주세요."; }
     };
   }
