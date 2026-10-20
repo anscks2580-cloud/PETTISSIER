@@ -168,7 +168,10 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
       const le = document.getElementById("le"); le.textContent = "";
       // 아이디만 입력하면 내부적으로 "아이디@pettissier.com" 계정으로 로그인해요 (이메일을 그대로 입력해도 돼요)
       const id = document.getElementById("em").value.trim().toLowerCase();
-      try { await auth.signInWithEmailAndPassword(id.includes("@") ? id : id + "@pettissier.com", document.getElementById("pw").value); }
+      // 바꾼 아이디가 있으면 그 연결을 먼저 찾아요 (adminLogins/아이디)
+      let mail = id.includes("@") ? id : id + "@pettissier.com";
+      if (!id.includes("@")) { try { const m = await db.collection("adminLogins").doc(id).get(); if (m.exists && m.data().email) mail = m.data().email; } catch (x) {} }
+      try { await auth.signInWithEmailAndPassword(mail, document.getElementById("pw").value); }
       catch (err) { le.textContent = /password|credential|user/.test(err.code || "") ? "아이디 또는 비밀번호가 맞지 않아요." : "로그인하지 못했어요. 잠시 후 다시 시도해 주세요."; }
     };
   }
@@ -194,6 +197,7 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
         <a class="brand" href="admin.html">PETTISSIER<small>온라인 주문 관리자</small></a><span class="sp"></span>
         <span class="who muted" style="font-size:13.5px">${E(user.email)}</span>
         <a class="lnk" href="shop.html" target="_blank" rel="noopener">홈페이지 보기</a>
+        <button class="lnk" id="chid">아이디 변경</button>
         <button class="lnk" id="chpw">비밀번호 변경</button>
         <button class="lnk" id="logout">로그아웃</button></div></header>
       <main class="wrap" style="padding-bottom:80px">
@@ -211,6 +215,7 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
       <div class="panel" id="panel"><div class="sheet" id="sheet"></div></div>`;
     document.getElementById("logout").onclick = () => auth.signOut();
     document.getElementById("chpw").onclick = openPassword;
+    document.getElementById("chid").onclick = openLoginId;
     app.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => {
       app.querySelectorAll("[data-tab]").forEach(x => x.setAttribute("aria-selected", x === b));
       ["p", "o", "m", "s"].forEach(k => document.getElementById("tab-" + k).hidden = b.dataset.tab !== k);
@@ -365,6 +370,43 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
   const isStorage = u => /firebasestorage\.googleapis\.com|firebasestorage\.app/.test(u || "");
 
   /* ───── 상품 편집 ───── */
+  /* ───── 관리자 아이디 변경 ───── */
+  async function openLoginId() {
+    const panel = document.getElementById("panel"), sheet = document.getElementById("sheet");
+    const u = auth.currentUser;
+    let cur = "";
+    try { const q = await db.collection("adminLogins").where("uid", "==", u.uid).get(); if (!q.empty) cur = q.docs[0].id; } catch (x) {}
+    if (!cur && /@pettissier\.com$/.test(u.email)) cur = u.email.split("@")[0];
+    sheet.innerHTML = `
+      <div class="sheet-head"><h2>아이디 변경</h2><button class="x" type="button" data-close aria-label="닫기">✕</button></div>
+      <div class="sheet-body"><form class="card" id="idf" style="max-width:460px">
+        <div class="fld"><label>지금 아이디</label><input value="${E(cur || u.email)}" disabled></div>
+        <div class="fld"><label for="id-new">새 아이디</label><input id="id-new" autocapitalize="off" spellcheck="false" maxlength="16"><small>영문 소문자로 시작, 영문·숫자·밑줄(_) 4~16자</small></div>
+        <p class="err" id="id-err"></p>
+        <button class="btn fill" type="submit" id="id-btn">아이디 바꾸기</button>
+      </form></div>`;
+    panel.classList.add("on"); document.body.style.overflow = "hidden";
+    const close = () => { panel.classList.remove("on"); document.body.style.overflow = ""; };
+    sheet.querySelector("[data-close]").onclick = close;
+    panel.onclick = e => { if (e.target === panel) close(); };
+    document.getElementById("idf").onsubmit = async e => {
+      e.preventDefault();
+      const err = document.getElementById("id-err"), btn = document.getElementById("id-btn"); err.textContent = "";
+      const nid = document.getElementById("id-new").value.trim().toLowerCase();
+      if (!/^[a-z][a-z0-9_]{3,15}$/.test(nid)) { err.textContent = "영문 소문자로 시작하는 4~16자(영문·숫자·밑줄)로 정해 주세요."; return; }
+      if (nid === cur) { err.textContent = "지금 아이디와 같아요."; return; }
+      btn.disabled = true;
+      try {
+        const ex = await db.collection("adminLogins").doc(nid).get();
+        if (ex.exists) { err.textContent = "이미 사용 중인 아이디예요."; btn.disabled = false; return; }
+        await db.collection("adminLogins").doc(nid).set({ uid: u.uid, email: u.email });
+        if (cur) { try { await db.collection("adminLogins").doc(cur).delete(); } catch (x) {} }
+        close(); toast("아이디를 바꿨어요. 다음 로그인부터 " + nid + " 로 로그인하세요.");
+      } catch (x) { err.textContent = "바꾸지 못했어요. 잠시 후 다시 시도해 주세요."; }
+      btn.disabled = false;
+    };
+  }
+
   /* ───── 관리자 비밀번호 변경 ───── */
   function openPassword() {
     const panel = document.getElementById("panel"), sheet = document.getElementById("sheet");

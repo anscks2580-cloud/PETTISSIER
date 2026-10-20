@@ -66,6 +66,19 @@ service cloud.firestore {
       allow update, delete: if isAdmin();
     }
 
+    // 관리자 로그인 아이디: 아이디 하나씩만 확인 가능, 관리자 본인만 만들고 지우기
+    match /adminLogins/{id} {
+      allow get: if true;
+      allow list: if isAdmin() && resource.data.uid == request.auth.uid;
+      allow create: if isAdmin()
+        && id.matches('^[a-z][a-z0-9_]{3,15}$')
+        && request.resource.data.keys().hasOnly(['uid','email'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.email == request.auth.token.email;
+      allow update: if false;
+      allow delete: if isAdmin() && resource.data.uid == request.auth.uid;
+    }
+
     // 관리자 명단: 본인 것만 확인, 수정은 콘솔에서만
     match /admins/{uid} {
       allow read: if request.auth != null && request.auth.uid == uid;
