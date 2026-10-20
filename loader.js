@@ -14,6 +14,8 @@
   const RUNNER_IMG = null;     // 예: "dog.png"  (투명 배경 PNG/SVG, 왼쪽을 보고 있는 그림 권장)
   const RUNNER_W   = 116;      // 캐릭터 가로 크기(px)
   const BARK_PAGES = ["story.html"];  // 뭉치가 짖는 로딩을 보여줄 페이지
+  // 온라인 주문 안에서 오가는 페이지 : 이 페이지들끼리 이동할 때는 로딩 화면 없이 바로 넘어가요
+  const SHOP_PAGES = ["shop.html", "product.html", "cart.html", "checkout.html", "order-done.html", "login.html", "signup.html", "mypage.html", "find-password.html"];
   const BARKS      = 2;        // 뭉치가 짖는 횟수 (한 번에 0.75초)
   const DURS       = { write: 900, dog: 1200, bark: BARKS * 750 };  // 로딩 화면이 보이는 시간(ms)
   const HOLD       = 200;      // 다 적힌(100%) 뒤 잠깐 멈춤(ms)
@@ -150,6 +152,8 @@
     let u; try { u = new URL(a.href, location.href); } catch (_) { return; }
     if (u.protocol !== location.protocol || u.host !== location.host) return;   // 외부 링크·전화·메일 제외
     if (u.pathname === location.pathname) return;                                // 같은 페이지 안 이동 제외
+    const isShop = (p) => SHOP_PAGES.some((f) => p.endsWith("/" + f));
+    if (isShop(location.pathname) && isShop(u.pathname)) return;                // 온라인 주문 안에서는 로딩 없이 이동
     e.preventDefault();
     go(u.href, modeFor(u));
   });

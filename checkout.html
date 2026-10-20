@@ -45,6 +45,7 @@
   <div class="wrap">
     <div class="sh-crumb"><a href="cart.html">장바구니</a> › 주문서</div>
     <div class="sh-head"><div><h1>주문서</h1></div></div>
+    <div id="co-member"></div>
     <form id="co-form" class="co" novalidate>
       <div>
         <div class="co-box">
@@ -110,6 +111,7 @@
 <script src="firebase-config.js"></script>
 <script src="shop-data.js"></script>
 <script src="shop.js"></script>
+<script src="auth.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 function summaryHTML(t, cta) {
@@ -153,6 +155,20 @@ Shop.ready.then(function () {
       <p>주문서를 보내주시면 제작 일정을 확인한 뒤 카카오톡으로 결제링크를 보내드려요. 결제가 끝나면 제작을 시작해요.</p></div></div>`;
   }
 
+  // 회원 : 로그인했으면 정보 채우기, 아니면 로그인 안내 (비회원 주문도 가능)
+  Auth.ready.then(u => {
+    const box = $("#co-member");
+    if (u) {
+      box.innerHTML = `<div class="co-member"><span><b>${Auth.esc(u.name || u.email)}</b>님으로 주문해요. 주문 내역은 내 정보에서 볼 수 있어요.</span></div>`;
+      const fill = (sel, v) => { if (v && !$(sel).value) $(sel).value = v; };
+      fill("#o-name", u.name); fill("#o-tel", u.tel); fill("#o-mail", u.email);
+      fill("#zip", u.zip); fill("#addr1", u.addr1); fill("#addr2", u.addr2);
+    } else {
+      box.innerHTML = `<div class="co-member"><span>회원으로 주문하면 주문 내역 확인과 배송지 불러오기가 편해요.</span><span class="sp"></span>
+        <a class="btn fill" href="login.html?next=checkout.html">로그인</a><a class="btn" href="signup.html?next=checkout.html">회원가입</a></div>`;
+    }
+  });
+
   $("#same").addEventListener("change", e => { $("#recv").hidden = e.target.checked; });
   $("#find-zip").addEventListener("click", () => {
     if (!window.daum || !daum.Postcode) { alert("주소 검색을 불러오는 중이에요. 잠시 후 다시 눌러주세요."); return; }
@@ -188,6 +204,8 @@ Shop.ready.then(function () {
       subtotal: t.subtotal, shipping: t.shipping, total: t.total
     };
     try { localStorage.setItem("pt-last-order", JSON.stringify(order)); } catch (err) {}
+    order.status = toss ? "결제 대기" : "주문서 접수";
+    try { await Promise.race([Auth.saveOrder(order), new Promise(r => setTimeout(r, 5000))]); } catch (err) { /* 저장 실패해도 주문은 계속 진행 */ }
     if (!toss) { location.href = "order-done.html?mode=kakao"; return; }
     const first = label(list[0]);
     try {

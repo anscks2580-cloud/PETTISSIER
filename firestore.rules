@@ -6,6 +6,9 @@ service cloud.firestore {
       return request.auth != null
         && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
     }
+    function signedIn() { return request.auth != null; }
+    function isMe(uid) { return signedIn() && request.auth.uid == uid; }
+
     // 상품·쇼핑 설정: 누구나 보기, 관리자만 수정
     match /products/{id} {
       allow read: if true;
@@ -15,6 +18,30 @@ service cloud.firestore {
       allow read: if true;
       allow write: if isAdmin();
     }
+
+    // 고객 회원 정보: 본인만 보고 고치기, 관리자는 보기
+    match /users/{uid} {
+      allow read: if isMe(uid) || isAdmin();
+      allow create: if isMe(uid)
+        && request.resource.data.keys().hasOnly(['name','tel','email','zip','addr1','addr2','marketing','provider','agreedAt','createdAt'])
+        && request.resource.data.name is string && request.resource.data.name.size() <= 40;
+      allow update: if isMe(uid)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name','tel','zip','addr1','addr2','marketing'])
+        && request.resource.data.name is string && request.resource.data.name.size() <= 40;
+      allow delete: if isMe(uid);
+    }
+
+    // 주문: 회원·비회원 모두 접수 가능, 회원은 본인 주문만 보기, 상태 변경은 관리자만
+    match /orders/{id} {
+      allow create: if (request.resource.data.uid == null || isMe(request.resource.data.uid))
+        && request.resource.data.id == id
+        && request.resource.data.status in ['주문서 접수', '결제 대기']
+        && request.resource.data.total is number
+        && request.resource.data.items is list && request.resource.data.items.size() <= 60;
+      allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
+      allow update, delete: if isAdmin();
+    }
+
     // 관리자 명단: 본인 것만 확인, 수정은 콘솔에서만
     match /admins/{uid} {
       allow read: if request.auth != null && request.auth.uid == uid;

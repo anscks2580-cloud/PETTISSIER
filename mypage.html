@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>내 정보 | 펫티시에</title>
+<meta name="description" content="펫티시에 마이페이지 · 주문 내역">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://www.pettissier.com/mypage.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="펫티시에">
+<meta property="og:title" content="내 정보 | 펫티시에">
+<meta property="og:description" content="펫티시에 마이페이지 · 주문 내역">
+<meta property="og:url" content="https://www.pettissier.com/mypage.html">
+<meta property="og:image" content="https://www.pettissier.com/og-image.jpg">
+<meta property="og:locale" content="ko_KR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="shop.css">
+<script>try{if(sessionStorage.getItem("pt-loading"))document.documentElement.classList.add("pt-arrive")}catch(e){}</script>
+<script src="loader.js" defer></script>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a href="index.html" class="brand" aria-label="펫티시에 홈"><b>PETTISSIER</b><small>Premium Pet Dessert</small></a>
+    <a href="cart.html" class="cart-link" aria-label="장바구니"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg><span class="cart-count" data-cart-count hidden>0</span></a>
+    <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav">
+      <a href="about.html">About</a>
+      <a href="story.html">뭉치 이야기</a>
+      <a href="cakes.html">케이크</a>
+      <a href="snacks.html">수제간식</a>
+      <a href="shop.html" aria-current="page"><span>온라인 주문<svg class="nav-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg></span></a>
+      <a href="reviews.html">리뷰</a>
+      <a href="visit.html">오시는 길</a>
+    </nav>
+  </div>
+</header>
+
+<main class="sh-main">
+  <div class="wrap my">
+    <div class="sh-head"><div><h1 id="my-hi">내 정보</h1><p id="my-sub">주문 내역과 회원 정보를 확인할 수 있어요.</p></div><button type="button" class="btn" id="logout">로그아웃</button></div>
+    <p class="au-demo" id="au-demo" hidden>지금은 <b>미리보기 모드</b>예요. 가입 정보는 이 브라우저에만 임시로 저장돼요.</p>
+    <div class="my-tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-tab="orders">주문 내역</button>
+      <button role="tab" aria-selected="false" data-tab="info">회원 정보</button>
+      <button role="tab" aria-selected="false" data-tab="pw">비밀번호 변경</button>
+    </div>
+    <section id="tab-orders"><div id="orders" class="my-orders"><p class="sh-empty">불러오는 중…</p></div></section>
+    <section id="tab-info" hidden>
+      <form class="co-box my-form" id="pf" novalidate>
+        <div class="fld"><label>이메일 (아이디)</label><input id="p-em" disabled></div>
+        <div class="two">
+          <div class="fld"><label for="p-name">이름</label><input id="p-name" autocomplete="name"></div>
+          <div class="fld"><label for="p-tel">휴대폰 번호</label><input id="p-tel" type="tel" inputmode="tel" autocomplete="tel"></div>
+        </div>
+        <div class="fld"><label for="p-zip">기본 배송지</label>
+          <div class="row"><input id="p-zip" placeholder="우편번호" readonly><button type="button" class="btn" id="p-find">주소 찾기</button></div>
+          <input id="p-addr1" placeholder="기본 주소" readonly>
+          <input id="p-addr2" placeholder="상세 주소 (동·호수)">
+        </div>
+        <label class="chk"><input type="checkbox" id="p-mkt"> 새 시즌 간식·이벤트 소식 받기</label>
+        <p class="au-err" id="pe" role="alert"></p>
+        <button type="submit" class="btn fill" id="pb">저장하기</button>
+      </form>
+      <details class="my-leave"><summary>회원 탈퇴</summary>
+        <form id="lvf" novalidate><p>탈퇴하면 회원 정보가 바로 삭제되고 되돌릴 수 없어요. 주문·결제 기록은 관련 법령에 따라 5년간 보관돼요.</p>
+        <div class="fld"><label for="lv-pw">비밀번호 확인</label><input id="lv-pw" type="password" autocomplete="current-password"></div>
+        <p class="au-err" id="lve" role="alert"></p><button type="submit" class="btn">탈퇴하기</button></form>
+      </details>
+    </section>
+    <section id="tab-pw" hidden>
+      <form class="co-box my-form" id="cf" novalidate>
+        <div class="fld"><label for="c-now">지금 비밀번호</label><input id="c-now" type="password" autocomplete="current-password"></div>
+        <div class="two">
+          <div class="fld"><label for="c-new">새 비밀번호</label><input id="c-new" type="password" autocomplete="new-password"><small class="au-hint">8자 이상</small></div>
+          <div class="fld"><label for="c-new2">새 비밀번호 확인</label><input id="c-new2" type="password" autocomplete="new-password"></div>
+        </div>
+        <p class="au-err" id="ce" role="alert"></p>
+        <button type="submit" class="btn fill" id="cb">비밀번호 바꾸기</button>
+      </form>
+    </section>
+  </div>
+</main>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>상호 펫티시에 · 대표 오종빈<br>© PETTISSIER. All rights reserved.</div>
+    <nav>
+      <a href="class.html">Class</a>
+      <a data-link="instagram" href="#" target="_blank" rel="noopener">Instagram</a>
+      <a data-link="blog" href="#" target="_blank" rel="noopener">Blog</a>
+      <a data-link="kakao" href="#" target="_blank" rel="noopener">KakaoTalk</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="floats">
+  <a class="fab" data-link="instagram" href="#" target="_blank" rel="noopener" aria-label="인스타그램 바로가기">
+    <i class="ic ig"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></i>
+    <span>인스타그램</span>
+  </a>
+  <a class="fab" data-link="kakao" href="#" target="_blank" rel="noopener" aria-label="카카오톡으로 문의하기">
+    <i class="ic kk"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="#191600" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg></i>
+    <span>카카오톡 문의</span>
+  </a>
+</div>
+
+<script src="common.js"></script>
+<script src="nav-drawer.js"></script>
+<script src="firebase-config.js"></script>
+<script src="shop-data.js"></script>
+<script src="shop.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="auth.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+if (Auth.mode === "demo" && $("#au-demo")) $("#au-demo").hidden = false;
+document.querySelectorAll("[data-sns]").forEach(b => b.onclick = () => { try { Auth.social(b.dataset.sns); } catch (e) { Shop.toast(e.message); } });
+function busy(btn, on, text) { btn.disabled = on; if (text) btn.textContent = text; }
+
+Auth.ready.then(async u => {
+  if (!u) { location.replace("login.html?next=mypage.html"); return; }
+  $("#my-hi").textContent = (u.name || "회원") + "님, 반가워요";
+  if (u.provider && u.provider !== "email") document.querySelector('[data-tab="pw"]').hidden = true;
+  // 탭
+  document.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => {
+    document.querySelectorAll("[data-tab]").forEach(x => x.setAttribute("aria-selected", x === b));
+    ["orders", "info", "pw"].forEach(k => $("#tab-" + k).hidden = b.dataset.tab !== k);
+  });
+  $("#logout").onclick = async () => { await Auth.signOut(); location.replace("shop.html"); };
+
+  // 회원 정보 채우기
+  $("#p-em").value = u.email || ""; $("#p-name").value = u.name || ""; $("#p-tel").value = u.tel || "";
+  $("#p-zip").value = u.zip || ""; $("#p-addr1").value = u.addr1 || ""; $("#p-addr2").value = u.addr2 || ""; $("#p-mkt").checked = !!u.marketing;
+  $("#p-find").addEventListener("click", () => {
+    if (!window.daum || !daum.Postcode) { Shop.toast("주소 검색을 불러오는 중이에요. 잠시 후 다시 눌러주세요."); return; }
+    new daum.Postcode({ oncomplete: d => { $("#p-zip").value = d.zonecode; $("#p-addr1").value = d.roadAddress || d.jibunAddress; $("#p-addr2").focus(); } }).open();
+  });
+  ["#p-zip", "#p-addr1"].forEach(s => $(s).addEventListener("click", () => $("#p-find").click()));
+  $("#pf").addEventListener("submit", async e => {
+    e.preventDefault(); $("#pe").textContent = "";
+    if (!$("#p-name").value.trim()) { $("#pe").textContent = "이름을 입력해 주세요."; return; }
+    busy($("#pb"), true, "저장 중…");
+    try { await Auth.saveProfile({ name: $("#p-name").value, tel: $("#p-tel").value, zip: $("#p-zip").value, addr1: $("#p-addr1").value, addr2: $("#p-addr2").value, marketing: $("#p-mkt").checked }); Shop.toast("저장했어요."); $("#my-hi").textContent = Auth.user.name + "님, 반가워요"; }
+    catch (err) { $("#pe").textContent = Auth.message(err); }
+    busy($("#pb"), false, "저장하기");
+  });
+  $("#cf").addEventListener("submit", async e => {
+    e.preventDefault(); $("#ce").textContent = "";
+    if ($("#c-new").value !== $("#c-new2").value) { $("#ce").textContent = "새 비밀번호가 서로 달라요."; return; }
+    busy($("#cb"), true, "바꾸는 중…");
+    try { await Auth.changePassword($("#c-now").value, $("#c-new").value); Shop.toast("비밀번호를 바꿨어요."); $("#cf").reset(); }
+    catch (err) { $("#ce").textContent = Auth.message(err); }
+    busy($("#cb"), false, "비밀번호 바꾸기");
+  });
+  $("#lvf").addEventListener("submit", async e => {
+    e.preventDefault(); $("#lve").textContent = "";
+    if (!confirm("정말 탈퇴할까요? 되돌릴 수 없어요.")) return;
+    try { await Auth.deleteAccount($("#lv-pw").value); alert("탈퇴가 완료됐어요. 그동안 고마웠어요."); location.replace("shop.html"); }
+    catch (err) { $("#lve").textContent = Auth.message(err); }
+  });
+
+  // 주문 내역
+  let list = [];
+  try { list = await Auth.myOrders(); } catch (err) {}
+  const d = s => { const t = new Date(s); return isNaN(t) ? "" : `${t.getFullYear()}.${String(t.getMonth() + 1).padStart(2, "0")}.${String(t.getDate()).padStart(2, "0")}`; };
+  $("#orders").innerHTML = list.length ? list.map(o => `
+    <article class="my-order">
+      <header><b>${d(o.at)}</b><span>주문번호 ${Auth.esc(o.id)}</span><em>${Auth.esc(o.status || "주문 접수")}</em></header>
+      <ul>${(o.items || []).map(it => `<li><a href="product.html?id=${encodeURIComponent(it.id)}">${Auth.esc(it.name)}</a><span>${it.qty}개</span><b>${Shop.won(it.price * it.qty)}</b></li>`).join("")}</ul>
+      <footer><span>배송비 ${o.shipping ? Shop.won(o.shipping) : "무료"}</span><b>총 ${Shop.won(o.total)}</b></footer>
+    </article>`).join("")
+    : `<div class="sh-empty"><p>아직 주문 내역이 없어요.</p><a class="btn fill" href="shop.html">간식 보러 가기</a></div>`;
+});
+</script>
+</body>
+</html>

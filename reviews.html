@@ -42,13 +42,13 @@
 <main>
   <section class="reviews" id="reviews">
     <div class="wrap">
-      <div>
-        <div class="naver-badge"><i>N</i>네이버 플레이스 방문자 리뷰</div>
+      <div class="reviews-side">
+        <div class="naver-badge"><i>N</i>네이버 실제 구매 리뷰</div>
         <h2>먼저 다녀간<br>보호자님들의 이야기</h2>
         <ul class="keywords" id="keywords"></ul>
         <a class="btn" data-link="naverPlace" href="#" target="_blank" rel="noopener">네이버에서 리뷰 전체 보기</a>
       </div>
-      <div class="review-list" id="reviewList"></div>
+      <div class="review-list shots" id="reviewList"></div>
     </div>
   </section>
 </main>
@@ -93,26 +93,22 @@ const KEYWORDS = [
   { label: "포장이 꼼꼼해요", count: 45 }
 ];
 
-// 네이버 방문자 리뷰 (실제 리뷰 문구로 교체)
-// 사진 후기: 사진 파일을 같은 폴더에 넣고 photos: ["review-01.jpg", "review-02.jpg"] 처럼 적으면 카드에 사진이 보여요. (최대 3장 권장)
+// 네이버 실제 리뷰 캡처본
+// reviews 폴더에 캡처 이미지를 넣고 아래에 한 줄씩 추가하면 돼요.
+// cat 은 "수제 케이크" · "수제간식" · "건조간식" 중 하나로 적어 주세요.
 const REVIEWS = [
-  { text: "사진 한 장 보내드렸는데 표정까지 똑같이 만들어 주셨어요. 생일상에 올리자마자 가족 모두 감탄했습니다.", name: "초코맘", date: "26.9", chips: ["생일 케이크", "재방문"], photos: [] },
-  { text: "입이 짧은 아이인데 건조간식은 봉지 소리만 나도 달려와요. 재료가 단순해서 안심하고 줍니다.", name: "두부누나", date: "26.9", chips: ["건조간식"] },
-  { text: "알러지가 있어서 걱정했는데 재료를 하나하나 바꿔서 만들어 주셨어요. 세심하게 상담해 주셔서 감사해요.", name: "보리네", date: "26.8", chips: ["맞춤 상담"] },
-  { text: "열 살 생일이라 특별하게 해주고 싶었는데 기대 이상이었어요. 먹기 아까워서 한참 사진만 찍었네요.", name: "몽이아빠", date: "26.8", chips: ["피규어 케이크"] },
-  { text: "택배로 받았는데 아이스팩까지 꼼꼼하게 챙겨 주셨어요. 다음 달에도 주문할게요.", name: "코코", date: "26.7", chips: ["택배", "포장"] },
-  { text: "매장이 밝고 깨끗해서 좋았어요. 오늘 만든 간식이라 그런지 향부터 달라요.", name: "라떼언니", date: "26.6", chips: ["매장 방문"] }
+  { img: "reviews/rv-01.jpg", cat: "수제간식", alt: "리본 토핑을 올린 수제간식 후기, 별점 5점" },
+  { img: "reviews/rv-02.jpg", cat: "수제간식", alt: "사료 토핑용 링 간식 재구매 후기, 별점 5점" },
+  { img: "reviews/rv-03.jpg", cat: "수제간식", alt: "밥꾸미기 간식 후기, 별점 5점" },
+  { img: "reviews/rv-04.jpg", cat: "건조간식", alt: "선물용 건조간식 묶음 후기, 별점 5점" }
 ];
 
 const max = Math.max(...KEYWORDS.map(k => k.count));
 document.getElementById("keywords").innerHTML = KEYWORDS.map(k =>
   `<li><b style="width:${(k.count / max * 100).toFixed(0)}%"></b><span>“${k.label}”</span><span>${k.count}</span></li>`).join("");
 
-document.getElementById("reviewList").innerHTML = REVIEWS.map(r => {
-  const pics = (r.photos || []).slice(0, 3);
-  const picHtml = pics.length ? `<div class="pics">${pics.map(p => `<img src="${p}" alt="보호자님이 올린 후기 사진" loading="lazy" onerror="this.remove()">`).join("")}</div>` : "";
-  return `<article class="review${pics.length ? " has-pics" : ""}">${picHtml}<q>${r.text}</q><div class="chips">${r.chips.map(c => `<em>${c}</em>`).join("")}</div><div class="who"><span class="stars" aria-label="별점 5점">★★★★★</span><span>${r.date} 방문</span></div></article>`;
-}).join("");
+document.getElementById("reviewList").innerHTML = REVIEWS.map(r =>
+  `<figure class="review-shot"><img src="${r.img}" alt="${r.alt}" loading="lazy" width="1200" height="620"><figcaption><em>${r.cat}</em><span class="stars" aria-hidden="true">★★★★★</span></figcaption></figure>`).join("");
 </script>
 </body>
 </html>

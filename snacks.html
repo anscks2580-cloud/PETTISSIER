@@ -112,7 +112,7 @@
         <svg viewBox="0 0 52 52" fill="none" stroke="#804C37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="26" cy="26" r="21" fill="#FFF6CC"/><path d="M26 13v13l8 5"/><path d="M26 5v3M26 44v3M5 26h3M44 26h3"/></svg>
         <div>
           <h3>사계절 내내 만드는 간식도 있어요</h3>
-          <p>오리·닭·연어처럼 계절을 타지 않는 재료로 만드는 건조간식과 베이커리는 1년 내내 만들어요. 언제 주문하셔도 주문을 확인한 뒤 그때그때 만들어, 늘 같은 품질로 신선하게 보내드려요.</p>
+          <p>닭·오리·연어 등과 같이 계절을 타지 않는 재료로 만드는 건조간식과 베이커리도 있어요. 펫티시에는 주문을 확인한 뒤 그때그때 손질하고 만들어, 늘 신선하게 보내드려요.</p>
         </div>
         <a class="btn" href="shop.html">전체 간식 보기 →</a>
       </div>
@@ -190,10 +190,10 @@ const SEASON = {
     { key: "autumn", name: "가을", en: "Autumn", months: [9, 10, 11],
       items: ["고구마", "단호박", "열빙어"],
       reps: ["열빙어", "야채 퓨레 (옐로우 퓨레)"],
-      buy: [["열빙어 주문하기", "product.html?id=11224529580", true], ["열빙어 벌크사이즈", "product.html?id=12404521217"], ["옐로우 퓨레", "product.html?id=12026300387"]],
+      buy: [],
       featured: {
         name: "열빙어", en: "Capelin", photo: "season-now.jpg", url: "product.html?id=11224529580",
-        desc: "지금 들어오는 신선한 열빙어를 한 마리씩 손질해 저온에서 천천히 말렸어요. 가시가 가늘고 부드러운 작은 생선이라 머리부터 꼬리까지 통째로 먹을 수 있어요.",
+        desc: "펫티시에는 아이슬란드산 암열빙어만 사용하고 있어요. 혹시나 거슬릴 수 있는 지느러미는 모두 깨끗하게 손질해서 먹기에 불편함이 없어요. 암열빙어만 사용해 알이 꽉 차 있어 영양가가 가득해요.",
         points: [
           ["뼈째 먹는 작은 생선", "살과 뼈를 함께 먹는 생선이라 칼슘을 자연스럽게 챙길 수 있어요."],
           ["오메가-3 지방산", "생선에 들어 있는 오메가-3(EPA·DHA)는 윤기 있는 피모 관리에 도움이 될 수 있어요."],
@@ -201,10 +201,11 @@ const SEASON = {
           ["열빙어 하나만", "보존료나 첨가물 없이 손질한 열빙어만 그대로 말렸어요."]
         ],
         tips: [
-          "처음 먹는 아이는 1~2마리부터 시작해 변 상태를 확인해 주세요.",
-          "소형견·노견은 반으로 잘라서, 물과 함께 주세요.",
-          "생선에 알레르기가 있는 아이는 급여 전 꼭 상담해 주세요.",
-          "개봉 후에는 밀봉해서 냉장 보관해 주세요."
+          "펫티시에 열빙어는 알이 꽉 차 있고, 촉촉하게 건조하고 있어요.",
+          "처음 급여하실 때는 반으로 잘라 주시고, 가시를 불편함 없이 먹는지 확인해 주세요.",
+          "5kg 이내 아이는 하루에 1마리만 급여해 주세요.",
+          "제품을 받으신 후 냉장 2일, 냉동 최대 3주까지 보관할 수 있어요.",
+          "개봉 후에는 냉동 보관해 주세요."
         ]
       } },
     { key: "winter", name: "겨울", en: "Winter", months: [12, 1, 2],
@@ -243,7 +244,7 @@ const SEASON = {
 
   // 지금 제철 카드
   document.getElementById("ssNow").innerHTML =
-    `<div class="ss-photo"><img src="${f.photo}" alt="제철 간식 ${f.name}" loading="lazy" onerror="this.remove()">${art(now)}<span class="ss-badge">NOW · ${now.name} 제철</span></div>
+    `<a class="ss-photo" href="${f.url || store}" aria-label="${f.name} 구매하러 가기"><img src="${f.photo}" alt="제철 간식 ${f.name}" loading="lazy" onerror="this.remove()">${art(now)}<span class="ss-badge">NOW · ${now.name} 제철</span><span class="ss-cart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2.2l2.1 10.2a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.2L20.5 8H6.1" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.5" cy="19.5" r="1.4" fill="currentColor"/><circle cx="17" cy="19.5" r="1.4" fill="currentColor"/></svg>장바구니</span></a>
      <div class="ss-now-body"><small>${f.en}</small><h3>${f.name}</h3><p>${f.desc}</p>
      <a class="btn fill" href="${f.url || store}">${f.name} 주문하기 →</a></div>`;
 
@@ -255,8 +256,10 @@ const SEASON = {
   document.getElementById("ssPoints").innerHTML = pts.map(([t, d]) => `<li><b>${t}</b><span>${d}</span></li>`).join("");
   document.getElementById("ssTips").innerHTML = tips.map(t => `<li>${t}</li>`).join("");
   if (!pts.length && !tips.length) document.querySelector(".ss-detail-grid").remove();
-  document.getElementById("ssBuy").innerHTML = (now.buy || [[f.name + " 주문하기", f.url || store, true]])
-    .map(([t, u, main]) => `<a class="btn${main ? " fill" : ""}" href="${u}">${t}</a>`).join("");
+  const buy = now.buy || [[f.name + " 주문하기", f.url || store, true]];
+  const buyEl = document.getElementById("ssBuy");
+  if (buy.length) buyEl.innerHTML = buy.map(([t, u, main]) => `<a class="btn${main ? " fill" : ""}" href="${u}">${t}</a>`).join("");
+  else buyEl.remove();
 
   // 월 띠 (3월부터 시작해서 계절이 이어지도록)
   const order = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2];
@@ -268,8 +271,8 @@ const SEASON = {
   // 사계절 카드
   document.getElementById("ssSeasons").innerHTML = S.map(s =>
     `<li id="season-${s.key}" class="${s.key === now.key ? "on" : ""}">
-       <div class="ss-season-top">${ICON[s.key]}<div><b>${s.name}</b><small>${s.en} · ${range(s)}</small></div>${s.key === now.key ? '<em>지금</em>' : ""}</div>
-       <p>${(s.reps || [s.featured.name]).join(" · ")}</p>
+       <div class="ss-season-top">${ICON[s.key]}<div><b>${s.name}</b><small>${s.en} · ${range(s)}</small></div></div>
+       <p><span>대표 간식</span>${(s.reps || [s.featured.name]).join(" · ")}</p>
        <ul>${s.items.map(i => `<li>${i}</li>`).join("")}</ul>
      </li>`).join("");
 })();
