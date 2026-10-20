@@ -299,7 +299,10 @@ const Auth = (function () {
     a.innerHTML = ICON + `<span>${user ? "내 정보" : "로그인"}</span>`;
     a.setAttribute("aria-label", user ? "내 정보 보기" : "로그인");
   }
-  function emit() { subs.forEach(f => { try { f(user); } catch (e) {} }); paintHeader(); }
+  function emit() {
+    try { if (user) localStorage.setItem("pt-member", user.name || user.username || "1"); else localStorage.removeItem("pt-member"); } catch (e) {}
+    subs.forEach(f => { try { f(user); } catch (e) {} }); paintHeader();
+  }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", paintHeader); else paintHeader();
 
   function next(def) {

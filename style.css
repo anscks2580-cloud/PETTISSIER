@@ -553,3 +553,23 @@ a.ss-photo:hover .ss-cart{background:var(--mustard);transform:translateY(-2px)}
 .ss-always p{margin:0;color:var(--muted);font-size:15.5px}
 @media (max-width:760px){.ss-always{grid-template-columns:1fr;gap:12px;padding:22px}}
 .nav a .nav-bag{display:inline-block;width:17px;height:17px;vertical-align:-2px;margin-left:6px}
+
+/* 헤더 : 로그인(내 정보) · 장바구니 버튼 (메인 페이지 · 온라인 주문 공통) */
+.top .acct-link{margin-left:auto;display:inline-flex;align-items:center;gap:6px;height:46px;padding:0 14px 0 12px;border:1.5px solid var(--line);border-radius:12px;background:var(--paper);text-decoration:none;color:var(--ink);font-size:14.5px;transition:background .15s}
+.top .acct-link:hover{background:var(--butter)}
+.top .acct-link svg{width:20px;height:20px}
+.top .cart-link{position:relative;display:grid;place-items:center;width:46px;height:46px;border:1.5px solid var(--line);border-radius:12px;background:var(--paper);text-decoration:none;color:var(--ink);transition:background .15s}
+.top .cart-link:hover{background:var(--butter)}
+.top .cart-link svg{width:21px;height:21px}
+.top .acct-link + .cart-link{margin-left:10px}
+.top .cart-link + .menu-toggle{margin-left:10px}
+.top .cart-count{position:absolute;top:-7px;right:-7px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:var(--wood);color:#fff;font:700 11.5px/20px Arial,sans-serif;text-align:center}
+.top .cart-count[hidden]{display:none}
+@media (max-width:640px){
+  .top .wrap:has(.acct-link){column-gap:0}
+  .top .acct-link{padding:0;width:40px;height:40px;justify-content:center;position:relative;border-radius:11px}
+  .top .acct-link span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .top .acct-link + .cart-link{margin-left:6px}
+  .top .wrap:has(.acct-link) .cart-link{width:40px;height:40px;border-radius:11px}
+  .top .wrap:has(.acct-link) .menu-toggle{margin-left:6px;width:40px;height:40px;border-radius:11px}
+}
