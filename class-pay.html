@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>클래스 예약금 결제 | 펫티시에</title>
+<meta name="description" content="펫티시에 클래스 예약금 결제">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://www.pettissier.com/class-pay.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="펫티시에">
+<meta property="og:title" content="클래스 예약금 결제 | 펫티시에">
+<meta property="og:description" content="펫티시에 클래스 예약금 결제">
+<meta property="og:url" content="https://www.pettissier.com/class-pay.html">
+<meta property="og:image" content="https://www.pettissier.com/og-image.jpg">
+<meta property="og:locale" content="ko_KR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="shop.css">
+<script>try{if(sessionStorage.getItem("pt-loading"))document.documentElement.classList.add("pt-arrive")}catch(e){}</script>
+<script src="loader.js" defer></script>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a href="index.html" class="brand" aria-label="펫티시에 홈"><b>PETTISSIER</b><small>Premium Pet Dessert</small></a>
+    <a href="cart.html" class="cart-link" aria-label="장바구니"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg><span class="cart-count" data-cart-count hidden>0</span></a>
+    <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav">
+      <a href="about.html">About</a>
+      <a href="story.html">뭉치 이야기</a>
+      <a href="cakes.html">케이크</a>
+      <a href="snacks.html">수제간식</a>
+      <a href="shop.html"><span>온라인 주문<svg class="nav-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg></span></a>
+      <a href="class.html" aria-current="page">클래스</a>
+      <a href="reviews.html">리뷰</a>
+      <a href="visit.html">오시는 길</a>
+    </nav>
+  </div>
+</header>
+
+<main class="sh-main">
+  <div class="wrap au cp">
+    <div id="cp-root"><p class="sh-empty">예약 정보를 불러오는 중이에요…</p></div>
+  </div>
+</main>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>상호 펫티시에 · 대표 오종빈<br>© PETTISSIER. All rights reserved.</div>
+    <nav>
+      <a href="class.html">Class</a>
+      <a data-link="instagram" href="#" target="_blank" rel="noopener">Instagram</a>
+      <a data-link="blog" href="#" target="_blank" rel="noopener">Blog</a>
+      <a data-link="kakao" href="#" target="_blank" rel="noopener">KakaoTalk</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="floats">
+  <a class="fab" data-link="instagram" href="#" target="_blank" rel="noopener" aria-label="인스타그램 바로가기">
+    <i class="ic ig"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></i>
+    <span>인스타그램</span>
+  </a>
+  <a class="fab" data-link="kakao" href="#" target="_blank" rel="noopener" aria-label="카카오톡으로 문의하기">
+    <i class="ic kk"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="#191600" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg></i>
+    <span>카카오톡 문의</span>
+  </a>
+</div>
+
+<script src="common.js"></script>
+<script src="nav-drawer.js"></script>
+<script src="firebase-config.js"></script>
+<script src="shop-data.js"></script>
+<script src="shop.js"></script>
+<script src="auth.js"></script>
+<script>
+(function () {
+  const $ = s => document.querySelector(s);
+  const root = document.getElementById("cp-root"), q = new URLSearchParams(location.search);
+  const rid = (q.get("r") || "").replace(/[^A-Za-z0-9_-]/g, "");
+  const won = n => (+n || 0).toLocaleString("ko-KR") + "원";
+  const esc = Shop.esc;
+  const cfg = typeof FIREBASE_CONFIG !== "undefined" && FIREBASE_CONFIG;
+  const fmtDate = d => { if (!d) return ""; const [y, m, dd] = d.split("-"); const t = new Date(+y, +m - 1, +dd); return `${y}년 ${+m}월 ${+dd}일 (${"일월화수목금토"[t.getDay()]})`; };
+  const fmtTime = t => { if (!t) return ""; const [h, m] = t.split(":"); const hh = +h; return (hh < 12 ? "오전 " : "오후 ") + (hh % 12 || 12) + "시" + (+m ? " " + +m + "분" : ""); };
+  const fail = (title, msg) => { root.innerHTML = `<div class="done"><div class="mark">!</div><h1>${title}</h1><p>${msg}</p><div class="btns"><a class="btn" href="class.html">클래스 안내로</a><a class="btn kakao" href="${SHOP.kakaoChat}" target="_blank" rel="noopener">카카오톡 문의</a></div></div>`; };
+
+  if (!rid) { fail("잘못된 링크예요", "카카오톡으로 받은 결제 링크를 다시 확인해 주세요."); return; }
+  if (!cfg || !cfg.projectId) { fail("아직 준비 중이에요", "결제 시스템이 연결되면 이 링크로 예약금을 결제할 수 있어요."); return; }
+
+  /* 파이어베이스 (읽기·쓰기 모두 SDK 로) */
+  const SDK = "https://www.gstatic.com/firebasejs/10.12.2/";
+  const load = src => new Promise((ok, no) => { if (document.querySelector(`script[src="${src}"]`)) return ok(); const s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = no; document.head.appendChild(s); });
+  let db, ref, r;
+
+  async function main() {
+    await load(SDK + "firebase-app-compat.js"); await load(SDK + "firebase-firestore-compat.js");
+    if (!firebase.apps.length) firebase.initializeApp(cfg);
+    db = firebase.firestore(); ref = db.collection("reservations").doc(rid);
+    const snap = await ref.get();
+    if (!snap.exists) { fail("예약을 찾을 수 없어요", "링크가 잘못됐거나 취소된 예약이에요. 카카오톡으로 문의해 주세요."); return; }
+    r = snap.data();
+    await Shop.ready;
+    if (q.get("paymentKey")) return afterToss();
+    if (q.get("fail")) { root.innerHTML = `<div class="done"><div class="mark">!</div><h1>결제가 완료되지 않았어요</h1><p>${esc(q.get("message") || "결제가 취소되었거나 오류가 있었어요.")}</p><div class="btns"><a class="btn fill" href="class-pay.html?r=${rid}">다시 시도하기</a></div></div>`; return; }
+    if (r.status === "취소") { fail("취소된 예약이에요", "일정을 다시 잡으시려면 카카오톡으로 문의해 주세요."); return; }
+    if (r.status !== "결제 대기") return showDone();
+    showForm();
+  }
+
+  const summary = () => `
+    <div class="cp-card">
+      <small class="kind">${esc(r.kind || "클래스")}</small>
+      <h2>${esc(r.className || "펫티시에 클래스")}</h2>
+      <dl class="cp-rows">
+        <dt>일정</dt><dd>${esc(fmtDate(r.date))} ${esc(fmtTime(r.time))}</dd>
+        ${r.people ? `<dt>인원</dt><dd>${esc(r.people)}명</dd>` : ""}
+        ${r.total ? `<dt>수강료</dt><dd>${won(r.total)}</dd>` : ""}
+        <dt>예약금</dt><dd><b>${won(r.deposit)}</b>${r.total ? ` <em>(잔금 ${won(r.total - r.deposit)}은 수업 당일 결제)</em>` : ""}</dd>
+        ${r.note ? `<dt>안내</dt><dd>${esc(r.note)}</dd>` : ""}
+      </dl>
+    </div>`;
+
+  function showForm() {
+    const toss = !!SHOP.tossClientKey;
+    root.innerHTML = `
+      <div class="au-head"><h1>클래스 예약금 결제</h1><p>카카오톡으로 안내받은 일정이 맞는지 확인하고, 예약금을 결제하면 예약이 확정돼요.</p></div>
+      ${summary()}
+      <form class="au-card" id="cf" novalidate>
+        <div class="two">
+          <div class="fld"><label for="c-child">아이 이름 <em>*</em></label><input id="c-child" placeholder="예) 뭉치" value="${esc(r.child || "")}" required></div>
+          <div class="fld"><label for="c-guardian">보호자 이름 <em>*</em></label><input id="c-guardian" autocomplete="name" value="${esc(r.guardian || "")}" required></div>
+        </div>
+        <div class="fld"><label for="c-tel">연락처 <em>*</em></label><input id="c-tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" value="${esc(r.tel || "")}" required></div>
+        <div class="fld"><label for="c-memo">남기실 말씀 <span class="au-opt">(선택)</span></label><textarea id="c-memo" placeholder="예) 아이 알레르기, 함께 오는 인원 등"></textarea></div>
+        ${toss ? '<div class="fld"><label>결제 방법</label><div id="payment-method"></div><div id="agreement"></div></div>' : ""}
+        <label class="chk"><input type="checkbox" id="c-agree"> <span>예약금 안내와 개인정보 수집·이용에 동의해요 <em style="color:var(--wood);font-style:normal">(필수)</em></span></label>
+        <div class="agree-box">수집 항목: 아이 이름, 보호자 이름, 연락처 · 목적: 클래스 예약 관리와 안내 · 예약금은 수업 3일 전까지 취소 시 전액 환불되며, 이후에는 환불이 어려워요.</div>
+        <p class="au-err" id="ce" role="alert"></p>
+        <button class="btn fill au-main" type="submit" id="cb">${toss ? won(r.deposit) + " 결제하기" : "예약 신청하기"}</button>
+        ${toss ? "" : '<p class="au-hint" style="text-align:center;margin-top:10px">카드 결제가 연결되기 전까지는 신청 후 카카오톡으로 입금 안내를 드려요.</p>'}
+      </form>`;
+
+    if (toss) {
+      const s = document.createElement("script"); s.src = "https://js.tosspayments.com/v2/standard";
+      s.onload = async () => {
+        try {
+          const tp = TossPayments(SHOP.tossClientKey);
+          window._widgets = tp.widgets({ customerKey: TossPayments.ANONYMOUS });
+          await _widgets.setAmount({ currency: "KRW", value: +r.deposit });
+          await Promise.all([_widgets.renderPaymentMethods({ selector: "#payment-method", variantKey: "DEFAULT" }), _widgets.renderAgreement({ selector: "#agreement", variantKey: "AGREEMENT" })]);
+        } catch (e) { $("#payment-method").innerHTML = '<p class="au-err">결제창을 불러오지 못했어요. 잠시 후 다시 시도해 주세요.</p>'; }
+      };
+      document.body.appendChild(s);
+    }
+
+    $("#cf").addEventListener("submit", async e => {
+      e.preventDefault();
+      const ce = $("#ce"), cb = $("#cb"); ce.textContent = "";
+      const v = s => $(s).value.trim();
+      if (!v("#c-child")) { $("#c-child").focus(); ce.textContent = "아이 이름을 입력해 주세요."; return; }
+      if (!v("#c-guardian")) { $("#c-guardian").focus(); ce.textContent = "보호자 이름을 입력해 주세요."; return; }
+      if (v("#c-tel").replace(/[^0-9]/g, "").length < 10) { $("#c-tel").focus(); ce.textContent = "연락처를 다시 확인해 주세요."; return; }
+      if (!$("#c-agree").checked) { ce.textContent = "안내 사항에 동의해 주세요."; return; }
+      const info = { child: v("#c-child"), guardian: v("#c-guardian"), tel: Auth.tel(v("#c-tel")), memo: v("#c-memo"), uid: Auth.user ? Auth.user.uid : null };
+      cb.disabled = true;
+      try {
+        if (!toss) {
+          await ref.update({ ...info, status: "입금 대기", appliedAt: new Date().toISOString() });
+          r = { ...r, ...info, status: "입금 대기" }; showDone(); return;
+        }
+        await ref.update(info);
+        try { sessionStorage.setItem("pt-class-" + rid, JSON.stringify(info)); } catch (x) {}
+        const base = location.origin + location.pathname.replace(/[^/]*$/, "") + "class-pay.html?r=" + rid;
+        await _widgets.requestPayment({
+          orderId: rid, orderName: (r.className || "클래스") + " 예약금",
+          successUrl: base, failUrl: base + "&fail=1",
+          customerName: info.guardian, customerMobilePhone: info.tel.replace(/-/g, "")
+        });
+      } catch (err) {
+        if (!(err && err.code === "USER_CANCEL")) ce.textContent = (err && /permission/i.test(err.message)) ? "이미 처리된 예약이거나 링크가 만료됐어요. 카카오톡으로 문의해 주세요." : "진행하지 못했어요. 잠시 후 다시 시도해 주세요.";
+        cb.disabled = false;
+      }
+    });
+  }
+
+  async function afterToss() {
+    const paymentKey = q.get("paymentKey"), amount = +q.get("amount"), orderId = q.get("orderId");
+    if (orderId !== rid || amount !== +r.deposit) { fail("결제 정보를 확인할 수 없어요", "금액이나 예약번호가 맞지 않아요. 카카오톡으로 문의해 주세요."); return; }
+    if (r.status !== "결제 대기") return showDone();
+    root.innerHTML = '<div class="done"><div class="mark">…</div><h1>결제를 확인하고 있어요</h1><p>잠시만 기다려 주세요.</p></div>';
+    if (!SHOP.confirmUrl) {
+      root.innerHTML = '<div class="done"><div class="mark">!</div><h1>테스트 결제가 끝났어요</h1><p>결제 승인 서버가 아직 연결되지 않아 실제 결제는 이뤄지지 않았어요.</p></div>'; return;
+    }
+    try {
+      const res = await fetch(SHOP.confirmUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ paymentKey, orderId, amount, type: "class" }) });
+      if (!res.ok) throw await res.json();
+      await ref.update({ status: "결제 완료", paidAt: new Date().toISOString(), paymentKey });
+      r = { ...r, status: "결제 완료" }; showDone();
+    } catch (j) { fail("결제 승인에 실패했어요", (j && j.message) || "잠시 후 다시 시도하거나 카카오톡으로 문의해 주세요."); }
+  }
+
+  function showDone() {
+    const paid = r.status === "결제 완료";
+    root.innerHTML = `
+      <div class="done" style="margin-bottom:26px"><div class="mark">✓</div>
+        <h1>${paid ? "예약이 확정됐어요" : r.status === "입금 대기" ? "예약 신청을 받았어요" : "이미 처리된 예약이에요"}</h1>
+        <p>${paid ? "예약금 결제가 완료됐어요. 수업 당일 작업실에서 뵐게요." : r.status === "입금 대기" ? "카카오톡으로 예약금 입금 안내를 드릴게요. 입금이 확인되면 예약이 확정돼요." : "이 예약은 " + esc(r.status) + " 상태예요. 궁금한 점은 카카오톡으로 문의해 주세요."}</p>
+      </div>
+      ${summary()}
+      ${r.child ? `<div class="cp-card"><dl class="cp-rows"><dt>아이 이름</dt><dd>${esc(r.child)}</dd><dt>보호자</dt><dd>${esc(r.guardian)}</dd><dt>연락처</dt><dd>${esc(r.tel)}</dd></dl></div>` : ""}
+      <div class="done"><div class="btns"><a class="btn" href="class.html">클래스 안내로</a><a class="btn kakao" href="${SHOP.kakaoChat}" target="_blank" rel="noopener">카카오톡 문의</a></div></div>`;
+  }
+
+  main().catch(() => fail("불러오지 못했어요", "잠시 후 다시 열어 주세요. 계속 안 되면 카카오톡으로 문의해 주세요."));
+})();
+</script>
+</body>
+</html>

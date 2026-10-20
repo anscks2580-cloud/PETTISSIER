@@ -15,8 +15,25 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
     match /shop/{doc} {
-      allow read: if true;
+      allow read: if doc != 'notify';     // 알림 설정(봇 토큰)은 관리자만
       allow write: if isAdmin();
+    }
+    match /shop/notify {
+      allow read: if isAdmin();
+    }
+
+    // 클래스 예약(예약금 결제 링크): 관리자가 만들고, 링크를 받은 고객이 정보 입력·결제
+    match /reservations/{id} {
+      allow get: if true;
+      allow list: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin()
+        || (resource.data.status == '결제 대기'
+            && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['child','guardian','tel','memo','uid','status','appliedAt','paidAt','paymentKey'])
+            && request.resource.data.status in ['결제 대기', '입금 대기', '결제 완료']
+            && request.resource.data.child is string && request.resource.data.child.size() <= 40
+            && request.resource.data.guardian is string && request.resource.data.guardian.size() <= 40
+            && request.resource.data.deposit == resource.data.deposit);
     }
 
     // 고객 회원 정보: 본인만 보고 고치기, 관리자는 보기

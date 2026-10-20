@@ -304,3 +304,17 @@
 .au section{padding:0}
 .au-done .au-found{color:var(--ink);margin:4px 0 2px}
 .au-done .au-hint{margin:0 0 14px}
+
+/* ── 클래스 예약금 결제 ── */
+.cp{max-width:560px}
+.cp-card{border:1.5px solid var(--line);border-radius:20px;padding:22px 24px;background:var(--butter);margin-bottom:16px}
+.cp-card .kind{display:block;font-size:12.5px;letter-spacing:.06em;color:var(--wood);margin-bottom:4px}
+.cp-card h2{font-size:22px;margin-bottom:12px}
+.cp-rows{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:0;font-size:15.5px}
+.cp-rows dt{color:var(--muted)}
+.cp-rows dd{margin:0}
+.cp-rows dd b{font-size:18px}
+.cp-rows dd em{font-style:normal;font-size:13.5px;color:var(--muted)}
+.cp .done{margin-top:0}
+.cp .done .btn.kakao{background:#FEE500;border-color:#191600}
+.my-sub{font-size:17px;margin:6px 0 2px;color:var(--muted)}
