@@ -53,7 +53,10 @@
     <section id="tab-orders"><div id="orders" class="my-orders"><p class="sh-empty">불러오는 중…</p></div></section>
     <section id="tab-info" hidden>
       <form class="co-box my-form" id="pf" novalidate>
-        <div class="fld"><label>이메일 (아이디)</label><input id="p-em" disabled></div>
+        <div class="two">
+          <div class="fld"><label>아이디</label><input id="p-id" disabled></div>
+          <div class="fld"><label>이메일</label><input id="p-em" disabled></div>
+        </div>
         <div class="two">
           <div class="fld"><label for="p-name">이름</label><input id="p-name" autocomplete="name"></div>
           <div class="fld"><label for="p-tel">휴대폰 번호</label><input id="p-tel" type="tel" inputmode="tel" autocomplete="tel"></div>
@@ -123,29 +126,30 @@ const $ = s => document.querySelector(s);
 if (Auth.mode === "demo" && $("#au-demo")) $("#au-demo").hidden = false;
 document.querySelectorAll("[data-sns]").forEach(b => b.onclick = () => { try { Auth.social(b.dataset.sns); } catch (e) { Shop.toast(e.message); } });
 function busy(btn, on, text) { btn.disabled = on; if (text) btn.textContent = text; }
+function postcode(zip, a1, a2) {
+  if (!window.daum || !daum.Postcode) { Shop.toast("주소 검색을 불러오는 중이에요. 잠시 후 다시 눌러주세요."); return; }
+  new daum.Postcode({ oncomplete: d => { $(zip).value = d.zonecode; $(a1).value = d.roadAddress || d.jibunAddress; $(a2).focus(); } }).open();
+}
 
 Auth.ready.then(async u => {
   if (!u) { location.replace("login.html?next=mypage.html"); return; }
   $("#my-hi").textContent = (u.name || "회원") + "님, 반가워요";
-  if (u.provider && u.provider !== "email") document.querySelector('[data-tab="pw"]').hidden = true;
-  // 탭
+  if (u.provider && !["id", "email"].includes(u.provider)) document.querySelector('[data-tab="pw"]').hidden = true;
   document.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => {
     document.querySelectorAll("[data-tab]").forEach(x => x.setAttribute("aria-selected", x === b));
     ["orders", "info", "pw"].forEach(k => $("#tab-" + k).hidden = b.dataset.tab !== k);
   });
   $("#logout").onclick = async () => { await Auth.signOut(); location.replace("shop.html"); };
 
-  // 회원 정보 채우기
-  $("#p-em").value = u.email || ""; $("#p-name").value = u.name || ""; $("#p-tel").value = u.tel || "";
+  $("#p-id").value = u.username || ""; $("#p-em").value = u.email || "";
+  $("#p-name").value = u.name || ""; $("#p-tel").value = u.tel || "";
   $("#p-zip").value = u.zip || ""; $("#p-addr1").value = u.addr1 || ""; $("#p-addr2").value = u.addr2 || ""; $("#p-mkt").checked = !!u.marketing;
-  $("#p-find").addEventListener("click", () => {
-    if (!window.daum || !daum.Postcode) { Shop.toast("주소 검색을 불러오는 중이에요. 잠시 후 다시 눌러주세요."); return; }
-    new daum.Postcode({ oncomplete: d => { $("#p-zip").value = d.zonecode; $("#p-addr1").value = d.roadAddress || d.jibunAddress; $("#p-addr2").focus(); } }).open();
-  });
+  $("#p-find").addEventListener("click", () => postcode("#p-zip", "#p-addr1", "#p-addr2"));
   ["#p-zip", "#p-addr1"].forEach(s => $(s).addEventListener("click", () => $("#p-find").click()));
   $("#pf").addEventListener("submit", async e => {
     e.preventDefault(); $("#pe").textContent = "";
     if (!$("#p-name").value.trim()) { $("#pe").textContent = "이름을 입력해 주세요."; return; }
+    if ($("#p-tel").value.replace(/[^0-9]/g, "").length < 10) { $("#pe").textContent = "휴대폰 번호를 다시 확인해 주세요."; return; }
     busy($("#pb"), true, "저장 중…");
     try { await Auth.saveProfile({ name: $("#p-name").value, tel: $("#p-tel").value, zip: $("#p-zip").value, addr1: $("#p-addr1").value, addr2: $("#p-addr2").value, marketing: $("#p-mkt").checked }); Shop.toast("저장했어요."); $("#my-hi").textContent = Auth.user.name + "님, 반가워요"; }
     catch (err) { $("#pe").textContent = Auth.message(err); }
@@ -166,7 +170,6 @@ Auth.ready.then(async u => {
     catch (err) { $("#lve").textContent = Auth.message(err); }
   });
 
-  // 주문 내역
   let list = [];
   try { list = await Auth.myOrders(); } catch (err) {}
   const d = s => { const t = new Date(s); return isNaN(t) ? "" : `${t.getFullYear()}.${String(t.getMonth() + 1).padStart(2, "0")}.${String(t.getDate()).padStart(2, "0")}`; };

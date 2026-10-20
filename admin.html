@@ -265,8 +265,8 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
     const mk = list.filter(u => u.marketing).length;
     box.innerHTML = `<p class="muted" style="font-size:13.5px;margin:0 0 10px">가입 회원 ${list.length}명 · 소식 받기 동의 ${mk}명</p>` + (list.length ? `<div class="list">${list.map(u => `
       <div class="card" style="padding:14px 18px;display:flex;flex-wrap:wrap;gap:4px 16px;align-items:center;font-size:14.5px">
-        <b>${E(u.name || "-")}</b><span>${E(u.email || "")}</span><span>${E(u.tel || "")}</span>
-        <span class="muted">${u.provider && u.provider !== "email" ? E(u.provider) + " 간편가입" : "이메일 가입"}</span>
+        <b>${E(u.name || "-")}</b><span>${E(u.username || "")}</span><span>${E(u.email || "")}</span><span>${E(u.tel || "")}</span>
+        <span class="muted">${u.provider && !["id", "email"].includes(u.provider) ? E(u.provider) + " 간편가입" : "아이디 가입"}</span>
         <span class="muted">${u.marketing ? "소식 받기 동의" : ""}</span><span style="flex:1"></span><span class="muted">${E(ymd(u.createdAt))}</span>
       </div>`).join("")}</div>` : '<p class="empty">아직 가입한 회원이 없어요.</p>');
   }

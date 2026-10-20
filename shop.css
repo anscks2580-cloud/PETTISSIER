@@ -287,3 +287,20 @@
   .my-order li{grid-template-columns:1fr auto}
   .my-order li span{display:none}
 }
+
+/* ── 회원 : 아이디 확인 · 찾기 ── */
+.au-hint.good{color:#1E7A3C}
+.au-hint.bad{color:#B3261E}
+.au-tabs{display:grid;grid-template-columns:1fr 1fr;margin-bottom:14px;border:1.5px solid var(--line);border-radius:14px;overflow:hidden}
+.au-tabs button{font:inherit;font-size:15.5px;padding:13px 10px;border:0;background:var(--paper);cursor:pointer;color:var(--muted)}
+.au-tabs button+button{border-left:1.5px solid var(--line)}
+.au-tabs button[aria-selected="true"]{background:var(--mustard);color:var(--ink);font-weight:700}
+.au-by{display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:16px;font-size:15px}
+.au-by label{display:flex;align-items:center;gap:7px;cursor:pointer}
+.au-by input{accent-color:var(--wood);width:17px;height:17px}
+.au-found{font-family:var(--sans);font-size:28px;font-weight:700;letter-spacing:.04em;margin:4px 0 2px;color:var(--ink)}
+.au-done-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.au-done-btns .btn{padding:12px 22px}
+.au section{padding:0}
+.au-done .au-found{color:var(--ink);margin:4px 0 2px}
+.au-done .au-hint{margin:0 0 14px}

@@ -23,12 +23,36 @@ service cloud.firestore {
     match /users/{uid} {
       allow read: if isMe(uid) || isAdmin();
       allow create: if isMe(uid)
-        && request.resource.data.keys().hasOnly(['name','tel','email','zip','addr1','addr2','marketing','provider','agreedAt','createdAt'])
+        && request.resource.data.keys().hasOnly(['username','name','tel','email','zip','addr1','addr2','marketing','provider','agreedAt','createdAt'])
         && request.resource.data.name is string && request.resource.data.name.size() <= 40;
       allow update: if isMe(uid)
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name','tel','zip','addr1','addr2','marketing'])
         && request.resource.data.name is string && request.resource.data.name.size() <= 40;
       allow delete: if isMe(uid);
+    }
+
+    // 아이디 → 로그인 연결: 아이디 하나씩만 확인 가능(목록 보기 불가), 처음 가입한 사람만 차지
+    match /usernames/{id} {
+      allow get: if true;
+      allow list: if false;
+      allow create: if signedIn()
+        && id.matches('^[a-z][a-z0-9_]{3,15}$')
+        && request.resource.data.keys().hasOnly(['uid','email'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.email == request.auth.token.email;
+      allow update: if false;
+      allow delete: if signedIn() && resource.data.uid == request.auth.uid;
+    }
+
+    // 아이디 찾기: 이름+휴대폰 / 이름+이메일을 되돌릴 수 없게 바꾼 값으로만 조회, 가려진 아이디만 저장
+    match /findid/{key} {
+      allow get: if true;
+      allow list: if false;
+      allow create, update: if signedIn()
+        && request.resource.data.keys().hasOnly(['uid','id','at'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.id is string && request.resource.data.id.size() <= 16;
+      allow delete: if signedIn() && resource.data.uid == request.auth.uid;
     }
 
     // 주문: 회원·비회원 모두 접수 가능, 회원은 본인 주문만 보기, 상태 변경은 관리자만
