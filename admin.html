@@ -194,6 +194,7 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
         <a class="brand" href="admin.html">PETTISSIER<small>온라인 주문 관리자</small></a><span class="sp"></span>
         <span class="who muted" style="font-size:13.5px">${E(user.email)}</span>
         <a class="lnk" href="shop.html" target="_blank" rel="noopener">홈페이지 보기</a>
+        <button class="lnk" id="chpw">비밀번호 변경</button>
         <button class="lnk" id="logout">로그아웃</button></div></header>
       <main class="wrap" style="padding-bottom:80px">
         <div class="tabs" role="tablist">
@@ -209,6 +210,7 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
       </main>
       <div class="panel" id="panel"><div class="sheet" id="sheet"></div></div>`;
     document.getElementById("logout").onclick = () => auth.signOut();
+    document.getElementById("chpw").onclick = openPassword;
     app.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => {
       app.querySelectorAll("[data-tab]").forEach(x => x.setAttribute("aria-selected", x === b));
       ["p", "o", "m", "s"].forEach(k => document.getElementById("tab-" + k).hidden = b.dataset.tab !== k);
@@ -363,6 +365,39 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
   const isStorage = u => /firebasestorage\.googleapis\.com|firebasestorage\.app/.test(u || "");
 
   /* ───── 상품 편집 ───── */
+  /* ───── 관리자 비밀번호 변경 ───── */
+  function openPassword() {
+    const panel = document.getElementById("panel"), sheet = document.getElementById("sheet");
+    sheet.innerHTML = `
+      <div class="sheet-head"><h2>비밀번호 변경</h2><button class="x" type="button" data-close aria-label="닫기">✕</button></div>
+      <div class="sheet-body"><form class="card" id="pwf" style="max-width:460px">
+        <div class="fld"><label for="pw-now">지금 비밀번호</label><input id="pw-now" type="password" autocomplete="current-password"></div>
+        <div class="fld"><label for="pw-new">새 비밀번호</label><input id="pw-new" type="password" autocomplete="new-password"><small>8자 이상</small></div>
+        <div class="fld"><label for="pw-new2">새 비밀번호 확인</label><input id="pw-new2" type="password" autocomplete="new-password"></div>
+        <p class="err" id="pw-err"></p>
+        <button class="btn fill" type="submit" id="pw-btn">비밀번호 바꾸기</button>
+      </form></div>`;
+    panel.classList.add("on"); document.body.style.overflow = "hidden";
+    const close = () => { panel.classList.remove("on"); document.body.style.overflow = ""; };
+    sheet.querySelector("[data-close]").onclick = close;
+    panel.onclick = e => { if (e.target === panel) close(); };
+    document.getElementById("pwf").onsubmit = async e => {
+      e.preventDefault();
+      const err = document.getElementById("pw-err"), btn = document.getElementById("pw-btn"); err.textContent = "";
+      const now = document.getElementById("pw-now").value, nw = document.getElementById("pw-new").value;
+      if (nw.length < 8) { err.textContent = "새 비밀번호는 8자 이상으로 정해 주세요."; return; }
+      if (nw !== document.getElementById("pw-new2").value) { err.textContent = "새 비밀번호가 서로 달라요."; return; }
+      btn.disabled = true;
+      try {
+        const u = auth.currentUser;
+        await u.reauthenticateWithCredential(firebase.auth.EmailAuthProvider.credential(u.email, now));
+        await u.updatePassword(nw);
+        close(); toast("비밀번호를 바꿨어요. 다음 로그인부터 새 비밀번호를 쓰세요.");
+      } catch (x) { err.textContent = /password|credential/.test(x.code || "") ? "지금 비밀번호가 맞지 않아요." : "바꾸지 못했어요. 잠시 후 다시 시도해 주세요."; }
+      btn.disabled = false;
+    };
+  }
+
   function openEditor(src) {
     const isNew = !src;
     const p = JSON.parse(JSON.stringify(src || { name: "", price: 0, cat: CATS[0].key, detail: [], spec: {} }));
