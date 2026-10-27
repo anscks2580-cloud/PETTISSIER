@@ -74,6 +74,7 @@
 <script src="nav-drawer.js"></script>
 <script src="firebase-config.js"></script>
 <script src="shop-data.js"></script>
+<script src="product-stories.js"></script>
 <script src="shop.js"></script>
 <script src="auth.js"></script>
 <script>
@@ -89,6 +90,8 @@ Shop.ready.then(function () {
   const opts = p.options && p.options.items && p.options.items.length ? p.options : null;
   const sp = p.spec || {};
   const spec = [["원산지", sp.origin], ["주원료", sp.main], ["특징", sp.feature], ["기능", sp.func], ["급여대상", sp.target]].filter(r => r[1]);
+  const storyText = typeof p.story === "string" ? p.story : ((window.PRODUCT_STORIES || {})[p.id] || "");
+  const story = window.renderStory ? window.renderStory(storyText) : "";
   const details = (p.detail || []).map((src, i) => `<img src="${E(src)}" alt="${E(p.name)} 상세 ${i + 1}" loading="${i < 1 ? "eager" : "lazy"}" decoding="async">`).join("");
   const related = PRODUCTS.filter(x => x.cat === p.cat && x.id !== p.id && !x.soldout).slice(0, 4);
   const qtyHTML = id => `<div class="qty" data-qty="${id}"><button type="button" data-d="-1" aria-label="수량 빼기">−</button><input type="number" min="1" max="99" value="1" inputmode="numeric" aria-label="수량"><button type="button" data-d="1" aria-label="수량 더하기">+</button></div>`;
@@ -131,7 +134,7 @@ Shop.ready.then(function () {
     </nav>
 
     <section class="pd-sec" id="s-detail">
-      <div class="pd-detail">${details || '<p class="sh-empty">상세 정보를 준비하고 있어요.</p>'}</div>
+      <div class="pd-detail">${story}${details}${!story && !details ? '<p class="sh-empty">상세 정보를 준비하고 있어요.</p>' : ""}</div>
     </section>
 
     <section class="pd-sec" id="s-info">

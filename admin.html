@@ -127,6 +127,7 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
 
 <script src="firebase-config.js"></script>
 <script src="shop-data.js"></script>
+<script src="product-stories.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -541,6 +542,7 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
     if (isNew) p.id = "p" + Date.now().toString(36);
     p.options = p.options || { title: "", items: [] };
     p.spec = p.spec || {}; p.detail = p.detail || [];
+    if (typeof p.story !== "string") p.story = (window.PRODUCT_STORIES || {})[p.id] || "";
     const removed = [];
     const panel = document.getElementById("panel"), sheet = document.getElementById("sheet");
 
@@ -591,6 +593,11 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
             <div class="fld"><label for="s-target">급여대상</label><input id="s-target" value="${E(p.spec.target || "")}" placeholder="예) 전연령"></div>
           </div>
 
+          <div class="card"><h3>상세 설명 글 <small class="muted" style="font-weight:400;font-size:13px">(상세 이미지 위에 보여요 · 비우면 글 없이 이미지만)</small></h3>
+            <div class="fld"><textarea id="e-story" rows="14" style="min-height:260px;line-height:1.7;font-size:15px" placeholder="첫 문단은 상품 소개로 크게 보여요.">${E(p.story || "")}</textarea></div>
+            <p class="muted" style="font-size:13px;margin:4px 0 0;line-height:1.7">쓰는 법 · <b>## 제목</b> 소제목 · <b>- 이름 | 값</b> 표 한 줄 · <b>&gt; 문장</b> 강조 상자 · 빈 줄로 문단 나누기</p>
+          </div>
+
           <div class="card"><h3>상세 이미지 <small class="muted" style="font-weight:400;font-size:13px">(${p.detail.length}장 · 위에서부터 순서대로 보여요)</small></h3>
             <div class="dets" id="dets">${p.detail.map((u, i) => `
               <div class="det"><img src="${E(u)}" alt="" loading="lazy"><span class="n">${i + 1}</span>
@@ -613,6 +620,7 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
         soldout: r.querySelector('[data-k="soldout"]').checked
       }));
       ["origin", "main", "feature", "func", "target"].forEach(k => p.spec[k] = v("#s-" + k).trim());
+      p.story = v("#e-story").replace(/\r/g, "").trim();
     }
     draw();
     panel.classList.add("on"); document.body.style.overflow = "hidden";

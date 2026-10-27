@@ -318,3 +318,23 @@
 .cp .done{margin-top:0}
 .cp .done .btn.kakao{background:#FEE500;border-color:#191600}
 .my-sub{font-size:17px;margin:6px 0 2px;color:var(--muted)}
+
+/* ── 상품 상세 설명 글 ── */
+.story{max-width:680px;margin:0 auto 56px;padding:0 4px;color:var(--ink);font-size:16px;line-height:1.85;word-break:keep-all}
+.story p{margin:0 0 14px}
+.story .lead{font-family:var(--serif);font-size:19px;line-height:1.9;text-align:center;margin:0 0 18px;padding:0 6px}
+.story .lead:first-child::before{content:"";display:block;width:44px;height:4px;border-radius:4px;background:var(--mustard);margin:0 auto 26px}
+.story .st-sec{margin-top:40px;padding:32px 0 0;border-top:1px dashed rgba(35,31,28,.18)}
+.story h3{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:20px;margin:0 0 16px;color:var(--wood)}
+.story h3::before{content:"";flex:none;width:10px;height:10px;border-radius:50%;background:var(--mustard);box-shadow:0 0 0 4px var(--butter)}
+.story .st-tb{width:100%;border-collapse:collapse;margin:4px 0 16px;font-size:15px;border-top:1.5px solid var(--line)}
+.story .st-tb th,.story .st-tb td{padding:11px 14px;border-bottom:1px solid var(--mist);text-align:left;vertical-align:top}
+.story .st-tb th{width:42%;font-weight:400;color:var(--muted);background:#FBFAF7}
+.story .st-tb td{font-weight:700}
+.story .st-note{margin:6px 0 16px;padding:16px 18px;border-radius:14px;background:var(--butter);font-size:14.5px;line-height:1.75;color:#5a4a2c}
+@media (max-width:640px){
+  .story{font-size:15px;margin-bottom:44px}
+  .story .lead{font-size:17px}
+  .story h3{font-size:18px}
+  .story .st-sec{margin-top:32px;padding:26px 0 0}
+}
