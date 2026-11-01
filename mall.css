@@ -82,6 +82,8 @@ footer.ft .wrap{display:block}
 /* ── 공통 : 섹션 머리 ── */
 .m-sec{padding:72px 0 0!important}
 .m-main>.m-sec:last-child{padding-bottom:90px!important}
+.m-hero+.m-sec{padding-top:40px!important}
+@media (max-width:640px){.m-hero+.m-sec{padding-top:28px!important}}
 .m-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:26px}
 .m-head h2{font-family:var(--latin);font-size:clamp(28px,3.2vw,38px);font-weight:600;letter-spacing:.04em;line-height:1}
 .m-head h2 small{display:block;font-family:var(--sans);font-size:15px;font-weight:400;letter-spacing:0;color:var(--muted);margin-top:10px}
@@ -90,42 +92,45 @@ footer.ft .wrap{display:block}
 .m-more::after{content:"";width:7px;height:7px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;transform:rotate(45deg);margin-left:2px}
 @media (max-width:640px){.m-sec{padding-top:54px!important}.m-head{margin-bottom:18px}}
 
-/* ── 메인 배너 ── */
+/* ── 메인 배너 (낮게 : 첫 화면에서 상품이 바로 보이도록) ── */
 .m-hero{position:relative;overflow:hidden;background:var(--butter);padding:0!important}
 .m-slides{display:flex;transition:transform .7s cubic-bezier(.3,.7,.2,1);touch-action:pan-y}
-.m-slide{flex:0 0 100%;min-height:clamp(380px,48vw,560px);display:flex;align-items:stretch;position:relative}
-.m-slide .wrap{width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:30px}
-.m-slide-copy{padding:40px 0 70px}
-.m-slide-copy .kicker{display:inline-block;font-size:13.5px;letter-spacing:.06em;color:var(--wood);padding:5px 12px;border:1px solid rgba(128,76,55,.35);border-radius:999px;background:rgba(255,255,255,.6)}
-.m-slide-copy h2{font-size:clamp(28px,3.6vw,46px);line-height:1.3;margin:18px 0 0;color:var(--ink)}
-.m-slide-copy p{margin:16px 0 0;font-size:clamp(15px,1.4vw,17.5px);line-height:1.75;color:var(--muted)}
-.m-slide-copy .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
-.m-slide-art{align-self:end;display:flex;justify-content:center;position:relative}
-.m-slide-art.ill::before{content:"";position:absolute;width:min(78%,430px);aspect-ratio:1;border-radius:50%;background:#FFEB80;bottom:6%;left:50%;transform:translateX(-50%)}
-.m-slide-art.ill img{position:relative;height:clamp(300px,40vw,500px);width:auto;max-width:100%}
-.m-slide-art.photo{align-self:center;padding:30px 0 60px}
-.m-slide-art.photo img{width:min(100%,460px);aspect-ratio:1;object-fit:cover;border-radius:28px;box-shadow:0 24px 50px rgba(128,76,55,.18)}
+.m-slide{flex:0 0 100%;height:clamp(230px,22vw,300px);position:relative;overflow:hidden}
+.m-slide .wrap{height:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,40%);grid-template-rows:100%;align-items:center;gap:20px}
+.m-slide-copy{padding:0 0 10px}
+.m-slide-copy .kicker{display:inline-block;font-size:12.5px;letter-spacing:.04em;color:var(--wood)}
+.m-slide-copy h2{font-size:clamp(24px,2.6vw,34px);line-height:1.3;margin:8px 0 0;color:var(--ink)}
+.m-slide-copy p{margin:8px 0 0;font-size:15px;line-height:1.6;color:var(--muted)}
+.m-slide-copy .cta{display:flex;gap:8px;margin-top:16px}
+.m-slide-copy .cta .btn{padding:9px 20px;font-size:14.5px}
+.m-slide-art{height:100%;min-height:0;display:flex;align-items:flex-end;justify-content:center;position:relative}
+.m-slide-art.ill::before{content:"";position:absolute;height:78%;aspect-ratio:1;border-radius:50%;background:#FFEB80;bottom:6%;left:50%;transform:translateX(-50%)}
+.m-slide-art.ill img{position:relative;height:94%;width:auto;max-width:100%;object-fit:contain;object-position:bottom}
+.m-slide-art.photo{align-items:center}
+.m-slide-art.photo img{height:82%;aspect-ratio:1;width:auto;max-width:100%;object-fit:cover;border-radius:22px;box-shadow:0 16px 36px rgba(128,76,55,.16)}
 .m-slide.s2{background:#F6EFE4}
 .m-slide.s3{background:#FFFDF6}
-.m-dots{position:absolute;left:0;right:0;bottom:22px;display:flex;justify-content:center;gap:8px}
-.m-dots button{width:8px;height:8px;border-radius:999px;border:0;padding:0;background:rgba(35,31,28,.25);cursor:pointer;transition:width .3s,background .3s}
-.m-dots button[aria-current="true"]{width:26px;background:var(--ink)}
-.m-arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.75);cursor:pointer;display:grid;place-items:center;transition:background .15s}
+.m-dots{position:absolute;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:7px}
+.m-dots button{width:7px;height:7px;border-radius:999px;border:0;padding:0;background:rgba(35,31,28,.25);cursor:pointer;transition:width .3s,background .3s}
+.m-dots button[aria-current="true"]{width:22px;background:var(--ink)}
+.m-arrow{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.75);cursor:pointer;display:grid;place-items:center;transition:background .15s}
 .m-arrow:hover{background:#fff}
-.m-arrow::before{content:"";width:9px;height:9px;border-top:2px solid var(--ink);border-left:2px solid var(--ink)}
-.m-arrow.prev{left:18px}.m-arrow.prev::before{transform:translateX(2px) rotate(-45deg)}
-.m-arrow.next{right:18px}.m-arrow.next::before{transform:translateX(-2px) rotate(135deg)}
+.m-arrow::before{content:"";width:8px;height:8px;border-top:2px solid var(--ink);border-left:2px solid var(--ink)}
+.m-arrow.prev{left:14px}.m-arrow.prev::before{transform:translateX(2px) rotate(-45deg)}
+.m-arrow.next{right:14px}.m-arrow.next::before{transform:translateX(-2px) rotate(135deg)}
 @media (max-width:760px){
   .m-arrow{display:none}
-  .m-slide{min-height:0}
-  .m-slide .wrap{grid-template-columns:1fr;gap:0;text-align:center}
-  .m-slide-copy{padding:38px 0 0}
-  .m-slide-copy .cta{justify-content:center}
-  .m-slide-art.ill img{height:250px}
-  .m-slide-art.ill::before{width:230px;bottom:8%}
-  .m-slide-art.photo{padding:24px 0 58px}
-  .m-slide-art.photo img{width:min(78%,300px)}
-  .m-slide-art.ill{padding-top:10px;margin-bottom:46px}
+  .m-slide{height:178px}
+  .m-slide .wrap{gap:8px;padding:0 18px;grid-template-columns:minmax(0,1fr) minmax(0,44%)}
+  .m-slide-copy{padding:0 0 8px}
+  .m-slide-copy .kicker{font-size:11.5px}
+  .m-slide-copy h2{font-size:20px;margin-top:4px}
+  .m-slide-copy p{display:none}
+  .m-slide-copy .cta{margin-top:12px}
+  .m-slide-copy .cta .btn{padding:7px 14px;font-size:13px}
+  .m-slide-art.ill img{height:92%}
+  .m-slide-art.photo img{height:76%;border-radius:16px}
+  .m-dots{bottom:10px}
 }
 
 /* ── 혜택 띠 ── */
