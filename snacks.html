@@ -18,26 +18,47 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="mall.css">
 <script>try{if(sessionStorage.getItem("pt-loading"))document.documentElement.classList.add("pt-arrive")}catch(e){}</script>
 <script src="loader.js" defer></script>
 </head>
 <body>
 
+<div class="top-notice" id="topNotice"><span><b>60,000원</b> 이상 무료배송</span><span>주문 확인 후 만들어 보내드려요</span></div>
 <header class="top">
   <div class="wrap">
     <a href="index.html" class="brand" aria-label="펫티시에 홈"><b>PETTISSIER</b><small>Premium Pet Dessert</small></a>
     <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav class="nav" id="nav">
-      <a href="about.html">About</a>
-      <a href="story.html">뭉치 이야기</a>
-      <a href="cakes.html">케이크</a>
-      <a href="snacks.html" aria-current="page">수제간식</a>
-      <a href="shop.html"><span>온라인 주문<svg class="nav-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg></span></a>
+      <span class="nav-group">SHOP</span>
+      <a href="shop.html">전체상품</a>
+      <a href="shop.html?cat=best">베스트</a>
+      <a href="shop.html?cat=bakery">수제 베이커리</a>
+      <a href="shop.html?cat=dried">수제 건조간식</a>
+      <a href="shop.html?cat=natural">수제 자연식</a>
+      <a href="shop.html?cat=bulk">대용량 간식</a>
+      <span class="nav-group">PETTISSIER</span>
+      <a href="cakes.html">케이크 주문</a>
+      <a href="snacks.html">수제간식</a>
       <a href="class.html">클래스</a>
       <a href="reviews.html">리뷰</a>
+      <a href="about.html">About</a>
+      <a href="story.html">뭉치 이야기</a>
       <a href="visit.html">오시는 길</a>
     </nav>
   </div>
+  <nav class="catbar" aria-label="상품 카테고리"><div class="catbar-in">
+    <a href="shop.html">전체상품</a>
+    <a class="best" href="shop.html?cat=best">BEST</a>
+    <a href="shop.html?cat=bakery">베이커리</a>
+    <a href="shop.html?cat=dried">건조간식</a>
+    <a href="shop.html?cat=natural">자연식</a>
+    <a href="shop.html?cat=bulk">대용량</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a class="sub" href="cakes.html">케이크 주문</a>
+    <a class="sub" href="class.html">클래스</a>
+    <a class="sub" href="reviews.html">리뷰</a>
+  </div></nav>
 </header>
 
 <main>
@@ -47,7 +68,7 @@
       <div class="ss-intro-copy">
         <div class="eyebrow">수제간식 · Handmade &amp; Seasonal</div>
         <h2>가장 좋은 계절에,<br>그때만 만드는 간식</h2>
-        <p class="lead">재료에도 가장 맛있고 영양이 꽉 찬 때가 있어요.<br class="pc">펫티시에는 계절마다 제철을 맞은 재료를 골라,<br class="pc">그 시기에만 소량으로 수제간식을 만듭니다.<br>그래서 계절이 바뀌면 진열대의 간식도 함께 바뀌어요.</p>
+        <p class="lead">재료에도 가장 맛있고 영양이 꽉 찬 때가 있어요. <br class="pc">펫티시에는 계절마다 제철을 맞은 재료를 골라, <br class="pc">그 시기에만 소량으로 수제간식을 만듭니다.<br>그래서 계절이 바뀌면 진열대의 간식도 함께 바뀌어요.</p>
         <ol class="ss-dial" id="ssDial" aria-label="사계절 제철 간식 바로가기"></ol>
       </div>
       <article class="ss-now" id="ssNow" aria-live="polite"></article>
@@ -59,7 +80,7 @@
     <div class="wrap">
       <div class="ss-head">
         <h2>왜 ‘제철’에<br>마음을 쓰냐면요</h2>
-        <p class="lead">늘 같은 재료를 쓰는 편이 만드는 사람에겐 훨씬 쉬워요.<br class="pc">그래도 계절을 따라가는 데는 이유가 있습니다.</p>
+        <p class="lead">늘 같은 재료를 쓰는 편이 만드는 사람에겐 훨씬 쉬워요. <br class="pc">그래도 계절을 따라가는 데는 이유가 있습니다.</p>
       </div>
       <ol class="ss-reasons">
         <li>
@@ -113,7 +134,7 @@
         <svg viewBox="0 0 52 52" fill="none" stroke="#804C37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="26" cy="26" r="21" fill="#FFF6CC"/><path d="M26 13v13l8 5"/><path d="M26 5v3M26 44v3M5 26h3M44 26h3"/></svg>
         <div>
           <h3>사계절 내내 만드는 간식도 있어요</h3>
-          <p>닭·오리·연어 등과 같이 계절을 타지 않는 재료로 만드는 건조간식과 베이커리도 있어요. 펫티시에는 주문을 확인한 뒤 그때그때 손질하고 만들어, 늘 신선하게 보내드려요.</p>
+          <p>닭·오리·연어 등과 같이 계절을 타지 않는 재료로 만드는 건조간식과 베이커리도 있어요.<br>펫티시에는 주문을 확인한 뒤 그때그때 손질하고 만들어, 늘 신선하게 보내드려요.</p>
         </div>
         <a class="btn" href="shop.html">전체 간식 보기 →</a>
       </div>
@@ -124,7 +145,7 @@
   <section class="ss-cta">
     <div class="wrap">
       <h2>펫티시에 수제간식,<br>집에서 편하게 받아보세요</h2>
-      <p>홈페이지에서 바로 주문할 수 있어요. 주문을 확인한 뒤 만들어서 보내드려요.<br class="pc">새 시즌 소식은 인스타그램으로 가장 먼저 전해드립니다.</p>
+      <p>홈페이지에서 바로 주문할 수 있어요. 주문을 확인한 뒤 만들어서 보내드려요. <br class="pc">새 시즌 소식은 인스타그램으로 가장 먼저 전해드립니다.</p>
       <div class="hero-cta">
         <a class="btn fill" href="shop.html">온라인 주문하기</a>
         <a class="btn" data-link="instagram" href="#" target="_blank" rel="noopener">인스타그램 소식 받기</a>
@@ -134,16 +155,44 @@
   </section>
 </main>
 
-<footer>
+<footer class="ft">
   <div class="wrap">
-    <div>상호 펫티시에 · 대표 오종빈<br>© PETTISSIER. All rights reserved.</div>
-    <nav>
-      <a href="class.html">Class</a>
-      <a data-link="instagram" href="#" target="_blank" rel="noopener">Instagram</a>
-      <a data-link="blog" href="#" target="_blank" rel="noopener">Blog</a>
-      <a data-link="kakao" href="#" target="_blank" rel="noopener">KakaoTalk</a>
-      <a data-link="store" href="#" target="_blank" rel="noopener">Smart Store</a>
-    </nav>
+    <div class="ft-grid">
+      <div class="ft-brand"><b>PETTISSIER</b><small>Premium Pet Dessert</small><p>매일 소량, 손으로 만드는<br>강아지 케이크 · 수제간식 공방</p></div>
+      <div>
+        <h4>고객센터</h4>
+        <p class="ft-cs">카카오톡 상담</p>
+        <span>주문·케이크·클래스 문의는<br>카카오톡 채널로 남겨 주세요.</span><br>
+        <a class="ft-cs-btn" data-link="kakao" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>카카오톡 문의하기</a>
+      </div>
+      <div>
+        <h4>SHOP</h4>
+        <ul>
+          <li><a href="shop.html">전체상품</a></li>
+          <li><a href="shop.html?cat=best">베스트</a></li>
+          <li><a href="cakes.html">케이크 주문</a></li>
+          <li><a href="class.html">클래스</a></li>
+          <li><a href="cart.html">장바구니</a></li>
+          <li><a href="mypage.html">주문 조회</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>PETTISSIER</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="story.html">뭉치 이야기</a></li>
+          <li><a href="reviews.html">리뷰</a></li>
+          <li><a href="visit.html">오시는 길</a></li>
+          <li><a data-link="instagram" href="#" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a data-link="blog" href="#" target="_blank" rel="noopener">Blog</a></li>
+          <li><a data-link="store" href="#" target="_blank" rel="noopener">Smart Store</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-biz">
+      <span>상호 펫티시에</span><span>대표 오종빈</span><span>경기도 안양시 동안구 시민대로327번길 55, 평촌더샵센트럴시티 1층 109호</span><br>
+      © PETTISSIER. All rights reserved.
+    </div>
   </div>
 </footer>
 
@@ -165,6 +214,7 @@
 <script src="common.js"></script>
 <script src="account-link.js"></script>
 <script src="nav-drawer.js"></script>
+<script src="mall.js"></script>
 
 <script>
 /* ===================== 제철 간식 설정 (여기만 수정) =====================
@@ -175,6 +225,7 @@
               photo 는 같은 폴더에 사진을 넣고 파일 이름만 적으면 돼요 (없으면 그림으로 표시).
               url 은 주문 페이지 주소 (비워두면 온라인 주문 전체 목록으로 연결돼요).
               buy 는 자세히 보기 아래에 나오는 주문 버튼이에요.
+              글 안에 \n 을 넣으면 그 자리에서 줄이 바뀌어요.
 ========================================================================= */
 const SEASON = {
   NOW: "autumn",
@@ -195,12 +246,12 @@ const SEASON = {
       buy: [],
       featured: {
         name: "열빙어", en: "Capelin", photo: "season-now.jpg", url: "product.html?id=11224529580",
-        desc: "펫티시에는 아이슬란드산 암열빙어만 사용하고 있어요. 혹시나 거슬릴 수 있는 지느러미는 모두 깨끗하게 손질해서 먹기에 불편함이 없어요. 암열빙어만 사용해 알이 꽉 차 있어 영양가가 가득해요.",
+        desc: "펫티시에는 아이슬란드산 암열빙어만 사용하고 있어요.\n혹시나 거슬릴 수 있는 지느러미는 모두 깨끗하게 손질해서 먹기에 불편함이 없어요.\n암열빙어만 사용해 알이 꽉 차 있어 영양가가 가득해요.",
         points: [
-          ["뼈째 먹는 작은 생선", "살과 뼈를 함께 먹는 생선이라 칼슘을 자연스럽게 챙길 수 있어요."],
-          ["오메가-3 지방산", "생선에 들어 있는 오메가-3(EPA·DHA)는 윤기 있는 피모 관리에 도움이 될 수 있어요."],
-          ["고소한 향, 높은 기호성", "생선 특유의 고소한 향 덕분에 입 짧은 아이들도 관심을 보여요."],
-          ["열빙어 하나만", "보존료나 첨가물 없이 손질한 열빙어만 그대로 말렸어요."]
+          ["뼈째 먹는 작은 생선", "살과 뼈를 함께 먹는 생선이라\n칼슘을 자연스럽게 챙길 수 있어요."],
+          ["오메가-3 지방산", "생선에 들어 있는 오메가-3(EPA·DHA)는\n윤기 있는 피모 관리에 도움이 될 수 있어요."],
+          ["고소한 향, 높은 기호성", "생선 특유의 고소한 향 덕분에\n입 짧은 아이들도 관심을 보여요."],
+          ["열빙어 하나만", "보존료나 첨가물 없이 손질한 열빙어만\n그대로 말렸어요."]
         ],
         tips: [
           "펫티시에 열빙어는 알이 꽉 차 있고, 촉촉하게 건조하고 있어요.",
@@ -227,6 +278,7 @@ const SEASON = {
   const f = now.featured;
   const store = "shop.html";
   const range = s => `${s.months[0]}~${s.months[s.months.length - 1]}월`;
+  const br = t => String(t || "").replace(/\n/g, "<br>");   // 문장마다 줄바꿈 (\n)
 
   const ICON = {
     spring: '<svg viewBox="0 0 40 40" aria-hidden="true"><g fill="#FFD900" stroke="#804C37" stroke-width="1.6"><circle cx="20" cy="11" r="6"/><circle cx="28.6" cy="17.2" r="6"/><circle cx="25.3" cy="27.3" r="6"/><circle cx="14.7" cy="27.3" r="6"/><circle cx="11.4" cy="17.2" r="6"/></g><circle cx="20" cy="20" r="4.4" fill="#fff" stroke="#804C37" stroke-width="1.6"/></svg>',
@@ -247,16 +299,16 @@ const SEASON = {
   // 지금 제철 카드
   document.getElementById("ssNow").innerHTML =
     `<a class="ss-photo" href="${f.url || store}" aria-label="${f.name} 구매하러 가기"><img src="${f.photo}" alt="제철 간식 ${f.name}" loading="lazy" onerror="this.remove()">${art(now)}<span class="ss-badge">NOW · ${now.name} 제철</span><span class="ss-cart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2.2l2.1 10.2a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.2L20.5 8H6.1" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.5" cy="19.5" r="1.4" fill="currentColor"/><circle cx="17" cy="19.5" r="1.4" fill="currentColor"/></svg>장바구니</span></a>
-     <div class="ss-now-body"><small>${f.en}</small><h3>${f.name}</h3><p>${f.desc}</p>
+     <div class="ss-now-body"><small>${f.en}</small><h3>${f.name}</h3><p>${br(f.desc)}</p>
      <a class="btn fill" href="${f.url || store}">${f.name} 주문하기 →</a></div>`;
 
   // 이번 시즌 자세히
   document.getElementById("ssDetailEyebrow").textContent = `${now.name} 제철 · ${range(now)}`;
   document.getElementById("ssDetailTitle").innerHTML = `이번 시즌의 주인공,<br>${f.name}`;
-  document.getElementById("ssDetailLead").textContent = f.desc;
+  document.getElementById("ssDetailLead").innerHTML = br(f.desc);
   const pts = f.points || [], tips = f.tips || [];
-  document.getElementById("ssPoints").innerHTML = pts.map(([t, d]) => `<li><b>${t}</b><span>${d}</span></li>`).join("");
-  document.getElementById("ssTips").innerHTML = tips.map(t => `<li>${t}</li>`).join("");
+  document.getElementById("ssPoints").innerHTML = pts.map(([t, d]) => `<li><b>${t}</b><span>${br(d)}</span></li>`).join("");
+  document.getElementById("ssTips").innerHTML = tips.map(t => `<li>${br(t)}</li>`).join("");
   if (!pts.length && !tips.length) document.querySelector(".ss-detail-grid").remove();
   const buy = now.buy || [[f.name + " 주문하기", f.url || store, true]];
   const buyEl = document.getElementById("ssBuy");

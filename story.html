@@ -18,26 +18,47 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="mall.css">
 <script>try{if(sessionStorage.getItem("pt-loading"))document.documentElement.classList.add("pt-arrive")}catch(e){}</script>
 <script src="loader.js" defer></script>
 </head>
 <body>
 
+<div class="top-notice" id="topNotice"><span><b>60,000원</b> 이상 무료배송</span><span>주문 확인 후 만들어 보내드려요</span></div>
 <header class="top">
   <div class="wrap">
     <a href="index.html" class="brand" aria-label="펫티시에 홈"><b>PETTISSIER</b><small>Premium Pet Dessert</small></a>
     <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav class="nav" id="nav">
-      <a href="about.html">About</a>
-      <a href="story.html" aria-current="page">뭉치 이야기</a>
-      <a href="cakes.html">케이크</a>
+      <span class="nav-group">SHOP</span>
+      <a href="shop.html">전체상품</a>
+      <a href="shop.html?cat=best">베스트</a>
+      <a href="shop.html?cat=bakery">수제 베이커리</a>
+      <a href="shop.html?cat=dried">수제 건조간식</a>
+      <a href="shop.html?cat=natural">수제 자연식</a>
+      <a href="shop.html?cat=bulk">대용량 간식</a>
+      <span class="nav-group">PETTISSIER</span>
+      <a href="cakes.html">케이크 주문</a>
       <a href="snacks.html">수제간식</a>
-      <a href="shop.html"><span>온라인 주문<svg class="nav-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg></span></a>
       <a href="class.html">클래스</a>
       <a href="reviews.html">리뷰</a>
+      <a href="about.html">About</a>
+      <a href="story.html">뭉치 이야기</a>
       <a href="visit.html">오시는 길</a>
     </nav>
   </div>
+  <nav class="catbar" aria-label="상품 카테고리"><div class="catbar-in">
+    <a href="shop.html">전체상품</a>
+    <a class="best" href="shop.html?cat=best">BEST</a>
+    <a href="shop.html?cat=bakery">베이커리</a>
+    <a href="shop.html?cat=dried">건조간식</a>
+    <a href="shop.html?cat=natural">자연식</a>
+    <a href="shop.html?cat=bulk">대용량</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a class="sub" href="cakes.html">케이크 주문</a>
+    <a class="sub" href="class.html">클래스</a>
+    <a class="sub" href="reviews.html">리뷰</a>
+  </div></nav>
 </header>
 
 <main>
@@ -85,25 +106,25 @@
           <small>처음 만난 날</small>
           <h3>“아픈 아이에게 다른 삶을”</h3>
           <p>수제간식점을 열게 된다면 아픔이 있는 아이를 데려와 다른 삶을 살게 해주고 싶다는 생각을 오래 품고 있었어요.</p>
-          <p>그때 저와 남편의 눈에 들어온 아이가 뭉치였습니다. 파양된 뒤 해를 거의 보지 못하고<br class="pc">지낸 탓에 곰팡이균으로 피부병이 심했고, 몸무게는 고작 600g이었어요.</p>
+          <p>그때 저와 남편의 눈에 들어온 아이가 뭉치였습니다. 파양된 뒤 해를 거의 보지 못하고 <br class="pc">지낸 탓에 곰팡이균으로 피부병이 심했고, 몸무게는 고작 600g이었어요.</p>
         </li>
         <li>
           <small>검진 결과</small>
           <h3>표정 없는 얼굴보다 아팠던 것</h3>
-          <p>슬픈 눈, 아무 표정 없는 얼굴, 소심하게 눈치를 보는 모습도 마음이 쓰였지만<br class="pc">더 충격적이었던 건 검진 결과였어요.</p>
-          <p>심한 영양실조와 피부병, 일찍 닫혀 버린 성장판 때문에 함께 자라지 못한 뼈와 근육,<br class="pc">그리고 부식된 이빨까지.</p>
+          <p>슬픈 눈, 아무 표정 없는 얼굴, 소심하게 눈치를 보는 모습도 마음이 쓰였지만 <br class="pc">더 충격적이었던 건 검진 결과였어요.</p>
+          <p>심한 영양실조와 피부병, 일찍 닫혀 버린 성장판 때문에 함께 자라지 못한 뼈와 근육, <br class="pc">그리고 부식된 이빨까지.</p>
         </li>
         <li>
           <small>간식이 바뀐 이유</small>
           <h3>예쁜 간식에서, 건강한 간식으로</h3>
           <p>예쁘고 귀여운 간식에서 건조간식과 자연식으로 눈을 돌리게 된 것도 그즈음이었어요.</p>
-          <p>정성이 담긴 건강한 간식을 꾸준히 먹이면서 뭉치의 피부병은 모두 나았고,<br class="pc">털도 부숭부숭 잘 자라고 있어요.<br class="pc">하루하루 달라지는 뭉치를 보며 제가 선택한 길이 틀리지 않았다는 확신이 들었습니다.</p>
+          <p>정성이 담긴 건강한 간식을 꾸준히 먹이면서 뭉치의 피부병은 모두 나았고, <br class="pc">털도 부숭부숭 잘 자라고 있어요. <br class="pc">하루하루 달라지는 뭉치를 보며 제가 선택한 길이 틀리지 않았다는 확신이 들었습니다.</p>
         </li>
         <li>
           <small>지금의 뭉치</small>
           <h3>“예전에 그 강아지 맞아요?”</h3>
-          <p>요즘 매장에 오시는 분들께 가장 많이 듣는 말이에요.<br class="pc">표정도 다양해지고, 눈치도 덜 보며 건강하게 자라고 있답니다.</p>
-          <q>펫티시에에 강한 뼈 간식이나 치아에 무리가 가는 간식이 없는 이유도,<br class="pc">뭉치의 이빨 때문이에요.</q>
+          <p>요즘 매장에 오시는 분들께 가장 많이 듣는 말이에요. <br class="pc">표정도 다양해지고, 눈치도 덜 보며 건강하게 자라고 있답니다.</p>
+          <q>펫티시에에 강한 뼈 간식이나 치아에 무리가 가는 간식이 없는 이유도, <br class="pc">뭉치의 이빨 때문이에요.</q>
         </li>
       </ol>
     </div>
@@ -113,7 +134,7 @@
     <div class="wrap">
       <div>
         <h2>더 건강하고 안전한<br>먹거리를 위해 계속 공부합니다</h2>
-        <p class="lead">모든 반려동물에게 더 건강하고 안전한 먹거리를 드리고 싶어 꾸준히 공부하며 자격을 갖췄어요.<br>앞으로도 연구하고 발전해, 더 많은 아이들이 깨끗하고 맛있는 간식을<br class="pc">즐길 수 있도록 노력하겠습니다.</p>
+        <p class="lead">모든 반려동물에게 더 건강하고 안전한 먹거리를 드리고 싶어 꾸준히 공부하며 자격을 갖췄어요.<br>앞으로도 연구하고 발전해, 더 많은 아이들이 깨끗하고 맛있는 간식을 <br class="pc">즐길 수 있도록 노력하겠습니다.</p>
       </div>
       <ul class="certs">
         <li><svg width="38" height="38" viewBox="0 0 38 38" fill="none" stroke="#231F1C" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><circle cx="19" cy="15" r="10" fill="#FFD900"/><path d="M13 23l-3 11 5-2.5 3 4 1-8M25 23l3 11-5-2.5-3 4-1-8"/><path d="M15 15l3 3 5-6" stroke-linecap="round"/></svg><div><b>펫푸드 지도사</b><span>자격 취득</span></div></li>
@@ -135,16 +156,44 @@
   </section>
 </main>
 
-<footer>
+<footer class="ft">
   <div class="wrap">
-    <div>상호 펫티시에 · 대표 오종빈<br>© PETTISSIER. All rights reserved.</div>
-    <nav>
-      <a href="class.html">Class</a>
-      <a data-link="instagram" href="#" target="_blank" rel="noopener">Instagram</a>
-      <a data-link="blog" href="#" target="_blank" rel="noopener">Blog</a>
-      <a data-link="kakao" href="#" target="_blank" rel="noopener">KakaoTalk</a>
-      <a data-link="store" href="#" target="_blank" rel="noopener">Smart Store</a>
-    </nav>
+    <div class="ft-grid">
+      <div class="ft-brand"><b>PETTISSIER</b><small>Premium Pet Dessert</small><p>매일 소량, 손으로 만드는<br>강아지 케이크 · 수제간식 공방</p></div>
+      <div>
+        <h4>고객센터</h4>
+        <p class="ft-cs">카카오톡 상담</p>
+        <span>주문·케이크·클래스 문의는<br>카카오톡 채널로 남겨 주세요.</span><br>
+        <a class="ft-cs-btn" data-link="kakao" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>카카오톡 문의하기</a>
+      </div>
+      <div>
+        <h4>SHOP</h4>
+        <ul>
+          <li><a href="shop.html">전체상품</a></li>
+          <li><a href="shop.html?cat=best">베스트</a></li>
+          <li><a href="cakes.html">케이크 주문</a></li>
+          <li><a href="class.html">클래스</a></li>
+          <li><a href="cart.html">장바구니</a></li>
+          <li><a href="mypage.html">주문 조회</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>PETTISSIER</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="story.html">뭉치 이야기</a></li>
+          <li><a href="reviews.html">리뷰</a></li>
+          <li><a href="visit.html">오시는 길</a></li>
+          <li><a data-link="instagram" href="#" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a data-link="blog" href="#" target="_blank" rel="noopener">Blog</a></li>
+          <li><a data-link="store" href="#" target="_blank" rel="noopener">Smart Store</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-biz">
+      <span>상호 펫티시에</span><span>대표 오종빈</span><span>경기도 안양시 동안구 시민대로327번길 55, 평촌더샵센트럴시티 1층 109호</span><br>
+      © PETTISSIER. All rights reserved.
+    </div>
   </div>
 </footer>
 
@@ -167,6 +216,7 @@
 <script src="mungchi-bubbles.js"></script>
 <script src="account-link.js"></script>
 <script src="nav-drawer.js"></script>
+<script src="mall.js"></script>
 
 </body>
 </html>

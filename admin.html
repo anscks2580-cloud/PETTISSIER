@@ -118,6 +118,26 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
   .opt-row .tog{grid-column:1/2;justify-self:start}
   .top .who{display:none}
 }
+/* 리뷰 관리 */
+.kw-row{display:grid;grid-template-columns:minmax(0,1fr) 110px auto;gap:8px;margin-bottom:8px}
+.kw-row input{padding:9px 10px;border:1px solid rgba(35,31,28,.22);border-radius:10px;background:var(--paper);font-size:15px;width:100%}
+.rv-list{display:grid;gap:10px}
+.rv-item{display:grid;grid-template-columns:auto 110px minmax(0,1fr) auto;gap:14px;align-items:start;background:var(--paper);border:1px solid rgba(35,31,28,.1);border-radius:14px;padding:12px 14px}
+.rv-item.hid{opacity:.5}
+.rv-item>img{width:110px;max-height:190px;object-fit:cover;object-position:top;border-radius:10px;border:1px solid rgba(35,31,28,.12);background:var(--mist)}
+.rv-item .f{display:grid;grid-template-columns:150px minmax(0,1fr) 110px;gap:8px}
+.rv-item .f select,.rv-item .f input,.rv-item textarea{padding:8px 10px;border:1px solid rgba(35,31,28,.22);border-radius:10px;background:var(--paper);font-size:14.5px;width:100%}
+.rv-item textarea{margin-top:8px;min-height:58px;resize:vertical}
+.rv-item .side{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.howto{font-size:13.5px;color:var(--muted);margin:2px 0 14px;line-height:1.7}
+.howto b{color:var(--ink)}
+@media (max-width:700px){
+  .rv-item{grid-template-columns:auto 80px minmax(0,1fr)}
+  .rv-item>img{width:80px}
+  .rv-item .f{grid-template-columns:1fr 1fr}
+  .rv-item .f input.cat{grid-column:1/-1}
+  .rv-item .side{grid-column:1/-1;flex-direction:row;justify-content:flex-end}
+}
 </style>
 </head>
 <body>
@@ -128,6 +148,7 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
 <script src="firebase-config.js"></script>
 <script src="shop-data.js"></script>
 <script src="product-stories.js"></script>
+<script src="reviews-data.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -207,12 +228,14 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
           <button role="tab" aria-selected="false" data-tab="o">주문 내역</button>
           <button role="tab" aria-selected="false" data-tab="m">회원</button>
           <button role="tab" aria-selected="false" data-tab="r">클래스 예약</button>
+          <button role="tab" aria-selected="false" data-tab="v">리뷰 관리</button>
           <button role="tab" aria-selected="false" data-tab="s">쇼핑 설정</button>
         </div>
         <section id="tab-p"></section>
         <section id="tab-o" hidden></section>
         <section id="tab-m" hidden></section>
         <section id="tab-r" hidden></section>
+        <section id="tab-v" hidden></section>
         <section id="tab-s" hidden></section>
       </main>
       <div class="panel" id="panel"><div class="sheet" id="sheet"></div></div>`;
@@ -221,10 +244,11 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
     document.getElementById("chid").onclick = openLoginId;
     app.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => {
       app.querySelectorAll("[data-tab]").forEach(x => x.setAttribute("aria-selected", x === b));
-      ["p", "o", "m", "r", "s"].forEach(k => document.getElementById("tab-" + k).hidden = b.dataset.tab !== k);
+      ["p", "o", "m", "r", "v", "s"].forEach(k => document.getElementById("tab-" + k).hidden = b.dataset.tab !== k);
       if (b.dataset.tab === "o") renderOrders();
       if (b.dataset.tab === "m") renderMembers();
       if (b.dataset.tab === "r") renderReservations();
+      if (b.dataset.tab === "v") renderReviews();
     });
     loadAll();
   }
@@ -440,6 +464,103 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.35}
       batch.set(db.collection("shop").doc("settings"), { shippingFee: SHOP.shippingFee, freeShippingOver: SHOP.freeShippingOver, minOrder: SHOP.minOrder, makeDays: SHOP.makeDays, kakaoChat: SHOP.kakaoChat }, { merge: true });
       await batch.commit(); toast("상품을 불러왔어요."); loadAll();
     } catch (err) { b.disabled = false; b.textContent = "기존 상품 불러오기"; toast("불러오지 못했어요. 권한을 확인해 주세요."); }
+  }
+
+  /* ───── 리뷰 관리 (메인 · 리뷰 페이지) ─────
+     shop/reviews 문서 하나에 { keywords:[{label,count}], items:[{img,source,cat,date,text,hidden}] } 로 저장해요.
+     캡처 이미지는 products/_reviews 폴더에 올라가요. */
+  let rv = null;
+  async function renderReviews() {
+    const box = document.getElementById("tab-v");
+    if (!rv) {
+      box.innerHTML = '<p class="empty">불러오는 중이에요…</p>';
+      let d = null;
+      try { const x = await db.collection("shop").doc("reviews").get(); d = x.exists ? x.data() : null; } catch (e) {}
+      const base = window.PT_REVIEWS || { keywords: [], items: [] };
+      rv = {
+        keywords: (d && d.keywords && d.keywords.length ? d.keywords : base.keywords).map(k => ({ label: k.label || "", count: +k.count || 0 })),
+        items: (d && d.items ? d.items : base.items).map(r => ({ img: r.img, source: r.source || "store", cat: r.cat || "", date: r.date || "", text: r.text || "", hidden: !!r.hidden }))
+      };
+    }
+    const kwRows = rv.keywords.map((k, i) => `<div class="kw-row"><input data-kw="${i}" data-f="label" value="${E(k.label)}" placeholder="예) 아이가 잘 먹어요"><input data-kw="${i}" data-f="count" type="number" min="0" value="${k.count}" aria-label="표 수"><button class="x" type="button" data-kwdel="${i}" aria-label="삭제">✕</button></div>`).join("");
+    const items = rv.items.map((r, i) => `<div class="rv-item${r.hidden ? " hid" : ""}">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <button class="x" type="button" data-mv="${i}" data-d="-1" aria-label="위로" style="width:30px;height:28px">▲</button>
+          <button class="x" type="button" data-mv="${i}" data-d="1" aria-label="아래로" style="width:30px;height:28px">▼</button></div>
+        <img src="${E(r.img)}" alt="">
+        <div>
+          <div class="f">
+            <select data-i="${i}" data-f="source" aria-label="리뷰 출처"><option value="store"${r.source === "store" ? " selected" : ""}>스마트스토어</option><option value="place"${r.source === "place" ? " selected" : ""}>네이버 플레이스</option></select>
+            <input class="cat" data-i="${i}" data-f="cat" value="${E(r.cat)}" placeholder="태그 예) 수제간식 · 케이크 · 건조간식" list="rv-cats">
+            <input data-i="${i}" data-f="date" value="${E(r.date)}" placeholder="예) 26.10">
+          </div>
+          <textarea data-i="${i}" data-f="text" placeholder="리뷰 글 (캡처에 글이 다 보이면 비워 두셔도 돼요)">${E(r.text)}</textarea>
+        </div>
+        <div class="side">
+          <label class="tog"><input type="checkbox" data-i="${i}" data-f="hidden"${r.hidden ? " checked" : ""}>숨김</label>
+          <button class="btn sm danger" type="button" data-del="${i}">삭제</button>
+        </div>
+      </div>`).join("");
+    box.innerHTML = `<div class="card"><h3>‘이런 점이 좋았어요’ 통계</h3>
+        <p class="howto">네이버 <b>스마트플레이스</b>(사장님용 앱·사이트) → <b>리뷰</b> → <b>‘이런 점이 좋았어요’</b> 키워드 순위에 나오는 문구와 숫자를 그대로 옮겨 적어 주세요.<br>숫자가 가장 큰 키워드를 기준으로 막대 길이가 정해져요. 리뷰 페이지 왼쪽에 보여요.</p>
+        <div id="kwBox">${kwRows}</div>
+        <button class="btn sm" type="button" id="kwAdd">+ 키워드 추가</button></div>
+      <div class="card" style="margin-top:18px"><h3>리뷰 캡처 (${rv.items.length}개)</h3>
+        <p class="howto">휴대폰으로 스마트스토어·네이버 리뷰를 <b>캡처</b>해서 올려 주세요. 가로 폭은 모두 같게 맞춰지고, 세로 길이는 캡처마다 달라도 괜찮아요.<br>맨 위 6개가 메인 화면에 나와요. ▲▼ 로 순서를 바꿀 수 있어요.</p>
+        <label class="drop" id="rvDrop">여기를 눌러 캡처 이미지를 고르거나, 끌어다 놓아 주세요 (여러 장 가능)<input type="file" accept="image/*" multiple hidden id="rvFile"></label>
+        <div class="prog" id="rvProg"></div>
+        <datalist id="rv-cats"><option value="수제간식"><option value="건조간식"><option value="베이커리"><option value="자연식"><option value="수제 케이크"><option value="클래스"></datalist>
+        <div class="rv-list" style="margin-top:14px">${items || '<p class="empty">아직 올린 리뷰가 없어요.</p>'}</div></div>
+      <div class="sheet-foot" style="position:sticky;margin-top:18px;border-radius:14px;border:1px solid var(--mist)"><span class="muted" style="font-size:13.5px">저장해야 홈페이지에 반영돼요.</span><span class="sp"></span><a class="btn" href="reviews.html" target="_blank" rel="noopener" style="color:var(--ink)">리뷰 페이지 보기</a><button class="btn fill" type="button" id="rvSave">리뷰 저장</button></div>`;
+
+    box.oninput = box.onchange = e => {
+      const t = e.target;
+      if (t.dataset.kw != null) { const k = rv.keywords[+t.dataset.kw]; k[t.dataset.f] = t.dataset.f === "count" ? Math.max(0, parseInt(t.value, 10) || 0) : t.value; return; }
+      if (t.dataset.i != null) {
+        const r = rv.items[+t.dataset.i];
+        if (t.dataset.f === "hidden") { r.hidden = t.checked; t.closest(".rv-item").classList.toggle("hid", t.checked); }
+        else r[t.dataset.f] = t.value;
+      }
+    };
+    box.onclick = async e => {
+      const b = e.target.closest("button"); if (!b) return;
+      if (b.id === "kwAdd") { rv.keywords.push({ label: "", count: 0 }); renderReviews(); return; }
+      if (b.dataset.kwdel != null) { rv.keywords.splice(+b.dataset.kwdel, 1); renderReviews(); return; }
+      if (b.dataset.mv != null) {
+        const i = +b.dataset.mv, j = i + (+b.dataset.d); if (j < 0 || j >= rv.items.length) return;
+        [rv.items[i], rv.items[j]] = [rv.items[j], rv.items[i]]; renderReviews(); return;
+      }
+      if (b.dataset.del != null) {
+        if (!confirm("이 리뷰를 지울까요? (저장해야 반영돼요)")) return;
+        rv.items.splice(+b.dataset.del, 1);
+        renderReviews(); return;
+      }
+      if (b.id === "rvSave") {
+        b.disabled = true;
+        const data = {
+          keywords: rv.keywords.filter(k => k.label.trim()).map(k => ({ label: k.label.trim(), count: +k.count || 0 })),
+          items: rv.items.map(r => ({ img: r.img, source: r.source, cat: r.cat.trim(), date: r.date.trim(), text: r.text.trim(), hidden: !!r.hidden })),
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
+        try { await db.collection("shop").doc("reviews").set(data); toast("리뷰를 저장했어요."); }
+        catch (err) { toast("저장하지 못했어요. 권한을 확인해 주세요."); }
+        b.disabled = false;
+      }
+    };
+    const file = document.getElementById("rvFile"), drop = document.getElementById("rvDrop"), prog = document.getElementById("rvProg");
+    const addFiles = async files => {
+      files = [...files].filter(f => /^image\//.test(f.type)); if (!files.length) return;
+      for (let i = 0; i < files.length; i++) {
+        prog.textContent = `올리는 중… ${i + 1} / ${files.length}`;
+        try { rv.items.unshift({ img: await upload("_reviews", files[i], 900), source: "store", cat: "", date: "", text: "", hidden: false }); }
+        catch (err) { toast("일부 이미지를 올리지 못했어요."); }
+      }
+      prog.textContent = ""; renderReviews(); toast("올렸어요. 태그를 적고 ‘리뷰 저장’을 눌러 주세요.");
+    };
+    file.onchange = () => addFiles(file.files);
+    drop.ondragover = e => { e.preventDefault(); drop.classList.add("over"); };
+    drop.ondragleave = () => drop.classList.remove("over");
+    drop.ondrop = e => { e.preventDefault(); drop.classList.remove("over"); addFiles(e.dataTransfer.files); };
   }
 
   /* ───── 이미지 줄이기 · 올리기 ───── */
