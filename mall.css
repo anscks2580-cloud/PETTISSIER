@@ -283,3 +283,6 @@ footer.ft .wrap{display:block}
 .mh-home .m-reviews .review-list.wall{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-items:start;column-count:auto}
 .mh-home .m-reviews .review-list.wall .review{margin:0}
 @media (max-width:900px){.mh-home .m-reviews .review-list.wall{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
+
+/* ── 글씨 굵기 : 굵은 글씨 없이 모두 얇게 (2026-11-02) ── */
+*,*::before,*::after{font-weight:400!important}

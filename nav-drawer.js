@@ -21,7 +21,7 @@
       'margin:0!important;line-height:1.4!important;text-align:left!important;text-decoration:none!important;border-top:0!important}' +
     '.nav.nd-drawer a::after{content:none!important}' +
     /* 한 줄 메뉴(리뷰 · 오시는 길)와 묶음 제목 */
-    '.nav.nd-drawer a.nav-one,.nav.nd-drawer .nav-acc-btn{padding:17px 6px!important;font-size:16.5px!important;font-weight:700!important;' +
+    '.nav.nd-drawer a.nav-one,.nav.nd-drawer .nav-acc-btn{padding:17px 6px!important;font-size:16.5px!important;font-weight:400!important;' +
       'border-bottom:1px solid #EEECE7!important;color:#231F1C!important}' +
     '.nav.nd-drawer a.nav-one:hover{background:#FFF6CC!important}' +
     '.nav-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font:inherit;background:none;border:0;' +
@@ -36,7 +36,7 @@
     /* 펼쳐졌을 때 안쪽 메뉴 */
     '.nav.nd-drawer .nav-acc-panel a{padding:11px 12px!important;font-size:15px!important;font-weight:400!important;color:#4A443E!important;border-bottom:0!important;border-radius:8px}' +
     '.nav.nd-drawer .nav-acc-panel a:hover{background:#FFF6CC!important}' +
-    '.nav.nd-drawer .nav-acc-panel a[aria-current="page"]{color:#231F1C!important;font-weight:700!important}' +
+    '.nav.nd-drawer .nav-acc-panel a[aria-current="page"]{color:#231F1C!important;font-weight:400!important}' +
     '.nd-close{position:absolute;top:16px;right:16px;width:42px;height:42px;border:0;background:none;' +
       'font-size:30px;line-height:1;cursor:pointer;color:inherit}' +
     'body.nd-lock{overflow:hidden}';
