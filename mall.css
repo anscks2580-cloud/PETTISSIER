@@ -117,20 +117,18 @@ footer.ft .wrap{display:block}
 
 /* 작은 배너 (예전 첫 화면 문구를 작게) */
 .mh-banner{background:var(--butter);overflow:hidden;padding:0!important}
-.mh-banner .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;min-height:170px}
+.mh-banner .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;min-height:196px}
 .mh-banner .kicker{display:block;font-size:13px;color:var(--wood);letter-spacing:.02em}
 .mh-banner h1{margin-top:6px;font-family:var(--serif);font-size:clamp(21px,2.4vw,28px);line-height:1.4}
 .mh-banner p{margin:6px 0 0;font-size:14.5px;color:var(--muted);line-height:1.6}
-.mh-banner-art{position:relative;align-self:end;width:150px;height:170px}
-.mh-banner-art::before{content:"";position:absolute;width:132px;height:132px;border-radius:50%;background:#FFEB80;left:50%;bottom:10px;transform:translateX(-50%)}
+.mh-banner-art{position:relative;align-self:end;width:172px;height:196px}
 .mh-banner-art img{position:relative;width:100%;height:100%;object-fit:contain;object-position:50% 100%}
 @media (max-width:760px){
-  .mh-banner .wrap{min-height:140px;gap:10px;grid-template-columns:minmax(0,1fr) 96px}
+  .mh-banner .wrap{min-height:161px;gap:10px;grid-template-columns:minmax(0,1fr) 110px}
   .mh-banner .kicker{font-size:12px}
   .mh-banner h1{font-size:18.5px}
   .mh-banner p{font-size:12.5px}
-  .mh-banner-art{width:96px;height:140px}
-  .mh-banner-art::before{width:88px;height:88px;bottom:8px}
+  .mh-banner-art{width:110px;height:161px}
 }
 
 /* 상품 카드 (메인) : 사진 · 이름 · 가격만 깔끔하게 */
@@ -315,7 +313,7 @@ body.has-buybar .to-top{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 .sh-card .sh-pr{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px}
 .sh-card .sh-pr .pr{margin:0;font-size:17.5px}
 .sh-card .sh-pr+.cat{margin-top:2px;font-size:12px;color:#9A938A}
-.sh-cart{flex:none;width:36px;height:36px;display:grid;place-items:center;padding:0;border:1px solid #E4E0D7;border-radius:50%;background:#fff;color:var(--ink);cursor:pointer;text-decoration:none;transition:background .15s,border-color .15s}
+.sh-cart{flex:none;width:36px;height:36px;display:grid;place-items:center;padding:0;border:1px solid #ECE9E2;border-radius:50%;background:#fff;color:var(--ink);cursor:pointer;text-decoration:none;transition:background .15s,border-color .15s}
 .sh-cart:hover{background:var(--butter);border-color:#D9D2C2}
-.sh-cart svg{width:19px;height:19px}
+.sh-cart svg{width:19px;height:19px;stroke-width:1.2}
 @media (max-width:640px){.sh-card .sh-link .nm{font-size:14px}.sh-card .sh-pr .pr{font-size:16px}.sh-cart{width:32px;height:32px}.sh-cart svg{width:17px;height:17px}}
