@@ -48,9 +48,4 @@
     drawAll();
   });
 
-  /* ── 리뷰 ── */
-  PT_REVIEWS.ready.then(R => {
-    const el = document.getElementById("homeReviews"); if (!el) return;
-    el.innerHTML = R.items.slice(0, 6).map(R.card).join("");
-  });
 })();
