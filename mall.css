@@ -308,3 +308,14 @@ footer.ft .wrap{display:block}
 .to-top svg{width:16px;height:16px;margin-bottom:-2px}
 .to-top span{font:11px/1 Arial,sans-serif;letter-spacing:.06em}
 body.has-buybar .to-top{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+
+/* ── 상품 카드 : 가격 반대편에 장바구니 버튼 ── */
+.sh-card .sh-link{display:flex;flex-direction:column;text-decoration:none;color:inherit}
+.sh-card .sh-link .nm{margin-top:12px;font-size:15px;line-height:1.5;color:#2B2622}
+.sh-card .sh-pr{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px}
+.sh-card .sh-pr .pr{margin:0;font-size:17.5px}
+.sh-card .sh-pr+.cat{margin-top:2px;font-size:12px;color:#9A938A}
+.sh-cart{flex:none;width:36px;height:36px;display:grid;place-items:center;padding:0;border:1px solid #E4E0D7;border-radius:50%;background:#fff;color:var(--ink);cursor:pointer;text-decoration:none;transition:background .15s,border-color .15s}
+.sh-cart:hover{background:var(--butter);border-color:#D9D2C2}
+.sh-cart svg{width:19px;height:19px}
+@media (max-width:640px){.sh-card .sh-link .nm{font-size:14px}.sh-card .sh-pr .pr{font-size:16px}.sh-cart{width:32px;height:32px}.sh-cart svg{width:17px;height:17px}}

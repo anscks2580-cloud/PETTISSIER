@@ -2,17 +2,7 @@
 (function () {
   const E = Shop.esc;
 
-  function card(p, rank) {
-    const tag = p.soldout ? '<span class="sh-tag">품절</span>' : (p.best && !rank ? '<span class="sh-tag best">BEST</span>' : "");
-    return `<div class="sh-card${p.soldout ? " out" : ""}">
-      <a href="product.html?id=${encodeURIComponent(p.id)}" style="text-decoration:none;color:inherit">
-        <span class="ph">${rank ? `<span class="rank">${rank}</span>` : ""}${tag}<img src="${E(p.thumb)}" alt="${E(p.name)}" loading="lazy" width="600" height="600"></span>
-        <span class="nm">${E(p.name)}</span>
-        <span class="pr">${p.soldout ? "품절" : Shop.won(p.price)}</span>
-        <span class="cat">${Shop.catLabel(p.cat)}</span>
-      </a>
-    </div>`;
-  }
+  const card = (p, rank) => Shop.card(p, rank);
   const put = (id, list, ranked) => {
     const el = document.getElementById(id); if (!el) return;
     el.innerHTML = list.length ? list.map((p, i) => card(p, ranked ? i + 1 : 0)).join("") : '<p class="m-loading">준비 중인 상품이에요.</p>';
@@ -20,7 +10,7 @@
   const newer = (a, b) => String(b.id).localeCompare(String(a.id), "en", { numeric: true });
 
   /* 전체상품 : 종류 · 정렬 · 더보기 */
-  const ALL_CATS = ["all", "bakery", "dried", "natural", "bulk"];
+  const ALL_CATS = ["all", "bakery", "dried", "natural"];
   const STEP = 12;
   let allCat = "all", allSort = "pop", shown = STEP;
 

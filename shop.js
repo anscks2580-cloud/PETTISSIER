@@ -37,8 +37,16 @@ const Shop = (function () {
     } catch (e) { /* 연결 실패 시 기본 데이터 사용 */ }
     finally { clearTimeout(tm); }
   }
+  // '대용량' 분류는 없앴어요 : 관리자에 예전 분류(bulk)로 저장된 상품도 원래 종류로 보여줘요
+  const BULK_TO = { "11888082495": "bakery", "12404542115": "dried", "12404550727": "bakery", "12404537428": "dried", "12404521217": "dried", "12404512523": "dried", "12404494073": "natural", "12404488806": "natural" };
+  function fixCat(p) {
+    if (p.cat !== "bulk") return p;
+    const n = String(p.name || "");
+    const guess = /퓨레|테린|수비드/.test(n) ? "natural" : /후르츠링|쿠키|볼|케이크|치킨/.test(n) ? "bakery" : "dried";
+    return { ...p, cat: BULK_TO[p.id] || guess };
+  }
   const ready = loadRemote().then(() => {
-    PRODUCTS = PRODUCTS.filter(p => !p.hidden).sort((a, b) => (a.rank || 999) - (b.rank || 999));
+    PRODUCTS = PRODUCTS.filter(p => !p.hidden).map(fixCat).sort((a, b) => (a.rank || 999) - (b.rank || 999));
     badge();
   });
 
@@ -90,6 +98,34 @@ const Shop = (function () {
     clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), 2600);
   }
 
+  /* 상품 카드 (메인 · 상품 목록 공통) : 사진 · 이름 · 가격 + 가격 반대편에 장바구니 버튼 */
+  const BAG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>';
+  function card(p, rank) {
+    const url = "product.html?id=" + encodeURIComponent(p.id);
+    const tag = p.soldout ? '<span class="sh-tag">품절</span>' : (p.best && !rank ? '<span class="sh-tag best">BEST</span>' : "");
+    const hasOpt = p.options && p.options.items && p.options.items.length;
+    const btn = p.soldout ? "" : hasOpt
+      ? `<a class="sh-cart" href="${url}" aria-label="${esc(p.name)} 옵션 선택하기">${BAG}</a>`
+      : `<button type="button" class="sh-cart" data-add="${esc(p.id)}" aria-label="${esc(p.name)} 장바구니에 담기">${BAG}</button>`;
+    return `<div class="sh-card${p.soldout ? " out" : ""}">
+      <a class="sh-link" href="${url}">
+        <span class="ph">${rank ? `<span class="rank">${rank}</span>` : ""}${tag}<img src="${esc(p.thumb)}" alt="${esc(p.name)}" loading="lazy" width="600" height="600"></span>
+        <span class="nm">${esc(p.name)}</span>
+      </a>
+      <div class="sh-pr"><span class="pr">${p.soldout ? "품절" : won(p.price)}</span>${btn}</div>
+      <span class="cat">${catLabel(p.cat)}</span>
+    </div>`;
+  }
+  // 장바구니 버튼 (어느 페이지든 한 번만 연결)
+  document.addEventListener("click", e => {
+    const b = e.target.closest(".sh-cart[data-add]"); if (!b) return;
+    e.preventDefault();
+    add(b.dataset.add, 1);
+    toast("장바구니에 담았어요.", { href: "cart.html", text: "장바구니 보기" });
+    const c = document.querySelector(".top .cart-count");
+    if (c) { const n = count(); c.textContent = n; c.hidden = !n; }
+  });
+
   window.addEventListener("storage", badge);
-  return { ready, won, esc, byId, catLabel, items, add, setQty, remove, clear, count, totals, badge, toast, optionOf };
+  return { ready, won, esc, byId, catLabel, items, add, setQty, remove, clear, count, totals, badge, toast, optionOf, card };
 })();

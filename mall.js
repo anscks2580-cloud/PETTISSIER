@@ -27,7 +27,7 @@
   };
   window.ptMarkNav();
 
-  /* 전체상품 : 누르면 아래에 종류(BEST · 베이커리 · 건조간식 · 자연식 · 대용량)가 내려와요 */
+  /* 전체상품 : 누르면 아래에 종류(BEST · 베이커리 · 건조간식 · 자연식)이 내려와요 */
   var allBtn = document.querySelector(".catbar .cat-all"), sub = document.getElementById("catSub");
   if (allBtn && sub) {
     var setSub = function (open) {
