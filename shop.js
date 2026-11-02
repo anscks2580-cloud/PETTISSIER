@@ -54,7 +54,15 @@ const Shop = (function () {
     const t = n.replace(/\s*벌크\s*사이즈\s*/g, " ").replace(/\s+/g, " ").trim();
     return /\)$/.test(t) ? t.replace(/\)$/, " · 대용량)") : t + " (대용량)";   // 두부 후르츠링 (할로윈 · 대용량)
   };
+  // 상품 이름 줄이기 : "수비드 말고기 / 촉촉한 토핑" → "수비드 말고기"
+  //  앞부분이 "저알러지 밥꾸 간식"처럼 공통 설명이면 뒷부분을 이름으로 써요 ("리본 모양 두부 후르츠링")
+  const shortName = n => {
+    if (!/\//.test(n)) return n;
+    const [a, b] = n.split("/").map(x => x.trim());
+    return /밥꾸/.test(a) && b ? b : a;
+  };
   function fixCat(p) {
+    if (p.name) p = { ...p, name: shortName(String(p.name)) };
     const b = BULK_TO[p.id];
     const n = String(p.name || "");
     if (!b && p.cat !== "bulk" && !/벌크/.test(n)) return p;
