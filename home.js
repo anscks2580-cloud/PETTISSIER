@@ -32,7 +32,7 @@
   Shop.ready.then(() => {
     const avail = PRODUCTS.filter(p => !p.soldout);
     // 베스트 : 관리자에서 BEST 표시한 상품 → 진열 순서
-    put("gridBest", [...avail.filter(p => p.best), ...avail.filter(p => !p.best)].slice(0, 8), true);
+    put("gridBest", [...avail.filter(p => p.best), ...avail.filter(p => !p.best)].slice(0, 8));
     // 새로 나온 상품 : 최근에 등록한 상품(상품번호가 큰 순)
     put("gridNew", [...avail].sort(newer).slice(0, 4));
 
