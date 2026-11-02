@@ -37,6 +37,7 @@
     put("gridNew", [...avail].sort(newer).slice(0, 4));
 
     const cats = document.getElementById("allCats");
+    if (!cats) return;   // 전체상품 칸을 뺀 경우
     cats.innerHTML = ALL_CATS.map(k => {
       const n = k === "all" ? PRODUCTS.length : PRODUCTS.filter(p => p.cat === k).length;
       return `<button type="button" data-k="${k}">${k === "all" ? "전체" : Shop.catLabel(k)} <i>${n}</i></button>`;
