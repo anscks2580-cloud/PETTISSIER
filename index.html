@@ -21,8 +21,6 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="shop.css">
 <link rel="stylesheet" href="mall.css">
-<script>try{if(sessionStorage.getItem("pt-loading"))document.documentElement.classList.add("pt-arrive")}catch(e){}</script>
-<script src="loader.js" defer></script>
 </head>
 <body>
 
@@ -32,21 +30,34 @@
     <a href="index.html" class="brand" aria-label="펫티시에 홈"><b>PETTISSIER</b><small>Premium Pet Dessert</small></a>
     <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav class="nav" id="nav">
-      <span class="nav-group">SHOP</span>
-      <a href="shop.html">전체상품</a>
-      <a href="shop.html?cat=best">베스트</a>
-      <a href="shop.html?cat=bakery">수제 베이커리</a>
-      <a href="shop.html?cat=dried">수제 건조간식</a>
-      <a href="shop.html?cat=natural">수제 자연식</a>
-      <a href="shop.html?cat=bulk">대용량 간식</a>
-      <span class="nav-group">PETTISSIER</span>
-      <a href="cakes.html">케이크 주문</a>
-      <a href="snacks.html">수제간식</a>
-      <a href="class.html">클래스</a>
-      <a href="reviews.html">리뷰</a>
-      <a href="about.html">About</a>
-      <a href="story.html">뭉치 이야기</a>
-      <a href="visit.html">오시는 길</a>
+      <div class="nav-acc">
+        <button type="button" class="nav-acc-btn" aria-expanded="false">쇼핑하기</button>
+        <div class="nav-acc-panel"><div>
+          <a href="shop.html">전체상품</a>
+          <a href="shop.html?cat=best">베스트</a>
+          <a href="shop.html?cat=bakery">수제 베이커리</a>
+          <a href="shop.html?cat=dried">수제 건조간식</a>
+          <a href="shop.html?cat=natural">수제 자연식</a>
+          <a href="shop.html?cat=bulk">대용량 간식</a>
+        </div></div>
+      </div>
+      <div class="nav-acc">
+        <button type="button" class="nav-acc-btn" aria-expanded="false">케이크 · 클래스</button>
+        <div class="nav-acc-panel"><div>
+          <a href="cakes.html">케이크 주문</a>
+          <a href="class.html">클래스</a>
+        </div></div>
+      </div>
+      <div class="nav-acc">
+        <button type="button" class="nav-acc-btn" aria-expanded="false">펫티시에 이야기</button>
+        <div class="nav-acc-panel"><div>
+          <a href="about.html">About</a>
+          <a href="snacks.html">수제간식 이야기</a>
+          <a href="story.html">뭉치 이야기</a>
+        </div></div>
+      </div>
+      <a class="nav-one" href="reviews.html">리뷰</a>
+      <a class="nav-one" href="visit.html">오시는 길</a>
     </nav>
   </div>
   <nav class="catbar" aria-label="상품 카테고리"><div class="catbar-in">
@@ -63,112 +74,92 @@
   </div></nav>
 </header>
 
-<main class="m-main">
-  <!-- 1. 메인 배너 (자동으로 넘어가요) -->
-  <section class="m-hero" aria-roledescription="carousel" aria-label="펫티시에 소식">
-    <div class="m-slides" id="mSlides">
-      <div class="m-slide s1" role="group" aria-roledescription="slide" aria-label="1 / 3">
-        <div class="wrap">
-          <div class="m-slide-copy">
-            <span class="kicker">강아지 케이크 · 프리미엄 수제간식</span>
-            <h2>작은 간식 하나에도<br>마음을 담습니다</h2>
-            <p>매일 소량, 손으로 만드는 강아지 수제간식</p>
-            <div class="cta"><a class="btn fill" href="shop.html">쇼핑하기</a></div>
-          </div>
-          <div class="m-slide-art ill"><img src="img/hero-art.webp" alt="케이크를 들고 걸어가는 파티시에와 강아지 일러스트" width="760" height="1141"></div>
-        </div>
+<main class="m-main mh-home">
+  <!-- 1. 스토어 프로필 (스마트스토어 첫 화면처럼) -->
+  <section class="mh-profile">
+    <div class="wrap">
+      <span class="mh-avatar"><img src="img/hero-art.webp" alt="펫티시에" width="760" height="1141"></span>
+      <div class="mh-info">
+        <h1>펫티시에 <small>PETTISSIER</small></h1>
+        <p>안양 강아지 케이크 · 프리미엄 수제간식 공방</p>
+        <ul class="mh-badges">
+          <li>매일 소량 제작</li>
+          <li>방부제 · 보존제 무첨가</li>
+          <li>사료 성분 등록 제품</li>
+        </ul>
       </div>
-      <div class="m-slide s2" role="group" aria-roledescription="slide" aria-label="2 / 3">
-        <div class="wrap">
-          <div class="m-slide-copy">
-            <span class="kicker">가을 제철 · 계절 한정</span>
-            <h2>알이 꽉 찬<br>암열빙어</h2>
-            <p>초가을부터 초봄까지만 만나는 계절 간식</p>
-            <div class="cta"><a class="btn fill" href="product.html?id=11224529580">열빙어 보러 가기</a></div>
-          </div>
-          <div class="m-slide-art photo"><img src="season-now.jpg" alt="접시에 담긴 건조 열빙어" loading="lazy"></div>
-        </div>
-      </div>
-      <div class="m-slide s3" role="group" aria-roledescription="slide" aria-label="3 / 3">
-        <div class="wrap">
-          <div class="m-slide-copy">
-            <span class="kicker">주문 제작 케이크 · 클래스</span>
-            <h2>우리 아이를 쏙 닮은<br>생일 케이크</h2>
-            <p>사진 한 장이면 아이 얼굴을 닮은 케이크를 만들어 드려요</p>
-            <div class="cta"><a class="btn fill" href="cakes.html">케이크 주문 안내</a></div>
-          </div>
-          <div class="m-slide-art photo"><img src="class/oneday-cake-1.jpg" alt="강아지 얼굴 모양 케이크" loading="lazy"></div>
-        </div>
+      <div class="mh-acts">
+        <a class="mh-btn kk" data-link="kakao" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>문의하기</a>
+        <a class="mh-btn" href="visit.html">매장 안내</a>
       </div>
     </div>
-    <button class="m-arrow prev" type="button" aria-label="이전 배너"></button>
-    <button class="m-arrow next" type="button" aria-label="다음 배너"></button>
-    <div class="m-dots" id="mDots"></div>
   </section>
 
-  <!-- 4. 베스트 -->
-  <section class="m-sec" id="best">
+  <!-- 2. 베스트 -->
+  <section class="mh-sec" id="best">
     <div class="wrap">
-      <div class="m-head"><h2>BEST ITEM<small>보호자님들이 가장 많이 찾는 간식</small></h2><a class="m-more" href="shop.html?cat=best">전체보기</a></div>
+      <div class="mh-head"><h2>베스트 상품</h2><a class="mh-more" href="shop.html?cat=best">더보기</a></div>
       <div class="m-grid" id="gridBest"><p class="m-loading">상품을 불러오는 중이에요…</p></div>
     </div>
   </section>
 
-  <!-- 5. 신상품 -->
-  <section class="m-sec" id="new">
+  <!-- 3. 새로 나온 상품 -->
+  <section class="mh-sec" id="new">
     <div class="wrap">
-      <div class="m-head"><h2>NEW<small>새로 나온 간식</small></h2><a class="m-more" href="shop.html">전체보기</a></div>
+      <div class="mh-head"><h2>새로 나온 상품</h2><a class="mh-more" href="shop.html">더보기</a></div>
       <div class="m-grid" id="gridNew"></div>
     </div>
   </section>
 
-  <!-- 6. 케이크 · 클래스 -->
-  <section class="m-sec">
+  <!-- 4. 케이크 · 클래스 -->
+  <section class="mh-sec">
     <div class="wrap">
-      <div class="m-duo">
-        <a href="cakes.html"><div><small>CUSTOM CAKE</small><h3>주문 제작 케이크</h3><p>아이 얼굴을 닮은 케이크를<br>두부 크림으로 만들어요.</p><span class="go">크기 · 주문 안내</span></div><img src="class/oneday-cake-1.jpg" alt="강아지 얼굴 케이크" loading="lazy"></a>
-        <a href="class.html"><div><small>CLASS</small><h3>케이크 · 간식 클래스</h3><p>원데이 클래스부터<br>창업 클래스까지 운영해요.</p><span class="go">클래스 안내</span></div><img src="class/startup-cake-1.jpg" alt="피규어 강아지 케이크" loading="lazy"></a>
+      <div class="mh-duo">
+        <a href="cakes.html"><img src="class/oneday-cake-1.jpg" alt="" loading="lazy"><div><small>주문 제작 케이크</small><b>우리 아이를 닮은 생일 케이크</b><span>크기 · 주문 안내 보기</span></div></a>
+        <a href="class.html"><img src="class/startup-cake-1.jpg" alt="" loading="lazy"><div><small>케이크 · 간식 클래스</small><b>원데이부터 창업 클래스까지</b><span>클래스 안내 보기</span></div></a>
       </div>
     </div>
   </section>
 
-  <!-- 7. 카테고리별 상품 -->
-  <section class="m-sec" id="byCat">
+  <!-- 5. 전체상품 (종류 · 정렬) -->
+  <section class="mh-sec" id="all">
     <div class="wrap">
-      <div class="m-head"><h2>CATEGORY<small>종류별로 골라 보세요</small></h2><a class="m-more" id="catMore" href="shop.html?cat=bakery">더보기</a></div>
-      <div class="m-tabs" id="catTabs" role="group" aria-label="상품 종류"></div>
-      <div class="m-grid" id="gridCat"></div>
+      <div class="mh-head"><h2>전체상품 <em id="allCount"></em></h2></div>
+      <div class="mh-cats" id="allCats" role="group" aria-label="상품 종류"></div>
+      <div class="mh-sort" id="allSort" role="group" aria-label="정렬">
+        <button type="button" data-s="pop" aria-pressed="true">인기도순</button>
+        <button type="button" data-s="new">최신등록순</button>
+        <button type="button" data-s="low">낮은 가격순</button>
+        <button type="button" data-s="high">높은 가격순</button>
+      </div>
+      <div class="m-grid" id="gridAll"></div>
+      <div class="mh-moreall"><button type="button" id="allMore" hidden>상품 더보기</button></div>
     </div>
   </section>
 
-  <!-- 8. 리뷰 -->
-  <section class="m-sec m-reviews" id="reviews">
+  <!-- 6. 리뷰 -->
+  <section class="mh-sec m-reviews" id="reviews">
     <div class="wrap">
-      <div class="m-head"><h2>REVIEW<small>먼저 다녀간 보호자님들의 이야기</small></h2><a class="m-more" href="reviews.html">리뷰 더보기</a></div>
+      <div class="mh-head"><h2>리뷰</h2><a class="mh-more" href="reviews.html">더보기</a></div>
       <div class="review-list wall" id="homeReviews"></div>
     </div>
   </section>
 
-  <!-- 9. 브랜드 소개 -->
-  <section class="m-brand">
+  <!-- 7. 브랜드 소개 -->
+  <section class="mh-sec mh-brand">
     <div class="wrap">
-      <div>
-        <div class="eyebrow">ABOUT PETTISSIER</div>
-        <h2>한 아이를 위한 작은 마음이<br>펫티시에의 시작이 되었습니다</h2>
-        <p>그래서 오늘도 하나하나 살펴보고, 만들고, 먹어봅니다.<br>우리 아이에게 주고 싶은 마음으로.</p>
-        <div class="cta"><a class="btn" href="about.html">펫티시에 이야기</a><a class="btn" href="story.html">뭉치 이야기</a></div>
-      </div>
+      <div class="mh-head"><h2>펫티시에 이야기</h2><a class="mh-more" href="about.html">더보기</a></div>
       <ul>
-        <li><b>매일 소량 제작</b><span>주문을 확인한 뒤<br>만든 만큼만 신선하게 보내드려요.</span></li>
-        <li><b>국내산 · 천연 재료</b><span>화학 첨가물, 방부제,<br>보존제를 넣지 않아요.</span></li>
-        <li><b>원료육 직접 손질</b><span>분쇄육이 아닌 원료육을<br>하나하나 손질해 써요.</span></li>
-        <li><b>사료 성분 등록</b><span>아이들의 건강을 위해<br>성분 등록을 하고 있어요.</span></li>
+        <li><b>매일 소량 제작</b><span>주문을 확인한 뒤 만든 만큼만 신선하게 보내드려요.</span></li>
+        <li><b>국내산 · 천연 재료</b><span>화학 첨가물, 방부제, 보존제를 넣지 않아요.</span></li>
+        <li><b>원료육 직접 손질</b><span>분쇄육이 아닌 원료육을 하나하나 손질해 써요.</span></li>
+        <li><b>사료 성분 등록</b><span>아이들의 건강을 위해 성분 등록을 하고 있어요.</span></li>
       </ul>
     </div>
   </section>
 
-  <!-- 10. 매장 안내 -->
-  <section class="m-sec">
+  <!-- 8. 매장 안내 -->
+  <section class="mh-sec">
     <div class="wrap">
       <div class="m-visit">
         <span class="pin"><svg viewBox="0 0 24 24" fill="none" stroke="#231F1C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
