@@ -865,3 +865,13 @@ ${PUREE_TAIL}`;
     return `<div class="story">${html}</div>`;
   };
 })();
+
+/* =====================================================================
+   상품 추가 사진 (새로 찍은 사진)
+   - 상품번호 : [사진 경로, ...]  → 상세페이지 큰 사진 아래 작은 사진 줄 + 상세정보 맨 위에 보여요.
+   ===================================================================== */
+window.PRODUCT_PHOTOS = {
+  // 야채꼬꼬칩 · 야채꼬꼬칩 벌크사이즈 (2026-11 새 사진, 색 보정)
+  "11243749707": ["shop/img/kokochip-photo/p01.jpg", "shop/img/kokochip-photo/p02.jpg", "shop/img/kokochip-photo/p03.jpg", "shop/img/kokochip-photo/p04.jpg"],
+  "12404542115": ["shop/img/kokochip-photo/p01.jpg", "shop/img/kokochip-photo/p02.jpg", "shop/img/kokochip-photo/p03.jpg", "shop/img/kokochip-photo/p04.jpg"]
+};

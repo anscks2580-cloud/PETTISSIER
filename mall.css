@@ -286,3 +286,15 @@ footer.ft .wrap{display:block}
 
 /* ── 글씨 굵기 : 굵은 글씨 없이 모두 얇게 (2026-11-02) ── */
 *,*::before,*::after{font-weight:400!important}
+
+/* ── 상품 상세 : 추가 사진 (작은 사진 줄 · 상세 맨 위 사진) ── */
+.pd-media{min-width:0}
+.pd-thumbs{display:flex;gap:8px;margin-top:10px;overflow-x:auto;scrollbar-width:none}
+.pd-thumbs::-webkit-scrollbar{display:none}
+.pd-thumbs button{flex:none;width:72px;height:72px;padding:0;border:1px solid #EEECE7;border-radius:8px;overflow:hidden;background:#F5F4F1;cursor:pointer;opacity:.7;transition:opacity .15s,border-color .15s}
+.pd-thumbs button:hover{opacity:1}
+.pd-thumbs button[aria-current="true"]{opacity:1;border-color:var(--ink)}
+.pd-thumbs img{width:100%;height:100%;object-fit:cover}
+.pd-gallery{display:grid;gap:10px;margin:0 0 30px}
+.pd-gallery img{width:100%;height:auto;display:block;border-radius:6px}
+@media (max-width:760px){.pd-thumbs{margin-top:8px}.pd-thumbs button{width:60px;height:60px}}

@@ -154,6 +154,9 @@ Shop.ready.then(function () {
   const spec = [["원산지", sp.origin], ["주원료", sp.main], ["특징", sp.feature], ["기능", sp.func], ["급여대상", sp.target]].filter(r => r[1]);
   const storyText = typeof p.story === "string" ? p.story : ((window.PRODUCT_STORIES || {})[p.id] || "");
   const story = window.renderStory ? window.renderStory(storyText) : "";
+  const photos = (window.PRODUCT_PHOTOS || {})[p.id] || [];
+  const photoStrip = photos.length ? `<div class="pd-thumbs" role="group" aria-label="사진 고르기">${[p.thumb, ...photos.slice(1)].map((src, i) => `<button type="button" data-src="${E(src)}"${i ? "" : ' aria-current="true"'}><img src="${E(src)}" alt="" loading="lazy"></button>`).join("")}</div>` : "";
+  const photoBlock = photos.length ? `<div class="pd-gallery">${photos.map((src, i) => `<img src="${E(src)}" alt="${E(p.name)} 사진 ${i + 1}" loading="lazy" decoding="async">`).join("")}</div>` : "";
   const details = (p.detail || []).map((src, i) => `<img src="${E(src)}" alt="${E(p.name)} 상세 ${i + 1}" loading="${i < 1 ? "eager" : "lazy"}" decoding="async">`).join("");
   const related = PRODUCTS.filter(x => x.cat === p.cat && x.id !== p.id && !x.soldout).slice(0, 4);
   const qtyHTML = id => `<div class="qty" data-qty="${id}"><button type="button" data-d="-1" aria-label="수량 빼기">−</button><input type="number" min="1" max="99" value="1" inputmode="numeric" aria-label="수량"><button type="button" data-d="1" aria-label="수량 더하기">+</button></div>`;
@@ -162,10 +165,16 @@ Shop.ready.then(function () {
       ${opts.items.map(o => `<option value="${E(o.label)}"${o.soldout ? " disabled" : ""}>${E(o.label)}${+o.add ? ` (+${(+o.add).toLocaleString("ko-KR")}원)` : ""}${o.soldout ? " · 품절" : ""}</option>`).join("")}
     </select>` : "";
 
+  root.addEventListener("click", e => {
+    const b = e.target.closest(".pd-thumbs button"); if (!b) return;
+    const main = document.getElementById("pdMain"); if (main) main.src = b.dataset.src;
+    b.parentNode.querySelectorAll("button").forEach(x => x.removeAttribute("aria-current"));
+    b.setAttribute("aria-current", "true");
+  });
   root.innerHTML = `
     <div class="sh-crumb"><a href="shop.html">온라인 주문</a> › <a href="shop.html?cat=${p.cat}">${Shop.catLabel(p.cat)}</a></div>
     <div class="pd">
-      <div class="pd-photo">${p.soldout ? '<span class="sh-tag">품절</span>' : p.best ? '<span class="sh-tag best">BEST</span>' : ""}<img src="${E(p.thumb)}" alt="${E(p.name)}" width="600" height="600"></div>
+      <div class="pd-media"><div class="pd-photo">${p.soldout ? '<span class="sh-tag">품절</span>' : p.best ? '<span class="sh-tag best">BEST</span>' : ""}<img id="pdMain" src="${E(p.thumb)}" alt="${E(p.name)}" width="600" height="600"></div>${photoStrip}</div>
       <div class="pd-info">
         <div class="cat">${Shop.catLabel(p.cat)}</div>
         <h1>${E(p.name)}</h1>
@@ -196,7 +205,7 @@ Shop.ready.then(function () {
     </nav>
 
     <section class="pd-sec" id="s-detail">
-      <div class="pd-detail">${story}${details}${!story && !details ? '<p class="sh-empty">상세 정보를 준비하고 있어요.</p>' : ""}</div>
+      <div class="pd-detail">${photoBlock}${story}${details}${!story && !details && !photoBlock ? '<p class="sh-empty">상세 정보를 준비하고 있어요.</p>' : ""}</div>
     </section>
 
     <section class="pd-sec" id="s-info">
