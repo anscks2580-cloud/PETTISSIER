@@ -17,9 +17,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261102d">
-<link rel="stylesheet" href="shop.css?v=20261102d">
-<link rel="stylesheet" href="mall.css?v=20261102d">
+<link rel="stylesheet" href="style.css?v=20261102e">
+<link rel="stylesheet" href="shop.css?v=20261102e">
+<link rel="stylesheet" href="mall.css?v=20261102e">
 </head>
 <body>
 
@@ -142,13 +142,13 @@
 </footer>
 
 
-<script src="common.js?v=20261102d"></script>
-<script src="nav-drawer.js?v=20261102d"></script>
-<script src="firebase-config.js?v=20261102d"></script>
-<script src="shop-data.js?v=20261102d"></script>
-<script src="shop.js?v=20261102d"></script>
-<script src="auth.js?v=20261102d"></script>
-<script src="mall.js?v=20261102d"></script>
+<script src="common.js?v=20261102e"></script>
+<script src="nav-drawer.js?v=20261102e"></script>
+<script src="firebase-config.js?v=20261102e"></script>
+<script src="shop-data.js?v=20261102e"></script>
+<script src="shop.js?v=20261102e"></script>
+<script src="auth.js?v=20261102e"></script>
+<script src="mall.js?v=20261102e"></script>
 <script>
 (function () {
   const grid = document.getElementById("grid"), sort = document.getElementById("sort");
@@ -156,7 +156,9 @@
   let cat = CATEGORIES.some(c => c.key === q.get("cat")) ? q.get("cat") : "all";
   document.getElementById("perks").innerHTML =
     `<li>${Shop.won(SHOP.freeShippingOver)} 이상 무료배송</li><li>주문 후 제작</li><li>최소 주문 ${Shop.won(SHOP.minOrder)}</li>`;
-  if (cat !== "all") document.getElementById("shTitle").textContent = (CATEGORIES.find(c => c.key === cat) || {}).label || "온라인 주문";
+  // 제목 : 위쪽 메뉴에서 고른 이름 그대로 (전체보기 → 전체상품)
+  const TITLES = { all: "전체상품", best: "BEST", bakery: "베이커리", dried: "건조간식", natural: "자연식" };
+  document.getElementById("shTitle").textContent = TITLES[cat] || (CATEGORIES.find(c => c.key === cat) || {}).label || "전체상품";
   window.cardHTML = p => Shop.card(p);
   function render() {
     let list = PRODUCTS.filter(p => cat === "all" ? true : cat === "best" ? p.best || p.rank <= 12 : p.cat === cat);
