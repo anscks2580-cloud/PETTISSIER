@@ -121,10 +121,10 @@ const Shop = (function () {
   }
 
   /* 상품 카드 (메인 · 상품 목록 공통) : 사진 · 이름 · 가격 + 가격 반대편에 장바구니 버튼 */
-  const BAG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>';
+  const BAG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>';
   function card(p, rank) {
     const url = "product.html?id=" + encodeURIComponent(p.id);
-    const tag = p.soldout ? '<span class="sh-tag">품절</span>' : (p.best && !rank ? '<span class="sh-tag best">BEST</span>' : "");
+    const tag = p.soldout ? '<span class="sh-tag">품절</span>' : "";   // BEST 표시는 사진에 넣지 않아요
     const hasOpt = p.options && p.options.items && p.options.items.length;
     const btn = p.soldout ? "" : hasOpt
       ? `<a class="sh-cart" href="${url}" aria-label="${esc(p.name)} 옵션 선택하기">${BAG}</a>`
