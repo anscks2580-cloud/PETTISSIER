@@ -67,8 +67,11 @@ const Shop = (function () {
     const base = PRODUCTS.find(x => x.id === p.pair);
     return (base ? base.rank || 999 : p.rank || 999) + 0.5;
   }
+  // 판매하지 않는 상품 (관리자에 남아 있어도 홈페이지에는 안 보여요)
+  //  오리 안심 가득 오돌뼈 · 야채 퓨레(퍼플 퓨레) · 멍치킨 세트 · 고구마 쿠키
+  const HIDE = ["12586125111", "12586086850", "10829543257", "10833522315"];
   const ready = loadRemote().then(() => {
-    PRODUCTS = PRODUCTS.filter(p => !p.hidden).map(fixCat).sort((a, b) => (a.rank || 999) - (b.rank || 999));
+    PRODUCTS = PRODUCTS.filter(p => !p.hidden && !HIDE.includes(String(p.id))).map(fixCat).sort((a, b) => (a.rank || 999) - (b.rank || 999));
     badge();
   });
 
