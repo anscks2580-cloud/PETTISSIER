@@ -16,7 +16,7 @@
 
   function drawAll() {
     let list = PRODUCTS.filter(p => allCat === "all" || p.cat === allCat);
-    if (allSort === "pop") list.sort((a, b) => (!!a.soldout - !!b.soldout) || (!!b.best - !!a.best) || ((a.rank || 999) - (b.rank || 999)));
+    if (allSort === "pop") list.sort((a, b) => (!!a.soldout - !!b.soldout) || (allCat === "all" ? (!!b.best - !!a.best) || ((a.rank || 999) - (b.rank || 999)) : Shop.shelfRank(a) - Shop.shelfRank(b)));
     else if (allSort === "new") list.sort((a, b) => (!!a.soldout - !!b.soldout) || newer(a, b));
     else if (allSort === "low") list.sort((a, b) => (!!a.soldout - !!b.soldout) || (a.price - b.price));
     else list.sort((a, b) => (!!a.soldout - !!b.soldout) || (b.price - a.price));

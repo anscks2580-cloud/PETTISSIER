@@ -17,9 +17,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261102e">
-<link rel="stylesheet" href="shop.css?v=20261102e">
-<link rel="stylesheet" href="mall.css?v=20261102e">
+<link rel="stylesheet" href="style.css?v=20261102f">
+<link rel="stylesheet" href="shop.css?v=20261102f">
+<link rel="stylesheet" href="mall.css?v=20261102f">
 </head>
 <body>
 
@@ -142,13 +142,13 @@
 </footer>
 
 
-<script src="common.js?v=20261102e"></script>
-<script src="nav-drawer.js?v=20261102e"></script>
-<script src="firebase-config.js?v=20261102e"></script>
-<script src="shop-data.js?v=20261102e"></script>
-<script src="shop.js?v=20261102e"></script>
-<script src="auth.js?v=20261102e"></script>
-<script src="mall.js?v=20261102e"></script>
+<script src="common.js?v=20261102f"></script>
+<script src="nav-drawer.js?v=20261102f"></script>
+<script src="firebase-config.js?v=20261102f"></script>
+<script src="shop-data.js?v=20261102f"></script>
+<script src="shop.js?v=20261102f"></script>
+<script src="auth.js?v=20261102f"></script>
+<script src="mall.js?v=20261102f"></script>
 <script>
 (function () {
   const grid = document.getElementById("grid"), sort = document.getElementById("sort");
@@ -163,7 +163,7 @@
   function render() {
     let list = PRODUCTS.filter(p => cat === "all" ? true : cat === "best" ? p.best || p.rank <= 12 : p.cat === cat);
     const s = sort.value;
-    list = list.slice().sort((a, b) => (!!a.soldout - !!b.soldout) || (s === "low" ? a.price - b.price : s === "high" ? b.price - a.price : a.rank - b.rank));
+    list = list.slice().sort((a, b) => (!!a.soldout - !!b.soldout) || (s === "low" ? a.price - b.price : s === "high" ? b.price - a.price : cat === "all" || cat === "best" ? a.rank - b.rank : Shop.shelfRank(a) - Shop.shelfRank(b)));
     document.getElementById("count").textContent = `상품 ${list.length}개`;
     grid.innerHTML = list.length ? list.map(cardHTML).join("") : '<p class="sh-empty">준비 중인 상품이에요.</p>';
   }

@@ -37,13 +37,35 @@ const Shop = (function () {
     } catch (e) { /* 연결 실패 시 기본 데이터 사용 */ }
     finally { clearTimeout(tm); }
   }
-  // '대용량' 분류는 없앴어요 : 관리자에 예전 분류(bulk)로 저장된 상품도 원래 종류로 보여줘요
-  const BULK_TO = { "11888082495": "bakery", "12404542115": "dried", "12404550727": "bakery", "12404537428": "dried", "12404521217": "dried", "12404512523": "dried", "12404494073": "natural", "12404488806": "natural" };
+  // '대용량' 분류는 없앴어요 : 같은 간식이 있는 종류에 넣고, 이름은 "두부 후르츠링 (대용량)"처럼 보여줘요
+  //  BULK_TO : 대용량 상품번호 → [들어갈 종류, 같은 간식(일반 크기) 상품번호]
+  const BULK_TO = {
+    "11888082495": ["bakery", "10833175823"],   // 두부 후르츠링 (할로윈)
+    "12404550727": ["bakery", "10829745766"],   // 코코넛 고구마 볼
+    "12404542115": ["dried", "11243749707"],    // 야채꼬꼬칩
+    "12404512523": ["dried", "11288330864"],    // 꼬꼬 안심 져키
+    "12404537428": ["dried", "11227631311"],    // 고양이 코호 연어 큐브
+    "12404521217": ["dried", "11224529580"],    // 고양이 건조 열빙어
+    "12404494073": ["natural", "12026300387"],  // 야채 퓨레 (옐로우)
+    "12404488806": ["natural", "12026326721"]   // 야채 퓨레 (그린)
+  };
+  const bulkName = n => {
+    if (!/벌크/.test(n)) return n;
+    const t = n.replace(/\s*벌크\s*사이즈\s*/g, " ").replace(/\s+/g, " ").trim();
+    return /\)$/.test(t) ? t.replace(/\)$/, " · 대용량)") : t + " (대용량)";   // 두부 후르츠링 (할로윈 · 대용량)
+  };
   function fixCat(p) {
-    if (p.cat !== "bulk") return p;
+    const b = BULK_TO[p.id];
     const n = String(p.name || "");
+    if (!b && p.cat !== "bulk" && !/벌크/.test(n)) return p;
     const guess = /퓨레|테린|수비드/.test(n) ? "natural" : /후르츠링|쿠키|볼|케이크|치킨/.test(n) ? "bakery" : "dried";
-    return { ...p, cat: BULK_TO[p.id] || guess };
+    return { ...p, name: bulkName(n), cat: p.cat === "bulk" || !p.cat ? (b ? b[0] : guess) : p.cat, pair: b ? b[1] : null };
+  }
+  // 종류별 목록에서 대용량은 같은 간식 바로 뒤에 오도록 순서 정하기
+  function shelfRank(p) {
+    if (!p.pair) return p.rank || 999;
+    const base = PRODUCTS.find(x => x.id === p.pair);
+    return (base ? base.rank || 999 : p.rank || 999) + 0.5;
   }
   const ready = loadRemote().then(() => {
     PRODUCTS = PRODUCTS.filter(p => !p.hidden).map(fixCat).sort((a, b) => (a.rank || 999) - (b.rank || 999));
@@ -127,5 +149,5 @@ const Shop = (function () {
   });
 
   window.addEventListener("storage", badge);
-  return { ready, won, esc, byId, catLabel, items, add, setQty, remove, clear, count, totals, badge, toast, optionOf, card };
+  return { ready, won, esc, byId, catLabel, shelfRank, items, add, setQty, remove, clear, count, totals, badge, toast, optionOf, card };
 })();
