@@ -11,7 +11,7 @@
   if (!nodes.length) return;
 
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var SIZE = { L: 0.34, M: 0.255, S: 0.19 };  // 지름 = 영역 가로폭 × 비율 (크게, 살짝 겹치고 넘치게)
+  var SIZE = { XL: 0.48, L: 0.36, M: 0.255, S: 0.19 };  // 지름 = 영역 가로폭 × 비율 (크게, 살짝 겹치고 넘치게)
 
   // 고정된 시드 난수 (새로고침해도 비슷한 배치)
   var seed = 7;
@@ -44,6 +44,11 @@
       b.el.style.setProperty("--d", (b.r * 2).toFixed(1) + "px");
     });
     if (first) {
+      // 사진이 3장 이하면 보기 좋게 정해진 자리에 (큰 사진 왼쪽, 나머지 오른쪽 위·아래)
+      var PRESET = [[0.36, 0.52], [0.77, 0.27], [0.75, 0.76]];
+      if (B.length <= PRESET.length) {
+        order.forEach(function (b, j) { b.hx = W * PRESET[j][0]; b.hy = H * PRESET[j][1]; });
+      } else
       // 황금각 나선으로 대략 배치 → 겹침 풀기
       order.forEach(function (b, j) {
         var ang = j * 2.39996 + 0.6, rad = Math.sqrt(j + 0.4) / Math.sqrt(B.length) * 0.46;

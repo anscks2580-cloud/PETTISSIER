@@ -121,14 +121,21 @@ footer.ft .wrap{display:block}
 .mh-banner .kicker{display:block;font-size:13px;color:var(--wood);letter-spacing:.02em}
 .mh-banner h1{margin-top:6px;font-family:var(--serif);font-size:clamp(21px,2.4vw,28px);line-height:1.4}
 .mh-banner p{margin:6px 0 0;font-size:14.5px;color:var(--muted);line-height:1.6}
-.mh-banner-art{position:relative;align-self:end;width:172px;height:196px}
-.mh-banner-art img{position:relative;width:100%;height:100%;object-fit:contain;object-position:50% 100%}
+.mh-banner-art{position:relative;align-self:center;width:136px;height:172px;margin:16px 0}
+.mh-banner-art img{position:relative;width:100%;height:100%;object-fit:contain;object-position:50% 50%}
+.mh-banner .mh-made{display:flex;align-items:flex-start;gap:6px;margin-top:10px;font-size:13.5px;color:var(--wood)}
+.mh-banner .mh-made svg{flex:none;width:15px;height:15px;margin-top:3px}
+.mh-banner .mh-made br.mo{display:none}
 @media (max-width:760px){
-  .mh-banner .wrap{min-height:161px;gap:10px;grid-template-columns:minmax(0,1fr) 110px}
+  .mh-banner .wrap{min-height:161px;gap:10px;grid-template-columns:minmax(0,1fr) 92px}
   .mh-banner .kicker{font-size:12px}
   .mh-banner h1{font-size:18.5px}
   .mh-banner p{font-size:12.5px}
-  .mh-banner-art{width:110px;height:161px}
+  .mh-banner .mh-made{font-size:12px;margin-top:8px;gap:4px}
+  .mh-banner .mh-made svg{width:13px;height:13px;margin-top:2px}
+  .mh-banner .mh-made br.mo{display:inline}
+  .mh-banner-art{width:92px;height:136px;margin:14px 0}
+  .mh-banner-copy{padding:16px 0}
 }
 
 /* 상품 카드 (메인) : 사진 · 이름 · 가격만 깔끔하게 */
@@ -322,3 +329,30 @@ body.has-buybar .to-top{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 .pd-btns .btn,.buybar .btn{border-width:1px;border-color:#D9D4CA}
 .pd-btns .btn.fill,.buybar .btn.fill{border-color:var(--mustard)}
 .pd .qty,.buybar .qty{border-width:1px;border-color:#D9D4CA}
+
+/* 클래스 카드 : 짧은 안내 문구 · 예약 안내(칸 없이 숫자·점만) — 11/4 고객 요청 */
+.class-card dl{margin-bottom:14px}
+.class-card .cl-notes{list-style:none;margin:0 0 22px;padding:0;font-size:13.5px;line-height:1.7;color:var(--muted)}
+.class-card .cl-notes li{position:relative;padding-left:12px}
+.class-card .cl-notes li::before{content:"·";position:absolute;left:0;top:0}
+.class-how{border:0;border-radius:0;background:none;padding:34px 0 0;border-top:1px solid #E7E3DC}
+.class-how ol{gap:28px}
+.class-how li{background:none;border:0;border-radius:0;padding:0}
+.class-how ol>li::before{content:counter(how);display:block;width:auto;height:auto;border:0;border-radius:0;background:none;font:400 22px/1 var(--latin);color:var(--wood);margin-bottom:10px}
+.class-how ul.notes,.class-how .rule ul{list-style:none;padding-left:0}
+.class-how ul li,.class-how .rule ul li{position:relative;padding:0 0 0 14px;counter-increment:none;font-size:14.5px;line-height:1.8}
+.class-how ul li::before{content:"·";position:absolute;left:0;top:0;width:auto;height:auto;margin:0;border:0;background:none;font:inherit}
+.class-how ul.notes{margin-top:28px}
+.class-how .rule{background:none;border:0;border-radius:0;padding:0;margin-top:26px}
+.class-how .rule .no{font-weight:400}
+
+/* About 첫 화면 (예전 메인 첫 화면을 About 맨 위로) */
+.about-hero{min-height:0}
+.about-hero .wrap{padding-top:40px}
+.about-hero .hero-copy{padding-bottom:60px}
+.about-hero .hero-sign b,.about-hero .hero-sign small{font-weight:400}
+@media (max-width:760px){
+  .about-hero .wrap{align-content:start;gap:8px;padding-top:36px}
+  .about-hero .hero-copy{padding-bottom:0}
+  .about-hero{--h:clamp(240px,62vw,320px)}
+}
