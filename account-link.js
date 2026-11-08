@@ -5,7 +5,7 @@
   var toggle = document.querySelector('.top .menu-toggle');
   if (!toggle || document.querySelector('.top .acct-link')) return;
   var member = null, count = 0;
-  try { member = localStorage.getItem('pt-member'); } catch (e) {}
+  try { member = sessionStorage.getItem('pt-member'); localStorage.removeItem('pt-member'); } catch (e) {}
   try { (JSON.parse(localStorage.getItem('pt-cart')) || []).forEach(function (it) { count += +it.qty || 0; }); } catch (e) {}
 
   var page = location.pathname.split('/').pop() || 'index.html';

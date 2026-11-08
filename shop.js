@@ -45,7 +45,7 @@ const Shop = (function () {
     "12404542115": ["dried", "11243749707"],    // 야채꼬꼬칩
     "12404512523": ["dried", "11288330864"],    // 꼬꼬 안심 져키
     "12404537428": ["dried", "11227631311"],    // 고양이 코호 연어 큐브
-    "12404521217": ["dried", "11224529580"],    // 고양이 건조 열빙어
+    "12404521217": ["dried", "11224529580"],    // 아이슬란드 열빙어
     "12404494073": ["natural", "12026300387"],  // 야채 퓨레 (옐로우)
     "12404488806": ["natural", "12026326721"]   // 야채 퓨레 (그린)
   };
@@ -61,8 +61,11 @@ const Shop = (function () {
     const [a, b] = n.split("/").map(x => x.trim());
     return /밥꾸/.test(a) && b ? b : a;
   };
+  // 이름 바로잡기 : 관리자에 예전 이름이 남아 있어도 홈페이지에는 바른 이름으로 보여줘요
+  const RENAME = [[/고양이\s*건조\s*열빙어/, "아이슬란드 열빙어"]];
+  const fixName = n => RENAME.reduce((t, [a, b]) => t.replace(a, b), n);
   function fixCat(p) {
-    if (p.name) p = { ...p, name: shortName(String(p.name)) };
+    if (p.name) p = { ...p, name: fixName(shortName(String(p.name))) };
     const b = BULK_TO[p.id];
     const n = String(p.name || "");
     if (!b && p.cat !== "bulk" && !/벌크/.test(n)) return p;

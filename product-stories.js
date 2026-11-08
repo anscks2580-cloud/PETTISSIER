@@ -877,7 +877,7 @@ window.PRODUCT_PHOTOS = {
   // 꼬꼬 안심 져키 · 대용량 (2026-11 새 사진 : 닭안심 원물)
   "11288330864": ["shop/img/anshim-photo/p01.jpg", "shop/img/anshim-photo/p02.jpg", "shop/img/anshim-photo/p03.jpg", "shop/img/anshim-photo/p04.jpg", "shop/img/anshim-photo/p05.jpg", "shop/img/anshim-photo/p06.jpg"],
   "12404512523": ["shop/img/anshim-photo/p01.jpg", "shop/img/anshim-photo/p02.jpg", "shop/img/anshim-photo/p03.jpg", "shop/img/anshim-photo/p04.jpg", "shop/img/anshim-photo/p05.jpg", "shop/img/anshim-photo/p06.jpg"],
-  // 고양이 건조 열빙어 · 대용량 (2026-11 새 사진, p01 = 대표사진 원본)
+  // 아이슬란드 열빙어 · 대용량 (2026-11 새 사진, p01 = 대표사진 원본)
   "11224529580": ["shop/img/smelt-photo/p01.jpg", "shop/img/smelt-photo/p02.jpg", "shop/img/smelt-photo/p03.jpg", "shop/img/smelt-photo/p04.jpg", "shop/img/smelt-photo/p05.jpg"],
   "12404521217": ["shop/img/smelt-photo/p01.jpg", "shop/img/smelt-photo/p02.jpg", "shop/img/smelt-photo/p03.jpg", "shop/img/smelt-photo/p04.jpg", "shop/img/smelt-photo/p05.jpg"]
 };

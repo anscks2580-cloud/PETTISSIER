@@ -59,6 +59,12 @@ const Auth = (function () {
     get(k, d) { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } },
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
   };
+  // 로그인 상태는 탭을 닫으면 사라지는 sessionStorage에 둬요 (로그인 유지 안 함)
+  const SS = {
+    get(k, d) { try { return JSON.parse(sessionStorage.getItem(k)) || d; } catch (e) { return d; } },
+    set(k, v) { try { sessionStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+  try { localStorage.removeItem("pt-member"); localStorage.removeItem("pt-demo-session"); } catch (e) {}
 
   /* ── 공통 저장소 (파이어베이스 / 미리보기) ── */
   const store = {
@@ -102,6 +108,8 @@ const Auth = (function () {
     if (!firebase.apps.length) firebase.initializeApp(cfg);
     fb = { auth: firebase.auth(), db: firebase.firestore() };
     fb.auth.languageCode = "ko";
+    // 로그인 유지 안 함 : 브라우저(탭)를 닫으면 로그아웃돼요
+    try { await fb.auth.setPersistence(firebase.auth.Auth.Persistence.SESSION); } catch (e) {}
     return new Promise(ok => {
       let first = true;
       fb.auth.onAuthStateChanged(async u => {
@@ -118,7 +126,7 @@ const Auth = (function () {
   }
   async function hashPw(s) { try { return await sha("pt::" + s); } catch (e) { return btoa(unescape(encodeURIComponent("pt::" + s))); } }
   function bootDemo() {
-    const uid = LS.get("pt-demo-session", null), users = LS.get("pt-demo-users", {});
+    const uid = SS.get("pt-demo-session", null), users = LS.get("pt-demo-users", {});
     const rec = Object.values(users).find(r => r.uid === uid);
     user = rec ? { uid: rec.uid, ...rec.profile } : null;
     emit();
@@ -167,7 +175,7 @@ const Auth = (function () {
     LS.set("pt-demo-users", users);
     const names = LS.get("pt-demo-names", {}); names[username] = { uid, email }; LS.set("pt-demo-names", names);
     await writeFind(profile, uid);
-    LS.set("pt-demo-session", uid);
+    SS.set("pt-demo-session", uid);
     return bootDemo();
   }
 
@@ -185,12 +193,12 @@ const Auth = (function () {
     }
     const r = LS.get("pt-demo-users", {})[id];
     if (!r || r.pw !== await hashPw(password)) throw bad;
-    LS.set("pt-demo-session", r.uid);
+    SS.set("pt-demo-session", r.uid);
     return bootDemo();
   }
   async function signOut() {
     if (mode === "firebase") await fb.auth.signOut();
-    else { try { localStorage.removeItem("pt-demo-session"); } catch (e) {} }
+    else { try { sessionStorage.removeItem("pt-demo-session"); } catch (e) {} }
     user = null; emit();
   }
 
@@ -265,7 +273,7 @@ const Auth = (function () {
       await clearFind(me);
       delete users[me.username]; LS.set("pt-demo-users", users);
       const names = LS.get("pt-demo-names", {}); delete names[me.username]; LS.set("pt-demo-names", names);
-      try { localStorage.removeItem("pt-demo-session"); } catch (e) {}
+      try { sessionStorage.removeItem("pt-demo-session"); } catch (e) {}
     }
     user = null; emit();
   }
@@ -300,7 +308,7 @@ const Auth = (function () {
     a.setAttribute("aria-label", user ? "내 정보 보기" : "로그인");
   }
   function emit() {
-    try { if (user) localStorage.setItem("pt-member", user.name || user.username || "1"); else localStorage.removeItem("pt-member"); } catch (e) {}
+    try { if (user) sessionStorage.setItem("pt-member", user.name || user.username || "1"); else sessionStorage.removeItem("pt-member"); } catch (e) {}
     subs.forEach(f => { try { f(user); } catch (e) {} }); paintHeader();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", paintHeader); else paintHeader();
