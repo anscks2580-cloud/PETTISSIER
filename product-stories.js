@@ -450,6 +450,39 @@ ${THAW}`;
 막을 한 줄 한 줄 제거한 후 소독해 직접 갈아 사용하고 있습니다.
 야채 또한 직접 다져 영양소를 최대한 적게 파괴했습니다.`;
 
+  const lotus = `국내산 연근을 얇게 썰어 손질한 오리 안심을 채운 뒤
+저온으로 오랜 시간 건조한 오리 연근칩입니다.
+연근의 아삭함과 오리의 고소함을 한 번에 느낄 수 있는 간식입니다 :)
+
+## 원재료
+- 오리 안심 | 국내산
+- 연근 | 국내산
+
+펫티시에의 오리 연근칩은 모두 국내산 재료를 사용하고 있습니다.
+
+## 이렇게 만들어요
+${DUCK_NOTE}
+
+연근은 하나하나 껍질을 벗기고 일정한 두께로 썰어 깨끗하게 세척했습니다.
+연근 구멍 사이사이까지 오리 안심을 꼼꼼하게 채워
+저온으로 오랜 시간 건조해 바삭하면서도 딱딱하지 않습니다.
+
+## 연근의 효능
+연근은 식이섬유와 비타민 C가 풍부해 장 건강과 면역력 관리에 도움을 줍니다.
+오리 안심은 닭고기 알러지가 있는 친구들에게 대신 단백질을 채워 줄 수 있는 좋은 식품입니다.
+
+## 급여 방법
+손으로 쉽게 쪼개지는 식감이라
+아이 크기에 맞게 잘라 급여해 주시면 좋습니다.
+3kg 기준 아이가 하루에 1~2개 급여하시면 좋습니다.
+
+## 소비 기한
+${SHELF_HEAD}
+- 냉장 보관 | 3일
+- 냉동 보관 | 3주
+
+${THAW}`;
+
   const terrine = `촉촉하고 맛있는 테린으로
 야채를 잘 먹지 않는 아이들에게 기호성이 좋은 강아지 테린입니다.
 닭 가슴살을 꼼꼼하게 세척 후 손질하고
@@ -821,6 +854,8 @@ ${PUREE_TAIL}`;
     "11244043465": terrine,
     // 우피 오리 야채 말이
     "12400730936": roll,
+    // 오리 연근칩
+    "pt-lotuschip": lotus,
     // 저온건조 오리 야채 스틱
     "12586050184": duckStick,
     // 칠면조 힘줄 터키츄
@@ -880,7 +915,7 @@ window.PRODUCT_PHOTOS = {
   // 아이슬란드 열빙어 · 대용량
   "11224529580": ["shop/img/photo-smelt/p01.jpg", "shop/img/photo-smelt/p02.jpg", "shop/img/photo-smelt/p03.jpg", "shop/img/photo-smelt/p04.jpg", "shop/img/photo-smelt/p05.jpg", "shop/img/photo-smelt/p06.jpg", "shop/img/photo-smelt/p07.jpg", "shop/img/photo-smelt/p08.jpg", "shop/img/photo-smelt/p09.jpg", "shop/img/photo-smelt/p10.jpg", "shop/img/photo-smelt/p11.jpg", "shop/img/photo-smelt/p12.jpg"],
   "12404521217": ["shop/img/photo-smelt/p01.jpg", "shop/img/photo-smelt/p02.jpg", "shop/img/photo-smelt/p03.jpg", "shop/img/photo-smelt/p04.jpg", "shop/img/photo-smelt/p05.jpg", "shop/img/photo-smelt/p06.jpg", "shop/img/photo-smelt/p07.jpg", "shop/img/photo-smelt/p08.jpg", "shop/img/photo-smelt/p09.jpg", "shop/img/photo-smelt/p10.jpg", "shop/img/photo-smelt/p11.jpg", "shop/img/photo-smelt/p12.jpg"],
-  // 고양이 코호 연어 큐브 · 대용량
+  // 칠레산 코호 연어 큐브 · 대용량
   "11227631311": ["shop/img/photo-salmon/p01.jpg", "shop/img/photo-salmon/p02.jpg", "shop/img/photo-salmon/p03.jpg", "shop/img/photo-salmon/p04.jpg", "shop/img/photo-salmon/p05.jpg", "shop/img/photo-salmon/p06.jpg", "shop/img/photo-salmon/p07.jpg", "shop/img/photo-salmon/p08.jpg", "shop/img/photo-salmon/p09.jpg"],
   "12404537428": ["shop/img/photo-salmon/p01.jpg", "shop/img/photo-salmon/p02.jpg", "shop/img/photo-salmon/p03.jpg", "shop/img/photo-salmon/p04.jpg", "shop/img/photo-salmon/p05.jpg", "shop/img/photo-salmon/p06.jpg", "shop/img/photo-salmon/p07.jpg", "shop/img/photo-salmon/p08.jpg", "shop/img/photo-salmon/p09.jpg"],
   // 오리야채스틱
@@ -888,8 +923,9 @@ window.PRODUCT_PHOTOS = {
   // 오리 울대
   "11319239090": ["shop/img/photo-duckneck/p01.jpg", "shop/img/photo-duckneck/p02.jpg", "shop/img/photo-duckneck/p03.jpg", "shop/img/photo-duckneck/p04.jpg", "shop/img/photo-duckneck/p05.jpg", "shop/img/photo-duckneck/p06.jpg", "shop/img/photo-duckneck/p07.jpg", "shop/img/photo-duckneck/p08.jpg", "shop/img/photo-duckneck/p09.jpg", "shop/img/photo-duckneck/p10.jpg", "shop/img/photo-duckneck/p11.jpg", "shop/img/photo-duckneck/p12.jpg", "shop/img/photo-duckneck/p13.jpg", "shop/img/photo-duckneck/p14.jpg", "shop/img/photo-duckneck/p15.jpg", "shop/img/photo-duckneck/p16.jpg", "shop/img/photo-duckneck/p17.jpg", "shop/img/photo-duckneck/p18.jpg", "shop/img/photo-duckneck/p19.jpg"],
   // 우피오리야채말이
-  "12400730936": ["shop/img/photo-duckroll/p01.jpg", "shop/img/photo-duckroll/p02.jpg", "shop/img/photo-duckroll/p03.jpg", "shop/img/photo-duckroll/p04.jpg", "shop/img/photo-duckroll/p05.jpg", "shop/img/photo-duckroll/p06.jpg", "shop/img/photo-duckroll/p07.jpg", "shop/img/photo-duckroll/p08.jpg", "shop/img/photo-duckroll/p09.jpg", "shop/img/photo-duckroll/p10.jpg", "shop/img/photo-duckroll/p11.jpg", "shop/img/photo-duckroll/p12.jpg", "shop/img/photo-duckroll/p13.jpg", "shop/img/photo-duckroll/p14.jpg", "shop/img/photo-duckroll/p15.jpg", "shop/img/photo-duckroll/p16.jpg", "shop/img/photo-duckroll/p17.jpg"]
-  // 오리 연근칩 : 사진은 shop/img/photo-lotus/ 에 준비돼 있어요 (상품 등록 후 상품번호로 연결)
+  "12400730936": ["shop/img/photo-duckroll/p01.jpg", "shop/img/photo-duckroll/p02.jpg", "shop/img/photo-duckroll/p03.jpg", "shop/img/photo-duckroll/p04.jpg", "shop/img/photo-duckroll/p05.jpg", "shop/img/photo-duckroll/p06.jpg", "shop/img/photo-duckroll/p07.jpg", "shop/img/photo-duckroll/p08.jpg", "shop/img/photo-duckroll/p09.jpg", "shop/img/photo-duckroll/p10.jpg", "shop/img/photo-duckroll/p11.jpg", "shop/img/photo-duckroll/p12.jpg", "shop/img/photo-duckroll/p13.jpg", "shop/img/photo-duckroll/p14.jpg", "shop/img/photo-duckroll/p15.jpg", "shop/img/photo-duckroll/p16.jpg", "shop/img/photo-duckroll/p17.jpg"],
+  // 오리 연근칩 (p01 = 대표사진 원본)
+  "pt-lotuschip": ["shop/img/photo-lotus/p01.jpg", "shop/img/photo-lotus/p02.jpg", "shop/img/photo-lotus/p03.jpg", "shop/img/photo-lotus/p04.jpg", "shop/img/photo-lotus/p05.jpg", "shop/img/photo-lotus/p06.jpg", "shop/img/photo-lotus/p07.jpg", "shop/img/photo-lotus/p08.jpg", "shop/img/photo-lotus/p09.jpg", "shop/img/photo-lotus/p10.jpg", "shop/img/photo-lotus/p11.jpg", "shop/img/photo-lotus/p12.jpg", "shop/img/photo-lotus/p13.jpg", "shop/img/photo-lotus/p14.jpg", "shop/img/photo-lotus/p15.jpg", "shop/img/photo-lotus/p16.jpg"]
 };
 /* 사진 목록 첫 장이 대표사진(썸네일) 원본인 상품 : 작은 사진 줄에서 첫 장은 빼고 보여줘요 */
-window.PRODUCT_PHOTOS_LEAD = ["11243749707", "12404542115"];
+window.PRODUCT_PHOTOS_LEAD = ["11243749707", "12404542115", "pt-lotuschip"];

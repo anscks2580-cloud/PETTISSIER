@@ -32,7 +32,10 @@ const Shop = (function () {
       ]);
       if (st && st.fields) Object.assign(SHOP, fsFields(st.fields));
       if (pr && pr.documents && pr.documents.length) {
+        // 관리자에 아직 없는 새 상품(local: true)은 기본 데이터에서 그대로 붙여요
+        const extra = PRODUCTS.filter(p => p.local);
         PRODUCTS = pr.documents.map(d => ({ id: d.name.split("/").pop(), ...fsFields(d.fields || {}) }));
+        extra.forEach(p => { if (!PRODUCTS.some(x => x.id === p.id)) PRODUCTS.push(p); });
       }
     } catch (e) { /* 연결 실패 시 기본 데이터 사용 */ }
     finally { clearTimeout(tm); }
@@ -44,7 +47,7 @@ const Shop = (function () {
     "12404550727": ["bakery", "10829745766"],   // 코코넛 고구마 볼
     "12404542115": ["dried", "11243749707"],    // 야채꼬꼬칩
     "12404512523": ["dried", "11288330864"],    // 꼬꼬 안심 져키
-    "12404537428": ["dried", "11227631311"],    // 고양이 코호 연어 큐브
+    "12404537428": ["dried", "11227631311"],    // 칠레산 코호 연어 큐브
     "12404521217": ["dried", "11224529580"],    // 아이슬란드 열빙어
     "12404494073": ["natural", "12026300387"],  // 야채 퓨레 (옐로우)
     "12404488806": ["natural", "12026326721"]   // 야채 퓨레 (그린)
@@ -62,7 +65,7 @@ const Shop = (function () {
     return /밥꾸/.test(a) && b ? b : a;
   };
   // 이름 바로잡기 : 관리자에 예전 이름이 남아 있어도 홈페이지에는 바른 이름으로 보여줘요
-  const RENAME = [[/고양이\s*건조\s*열빙어/, "아이슬란드 열빙어"]];
+  const RENAME = [[/고양이\s*건조\s*열빙어/, "아이슬란드 열빙어"], [/고양이\s*코호\s*연어/, "칠레산 코호 연어"]];
   const fixName = n => RENAME.reduce((t, [a, b]) => t.replace(a, b), n);
   function fixCat(p) {
     if (p.name) p = { ...p, name: fixName(shortName(String(p.name))) };
