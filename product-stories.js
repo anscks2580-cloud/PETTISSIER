@@ -871,15 +871,25 @@ ${PUREE_TAIL}`;
    - 상품번호 : [사진 경로, ...]  → 상세페이지 큰 사진 아래 작은 사진 줄 + 상세정보 맨 위에 보여요.
    ===================================================================== */
 window.PRODUCT_PHOTOS = {
-  // 야채꼬꼬칩 · 야채꼬꼬칩 벌크사이즈 (2026-11 새 사진, 색 보정)
+  // 야채꼬꼬칩 · 대용량 (p01 = 대표사진 원본)
   "11243749707": ["shop/img/kokochip-photo/p01.jpg", "shop/img/kokochip-photo/p02.jpg", "shop/img/kokochip-photo/p03.jpg", "shop/img/kokochip-photo/p04.jpg", "shop/img/kokochip-photo/p05.jpg", "shop/img/kokochip-photo/p06.jpg"],
   "12404542115": ["shop/img/kokochip-photo/p01.jpg", "shop/img/kokochip-photo/p02.jpg", "shop/img/kokochip-photo/p03.jpg", "shop/img/kokochip-photo/p04.jpg", "shop/img/kokochip-photo/p05.jpg", "shop/img/kokochip-photo/p06.jpg"],
-  // 꼬꼬 안심 져키 · 대용량 (2026-11 새 사진 : 닭안심 원물)
+  // 꼬꼬 안심 져키 · 대용량 (닭안심 원물)
   "11288330864": ["shop/img/anshim-photo/p01.jpg", "shop/img/anshim-photo/p02.jpg", "shop/img/anshim-photo/p03.jpg", "shop/img/anshim-photo/p04.jpg", "shop/img/anshim-photo/p05.jpg", "shop/img/anshim-photo/p06.jpg"],
   "12404512523": ["shop/img/anshim-photo/p01.jpg", "shop/img/anshim-photo/p02.jpg", "shop/img/anshim-photo/p03.jpg", "shop/img/anshim-photo/p04.jpg", "shop/img/anshim-photo/p05.jpg", "shop/img/anshim-photo/p06.jpg"],
-  // 아이슬란드 열빙어 · 대용량 (2026-11 새 사진, p01 = 대표사진 원본)
-  "11224529580": ["shop/img/smelt-photo/p01.jpg", "shop/img/smelt-photo/p02.jpg", "shop/img/smelt-photo/p03.jpg", "shop/img/smelt-photo/p04.jpg", "shop/img/smelt-photo/p05.jpg"],
-  "12404521217": ["shop/img/smelt-photo/p01.jpg", "shop/img/smelt-photo/p02.jpg", "shop/img/smelt-photo/p03.jpg", "shop/img/smelt-photo/p04.jpg", "shop/img/smelt-photo/p05.jpg"]
+  // 아이슬란드 열빙어 · 대용량
+  "11224529580": ["shop/img/photo-smelt/p01.jpg", "shop/img/photo-smelt/p02.jpg", "shop/img/photo-smelt/p03.jpg", "shop/img/photo-smelt/p04.jpg", "shop/img/photo-smelt/p05.jpg", "shop/img/photo-smelt/p06.jpg", "shop/img/photo-smelt/p07.jpg", "shop/img/photo-smelt/p08.jpg", "shop/img/photo-smelt/p09.jpg", "shop/img/photo-smelt/p10.jpg", "shop/img/photo-smelt/p11.jpg", "shop/img/photo-smelt/p12.jpg"],
+  "12404521217": ["shop/img/photo-smelt/p01.jpg", "shop/img/photo-smelt/p02.jpg", "shop/img/photo-smelt/p03.jpg", "shop/img/photo-smelt/p04.jpg", "shop/img/photo-smelt/p05.jpg", "shop/img/photo-smelt/p06.jpg", "shop/img/photo-smelt/p07.jpg", "shop/img/photo-smelt/p08.jpg", "shop/img/photo-smelt/p09.jpg", "shop/img/photo-smelt/p10.jpg", "shop/img/photo-smelt/p11.jpg", "shop/img/photo-smelt/p12.jpg"],
+  // 고양이 코호 연어 큐브 · 대용량
+  "11227631311": ["shop/img/photo-salmon/p01.jpg", "shop/img/photo-salmon/p02.jpg", "shop/img/photo-salmon/p03.jpg", "shop/img/photo-salmon/p04.jpg", "shop/img/photo-salmon/p05.jpg", "shop/img/photo-salmon/p06.jpg", "shop/img/photo-salmon/p07.jpg", "shop/img/photo-salmon/p08.jpg", "shop/img/photo-salmon/p09.jpg"],
+  "12404537428": ["shop/img/photo-salmon/p01.jpg", "shop/img/photo-salmon/p02.jpg", "shop/img/photo-salmon/p03.jpg", "shop/img/photo-salmon/p04.jpg", "shop/img/photo-salmon/p05.jpg", "shop/img/photo-salmon/p06.jpg", "shop/img/photo-salmon/p07.jpg", "shop/img/photo-salmon/p08.jpg", "shop/img/photo-salmon/p09.jpg"],
+  // 오리야채스틱
+  "12586050184": ["shop/img/photo-duckstick/p01.jpg", "shop/img/photo-duckstick/p02.jpg", "shop/img/photo-duckstick/p03.jpg", "shop/img/photo-duckstick/p04.jpg", "shop/img/photo-duckstick/p05.jpg", "shop/img/photo-duckstick/p06.jpg", "shop/img/photo-duckstick/p07.jpg", "shop/img/photo-duckstick/p08.jpg", "shop/img/photo-duckstick/p09.jpg", "shop/img/photo-duckstick/p10.jpg", "shop/img/photo-duckstick/p11.jpg", "shop/img/photo-duckstick/p12.jpg"],
+  // 오리 울대
+  "11319239090": ["shop/img/photo-duckneck/p01.jpg", "shop/img/photo-duckneck/p02.jpg", "shop/img/photo-duckneck/p03.jpg", "shop/img/photo-duckneck/p04.jpg", "shop/img/photo-duckneck/p05.jpg", "shop/img/photo-duckneck/p06.jpg", "shop/img/photo-duckneck/p07.jpg", "shop/img/photo-duckneck/p08.jpg", "shop/img/photo-duckneck/p09.jpg", "shop/img/photo-duckneck/p10.jpg", "shop/img/photo-duckneck/p11.jpg", "shop/img/photo-duckneck/p12.jpg", "shop/img/photo-duckneck/p13.jpg", "shop/img/photo-duckneck/p14.jpg", "shop/img/photo-duckneck/p15.jpg", "shop/img/photo-duckneck/p16.jpg", "shop/img/photo-duckneck/p17.jpg", "shop/img/photo-duckneck/p18.jpg", "shop/img/photo-duckneck/p19.jpg"],
+  // 우피오리야채말이
+  "12400730936": ["shop/img/photo-duckroll/p01.jpg", "shop/img/photo-duckroll/p02.jpg", "shop/img/photo-duckroll/p03.jpg", "shop/img/photo-duckroll/p04.jpg", "shop/img/photo-duckroll/p05.jpg", "shop/img/photo-duckroll/p06.jpg", "shop/img/photo-duckroll/p07.jpg", "shop/img/photo-duckroll/p08.jpg", "shop/img/photo-duckroll/p09.jpg", "shop/img/photo-duckroll/p10.jpg", "shop/img/photo-duckroll/p11.jpg", "shop/img/photo-duckroll/p12.jpg", "shop/img/photo-duckroll/p13.jpg", "shop/img/photo-duckroll/p14.jpg", "shop/img/photo-duckroll/p15.jpg", "shop/img/photo-duckroll/p16.jpg", "shop/img/photo-duckroll/p17.jpg"]
+  // 오리 연근칩 : 사진은 shop/img/photo-lotus/ 에 준비돼 있어요 (상품 등록 후 상품번호로 연결)
 };
-/* 사진 목록 첫 장이 대표사진(썸네일) 원본이 아닌 상품 : 작은 사진 줄에 첫 장부터 모두 보여줘요 */
-window.PRODUCT_PHOTOS_NOLEAD = ["11288330864", "12404512523"];
+/* 사진 목록 첫 장이 대표사진(썸네일) 원본인 상품 : 작은 사진 줄에서 첫 장은 빼고 보여줘요 */
+window.PRODUCT_PHOTOS_LEAD = ["11243749707", "12404542115"];

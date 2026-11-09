@@ -128,7 +128,7 @@
 <script src="nav-drawer.js?v=20261104a"></script>
 <script src="firebase-config.js?v=20261104a"></script>
 <script src="shop-data.js?v=20261108a"></script>
-<script src="product-stories.js?v=20261108a"></script>
+<script src="product-stories.js?v=20261110a"></script>
 <script src="shop.js?v=20261108a"></script>
 <script src="auth.js?v=20261108a"></script>
 <script src="mall.js?v=20261104a"></script>
@@ -148,7 +148,7 @@ Shop.ready.then(function () {
   const storyText = typeof p.story === "string" ? p.story : ((window.PRODUCT_STORIES || {})[p.id] || "");
   const story = window.renderStory ? window.renderStory(storyText) : "";
   const photos = (window.PRODUCT_PHOTOS || {})[p.id] || [];
-  const photoStrip = photos.length ? `<div class="pd-thumbs" role="group" aria-label="사진 고르기">${[p.thumb, ...((window.PRODUCT_PHOTOS_NOLEAD || []).includes(p.id) ? photos : photos.slice(1))].map((src, i) => `<button type="button" data-src="${E(src)}"${i ? "" : ' aria-current="true"'}><img src="${E(src)}" alt="" loading="lazy"></button>`).join("")}</div>` : "";
+  const photoStrip = photos.length ? `<div class="pd-thumbs" role="group" aria-label="사진 고르기">${[p.thumb, ...((window.PRODUCT_PHOTOS_LEAD || []).includes(p.id) ? photos.slice(1) : photos)].map((src, i) => `<button type="button" data-src="${E(src)}"${i ? "" : ' aria-current="true"'}><img src="${E(src)}" alt="" loading="lazy"></button>`).join("")}</div>` : "";
   const photoBlock = photos.length ? `<div class="pd-gallery">${photos.map((src, i) => `<img src="${E(src)}" alt="${E(p.name)} 사진 ${i + 1}" loading="lazy" decoding="async">`).join("")}</div>` : "";
   const details = (p.detail || []).map((src, i) => `<img src="${E(src)}" alt="${E(p.name)} 상세 ${i + 1}" loading="${i < 1 ? "eager" : "lazy"}" decoding="async">`).join("");
   const related = PRODUCTS.filter(x => x.cat === p.cat && x.id !== p.id && !x.soldout).slice(0, 4);
