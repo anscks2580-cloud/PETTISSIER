@@ -1011,15 +1011,15 @@ window.PRODUCT_PHOTOS = {
   // 코코넛 고구마 볼 (6장)
   "10829745766": ["shop/img/c-10829745766/p01.jpg", "shop/img/c-10829745766/p02.jpg", "shop/img/c-10829745766/p03.jpg", "shop/img/c-10829745766/p04.jpg", "shop/img/c-10829745766/p05.jpg", "shop/img/c-10829745766/p06.jpg"],
   // 코코넛 고구마 볼 (대용량) (6장)
-  "12404550727": ["shop/img/c-12404550727/p01.jpg", "shop/img/c-12404550727/p02.jpg", "shop/img/c-12404550727/p03.jpg", "shop/img/c-12404550727/p04.jpg", "shop/img/c-12404550727/p05.jpg", "shop/img/c-12404550727/p06.jpg"],
+  "12404550727": ["shop/img/c-10829745766/p01.jpg", "shop/img/c-10829745766/p02.jpg", "shop/img/c-10829745766/p03.jpg", "shop/img/c-10829745766/p04.jpg", "shop/img/c-10829745766/p05.jpg", "shop/img/c-10829745766/p06.jpg"],
   // 야채 퓨레 옐로우 (3장)
   "12026300387": ["shop/img/c-12026300387/p01.jpg", "shop/img/c-12026300387/p02.jpg", "shop/img/c-12026300387/p03.jpg"],
   // 야채 퓨레 옐로우 (대용량) (3장)
-  "12404494073": ["shop/img/c-12404494073/p01.jpg", "shop/img/c-12404494073/p02.jpg", "shop/img/c-12404494073/p03.jpg"],
+  "12404494073": ["shop/img/c-12026300387/p01.jpg", "shop/img/c-12026300387/p02.jpg", "shop/img/c-12026300387/p03.jpg"],
   // 야채 퓨레 그린 (2장)
   "12026326721": ["shop/img/c-12026326721/p01.jpg", "shop/img/c-12026326721/p02.jpg"],
   // 야채 퓨레 그린 (대용량) (3장)
-  "12404488806": ["shop/img/c-12404488806/p01.jpg", "shop/img/c-12404488806/p02.jpg", "shop/img/c-12404488806/p03.jpg"],
+  "12404488806": ["shop/img/c-12026326721/p01.jpg", "shop/img/c-12026326721/p02.jpg"],
   // 수비드 닭가슴살 (2장)
   "13441734953": ["shop/img/c-13441734953/p02.jpg", "shop/img/c-13441734953/p03.jpg"]
 };
