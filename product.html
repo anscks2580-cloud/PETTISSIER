@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=20261104a">
-<link rel="stylesheet" href="shop.css?v=20261104a">
+<link rel="stylesheet" href="shop.css?v=20261110c">
 <link rel="stylesheet" href="mall.css?v=20261104a">
 </head>
 <body>
@@ -127,8 +127,8 @@
 <script src="common.js?v=20261104a"></script>
 <script src="nav-drawer.js?v=20261104a"></script>
 <script src="firebase-config.js?v=20261104a"></script>
-<script src="shop-data.js?v=20261110b"></script>
-<script src="product-stories.js?v=20261110b"></script>
+<script src="shop-data.js?v=20261110c"></script>
+<script src="product-stories.js?v=20261110c"></script>
 <script src="shop.js?v=20261110b"></script>
 <script src="auth.js?v=20261108a"></script>
 <script src="mall.js?v=20261104a"></script>
@@ -145,12 +145,17 @@ Shop.ready.then(function () {
   const opts = p.options && p.options.items && p.options.items.length ? p.options : null;
   const sp = p.spec || {};
   const spec = [["원산지", sp.origin], ["주원료", sp.main], ["특징", sp.feature], ["기능", sp.func], ["급여대상", sp.target]].filter(r => r[1]);
-  const storyText = typeof p.story === "string" ? p.story : ((window.PRODUCT_STORIES || {})[p.id] || "");
-  const story = window.renderStory ? window.renderStory(storyText) : "";
+  const storyText = (typeof p.story === "string" && p.story.trim()) ? p.story : ((window.PRODUCT_STORIES || {})[p.id] || "");
   const photos = (window.PRODUCT_PHOTOS || {})[p.id] || [];
-  const photoStrip = photos.length ? `<div class="pd-thumbs" role="group" aria-label="사진 고르기">${[p.thumb, ...((window.PRODUCT_PHOTOS_LEAD || []).includes(p.id) ? photos.slice(1) : photos)].map((src, i) => `<button type="button" data-src="${E(src)}"${i ? "" : ' aria-current="true"'}><img src="${E(src)}" alt="" loading="lazy"></button>`).join("")}</div>` : "";
-  const photoBlock = photos.length ? `<div class="pd-gallery">${photos.map((src, i) => `<img src="${E(src)}" alt="${E(p.name)} 사진 ${i + 1}" loading="lazy" decoding="async">`).join("")}</div>` : "";
-  const details = (p.detail || []).map((src, i) => `<img src="${E(src)}" alt="${E(p.name)} 상세 ${i + 1}" loading="${i < 1 ? "eager" : "lazy"}" decoding="async">`).join("");
+  const videos = (window.PRODUCT_VIDEOS || {})[p.id] || [];
+  const media = [...videos.map(src => ({ src, type: "video" })), ...photos.map(src => ({ src, type: "img" }))];
+  const story = window.renderStory ? window.renderStory(storyText, media, p.name) : "";
+  const intro = window.PRODUCT_INTRO ? `<div class="st-intro">${window.PRODUCT_INTRO.split(/\n\s*\n/).map(t => `<p>${t.split("\n").map(E).join("<br>")}</p>`).join("")}</div>` : "";
+  const leadSkip = (window.PRODUCT_PHOTOS_LEAD || {})[p.id];
+  const stripList = [p.thumb, ...photos.filter(src => src !== leadSkip)].slice(0, 10);
+  const photoStrip = photos.length ? `<div class="pd-thumbs" role="group" aria-label="사진 고르기">${stripList.map((src, i) => `<button type="button" data-src="${E(src)}"${i ? "" : ' aria-current="true"'}><img src="${E(src)}" alt="" loading="lazy"></button>`).join("")}</div>` : "";
+  /* 예전 스마트스토어 캡쳐 이미지(shop/img/상품번호/d01.jpg …)는 글로 옮겨서 더 이상 보여주지 않아요. 관리자에서 새로 올린 이미지만 보여요. */
+  const details = (p.detail || []).filter(src => !/^shop\/img\/[^/]+\/d\d+\.jpg$/.test(src)).map((src, i) => `<img src="${E(src)}" alt="${E(p.name)} 상세 ${i + 1}" loading="lazy" decoding="async">`).join("");
   const related = PRODUCTS.filter(x => x.cat === p.cat && x.id !== p.id && !x.soldout).slice(0, 4);
   const qtyHTML = id => `<div class="qty" data-qty="${id}"><button type="button" data-d="-1" aria-label="수량 빼기">−</button><input type="number" min="1" max="99" value="1" inputmode="numeric" aria-label="수량"><button type="button" data-d="1" aria-label="수량 더하기">+</button></div>`;
   const optHTML = id => opts ? `<select class="opt-sel" data-opt="${id}" aria-label="${E(opts.title || "옵션")} 선택">
@@ -198,7 +203,7 @@ Shop.ready.then(function () {
     </nav>
 
     <section class="pd-sec" id="s-detail">
-      <div class="pd-detail">${photoBlock}${story}${details}${!story && !details && !photoBlock ? '<p class="sh-empty">상세 정보를 준비하고 있어요.</p>' : ""}</div>
+      <div class="pd-detail">${intro}${story}${details}${!story && !details ? '<p class="sh-empty">상세 정보를 준비하고 있어요.</p>' : ""}</div>
     </section>
 
     <section class="pd-sec" id="s-info">

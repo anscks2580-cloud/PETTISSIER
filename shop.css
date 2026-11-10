@@ -338,3 +338,20 @@
   .story h3{font-size:18px}
   .story .st-sec{margin-top:32px;padding:26px 0 0}
 }
+
+/* ── 상세정보 : 펫티시에 소개 + 글 사이사이 사진 (2026-11-10) ── */
+.st-intro{max-width:680px;margin:0 auto 44px;padding:30px 22px;border-radius:18px;background:var(--butter);text-align:center;font-size:15px;line-height:1.85;color:#5a4a2c;word-break:keep-all}
+.st-intro p{margin:0 0 12px}
+.st-intro p:first-child{font-family:var(--serif);font-size:18px;color:var(--wood)}
+.st-intro p:last-child{margin:0}
+.story .st-media{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:28px 0}
+.story .st-media figure{margin:0;border-radius:10px;overflow:hidden;background:#F5F4F1;aspect-ratio:3/4}
+.story .st-media figure.wide{grid-column:1/-1;aspect-ratio:auto}
+.story .st-media.solo figure.wide{max-width:560px;width:100%;margin:0 auto}
+.story .st-media img,.story .st-media video{width:100%;height:100%;object-fit:cover;display:block}
+.story .st-media figure.wide img,.story .st-media figure.wide video{height:auto}
+.story>.st-media:first-child{margin-top:0}
+@media (max-width:640px){
+  .story .st-media{gap:6px;margin:22px 0}
+  .st-intro{padding:24px 16px;font-size:14px}
+}
