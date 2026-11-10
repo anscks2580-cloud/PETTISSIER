@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=20261104a">
-<link rel="stylesheet" href="mall.css?v=20261104a">
+<link rel="stylesheet" href="mall.css?v=20261110a">
 </head>
 <body>
 
@@ -80,8 +80,8 @@
     <div class="wrap">
       <h2>클래스 안내</h2>
       <p class="lead">펫티시에 작업실에서 직접 배워보세요.<br>보호자님과 함께하는 원데이 클래스부터, <br class="pc">반려동물 케이크·간식 공방을 준비하는 분들을 위한 창업 클래스까지 운영해요.</p>
-      <nav class="class-tabs" aria-label="클래스 종류" id="classTabs"></nav>
-      <div class="class-grid four" id="classGrid"></div>
+      <div class="class-tabs" role="tablist" aria-label="클래스 종류" id="classTabs"></div>
+      <div class="class-grid tabbed" id="classGrid"></div>
       <div class="class-how">
         <h3>예약은 이렇게 진행돼요</h3>
         <ol>
@@ -214,11 +214,11 @@ const CLASSES = [
 
 (function () {
   const KK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>';
-  document.getElementById("classTabs").innerHTML = CLASSES.map(c => `<a href="#${c.key}">${c.name}</a>`).join("");
+  document.getElementById("classTabs").innerHTML = CLASSES.map((c, i) => `<button type="button" role="tab" id="tab-${c.key}" aria-controls="${c.key}" data-k="${c.key}" aria-selected="${i ? "false" : "true"}">${c.name}</button>`).join("");
   document.getElementById("classGrid").innerHTML = CLASSES.map((c, i) => {
     const ph = c.photos || [];
     const many = ph.length > 1;
-    return `<article class="class-card${c.pro ? " pro" : ""}" id="${c.key}">
+    return `<article class="class-card${c.pro ? " pro" : ""}" id="${c.key}" role="tabpanel" aria-labelledby="tab-${c.key}"${i ? " hidden" : ""}>
       <div class="cl-slider" data-i="0">
         <div class="cl-track">${ph.map((src, k) => `<img src="${src}" alt="${c.name} 사진 ${k + 1}" loading="lazy">`).join("")}</div>
         ${many ? `<button class="cl-nav prev" type="button" aria-label="이전 사진"></button><button class="cl-nav next" type="button" aria-label="다음 사진"></button>
@@ -237,6 +237,18 @@ const CLASSES = [
       </div>
     </article>`;
   }).join("");
+
+  /* 위 버튼을 누르면 해당 클래스 내용만 보여요 (주소 끝 #클래스이름 으로 들어와도 그 클래스가 열려요) */
+  const tabs = [...document.querySelectorAll("#classTabs button")];
+  const show = (k, scroll) => {
+    if (!CLASSES.some(c => c.key === k)) return;
+    tabs.forEach(t => t.setAttribute("aria-selected", t.dataset.k === k));
+    document.querySelectorAll("#classGrid .class-card").forEach(a => a.hidden = a.id !== k);
+    if (scroll) history.replaceState(null, "", "#" + k);
+  };
+  tabs.forEach(t => t.onclick = () => show(t.dataset.k, true));
+  show(location.hash.slice(1));
+  window.addEventListener("hashchange", () => show(location.hash.slice(1)));
 
   /* 사진 넘기기 */
   document.querySelectorAll(".cl-slider").forEach(sl => {
